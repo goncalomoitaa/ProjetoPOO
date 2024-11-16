@@ -3,9 +3,15 @@ package objects;
 import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.utils.Point2D;
 
-public class Floor implements ImageTile {
+public class Floor extends ElementosDeJogo{
 
-	public Floor() {
+	private int x;
+	private int y;
+
+	public Floor(int x, int y) {
+		super();
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override
@@ -20,8 +26,7 @@ public class Floor implements ImageTile {
 
 	@Override
 	public Point2D getPosition() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Point2D(x, y);
 	}
 
 
