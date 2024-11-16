@@ -1,16 +1,14 @@
 package objects;
 
-import pt.iscte.poo.utils.Point2D;
+public class DonkeyKong extends ElementosDeJogo {
 
-public class Sword extends ElementosDeJogo{
-
-    public Sword(int x, int y) {
+    public DonkeyKong(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
-        return "Sword";
+        return "DonkeyKong";
     }
 
     @Override

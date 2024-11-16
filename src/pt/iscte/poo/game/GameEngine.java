@@ -5,12 +5,14 @@ import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
+import java.io.FileNotFoundException;
+
 public class GameEngine implements Observer {
 	
 	private Room currentRoom = new Room();
 	private int lastTickProcessed = 0;
 	
-	public GameEngine() {
+	public GameEngine() throws FileNotFoundException {
 		ImageGUI.getInstance().update();
 	}
 

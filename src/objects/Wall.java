@@ -7,13 +7,8 @@ import java.awt.*;
 
 public class Wall extends ElementosDeJogo{
 
-	private int x;
-	private int y;
-
 	public Wall(int x, int y) {
-		super();
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 
 	@Override
@@ -25,11 +20,4 @@ public class Wall extends ElementosDeJogo{
 	public int getLayer() {
 		return 1;
 	}
-
-	@Override
-	public Point2D getPosition() {
-		return new Point2D(x,y);
-	}
-
-	
 }

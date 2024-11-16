@@ -2,19 +2,20 @@ package objects;
 
 import pt.iscte.poo.utils.Point2D;
 
-public class Sword extends ElementosDeJogo{
+public class Stairs extends ElementosDeJogo {
 
-    public Sword(int x, int y) {
+    public Stairs(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
-        return "Sword";
+        return "Stairs";
     }
 
     @Override
     public int getLayer() {
         return 1;
     }
+
 }

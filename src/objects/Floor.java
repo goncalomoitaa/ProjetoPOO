@@ -5,13 +5,8 @@ import pt.iscte.poo.utils.Point2D;
 
 public class Floor extends ElementosDeJogo{
 
-	private int x;
-	private int y;
-
 	public Floor(int x, int y) {
-		super();
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 
 	@Override
@@ -23,11 +18,5 @@ public class Floor extends ElementosDeJogo{
 	public int getLayer() {
 		return 0;
 	}
-
-	@Override
-	public Point2D getPosition() {
-		return new Point2D(x, y);
-	}
-
 
 }

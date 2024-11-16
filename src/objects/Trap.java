@@ -4,13 +4,8 @@ import pt.iscte.poo.utils.Point2D;
 
 public class Trap extends ElementosDeJogo {
 
-    private int x;
-    private int y;
-
     public Trap(int x, int y) {
-        super();
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
 
     @Override
@@ -21,11 +16,6 @@ public class Trap extends ElementosDeJogo {
     @Override
     public int getLayer() {
         return 1;
-    }
-
-    @Override
-    public Point2D getPosition() {
-        return new Point2D(x,y);
     }
 
 }
