@@ -1,9 +1,9 @@
 package pt.iscte.poo.game;
 
-import objects.Manel;
-import objects.Wall;
+import objects.*;
 import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.gui.ImageTile;
+import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
@@ -15,40 +15,70 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Room {
-	
-	private Point2D heroStartingPosition = new Point2D(1, 1);
+
 	private Manel manel;
+	private List<ElementosDeJogo> elementos;
+	private Logger logger;
 	
-	public Room() {
-		manel = new Manel(heroStartingPosition); //poem o manel no inicio
-		ImageGUI.getInstance().addImage(manel);
-		for(int x = 0; x!= 10; x++) {
-			ImageGUI.getInstance().addImage(new Wall(x, 5));
+	public Room() throws FileNotFoundException {
+		logger = Logger.getLogger();
+
+		elementos = lerFicheiro("rooms/room0.txt");
+		for(ElementosDeJogo elemento : elementos) {
+			if(elemento.getName().equals("JumpMan")) {
+				manel = (Manel) elemento;
+				break;
+			}
 		}
+		for(int x = 0; x!= 10; x++) {
+			for(int y = 0; y!= 10; y++) {
+				// criei floor em todos os quadrados
+				//mas quando leio o ficheiro tambem deteto e adiciono floors
+				//para resolver : só adicionar floor onde necessário
+				ImageGUI.getInstance().addImage(new Floor(x, y));
+			}
+		}
+		ImageGUI.getInstance().addImages(elementos);
 	}
 
 	public void moveManel(Direction d) {
 		manel.move(d);
 	}
 
-//	public List<String> readFiles(File file) throws FileNotFoundException {
-//		List<String> lines = new ArrayList<String>();
-//		Scanner sc = new Scanner(new FileReader(file));
-//		while(sc.hasNextLine()) {
-//			lines.add(sc.nextLine());
-//		}
-//		return lines;
-//	}
-//
-//	public List<ImageTile> criarMundo(File file) throws FileNotFoundException {
-//		List<String> lines = readFiles(file);
-//
-//	}
-//	public static String criar(String tipo, int x, int y) {
-//		switch(tipo) {
-//			case "W": return new Wall(x,y).toString();
-//		}
-//	}
+	public List<ElementosDeJogo> lerFicheiro(String nomeFicheiro) throws FileNotFoundException {
+		List<ElementosDeJogo> elementos = new ArrayList<>();
+		Scanner sc = new Scanner(new File(nomeFicheiro));
+		sc.nextLine();
+		int j = 0;
+		while (sc.hasNextLine()) {
+			char[] tokens = sc.nextLine().toCharArray();
+			for (int i = 0; i < tokens.length; i++) {
+				elementos.add(criar(tokens[i], i, j));
+			}
+			j++;
+		}
+		sc.close();
+		return elementos;
+	}
 
-
+	public static ElementosDeJogo criar(char tipo, int x, int y) {
+		try {
+            return switch (tipo) {
+                case ' ' -> new Floor(x, y);
+                case 'W' -> new Wall(x, y);
+                case 'S' -> new Stairs(x, y);
+                case 's' -> new Sword(x, y);
+                case 't' -> new Trap(x, y);
+                case 'H' -> new Manel(x, y);
+                case 'G' -> new DonkeyKong(x, y);
+                case '0' -> new Door(x, y);
+                default -> throw new IllegalArgumentException(
+                        "O caractere lido não corresponde a um elemento de jogo conhecido: '" + tipo + "'"
+                );
+            };
+		} catch(IllegalArgumentException e) {
+			Logger.getLogger().log(e.getMessage(), Logger.MessageType.ERROR);
+		}
+        return null;
+    }
 }

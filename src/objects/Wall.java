@@ -5,12 +5,10 @@ import pt.iscte.poo.utils.Point2D;
 
 import java.awt.*;
 
-public class Wall implements ImageTile{
-
-	private Point2D position;
+public class Wall extends ElementosDeJogo{
 
 	public Wall(int x, int y) {
-		position = new Point2D(x, y);
+		super(x, y);
 	}
 
 	@Override
@@ -22,11 +20,4 @@ public class Wall implements ImageTile{
 	public int getLayer() {
 		return 1;
 	}
-
-	@Override
-	public Point2D getPosition() {
-		return new Point2D(position.getX(), position.getY());
-	}
-
-	
 }
