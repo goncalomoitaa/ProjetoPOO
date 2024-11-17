@@ -3,6 +3,7 @@ package pt.iscte.poo.game;
 import objects.*;
 import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.gui.ImageTile;
+import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
@@ -17,8 +18,11 @@ public class Room {
 
 	private Manel manel;
 	private List<ElementosDeJogo> elementos;
+	private Logger logger;
 	
 	public Room() throws FileNotFoundException {
+		logger = Logger.getLogger();
+
 		elementos = lerFicheiro("rooms/room0.txt");
 		for(ElementosDeJogo elemento : elementos) {
 			if(elemento.getName().equals("JumpMan")) {
@@ -47,8 +51,7 @@ public class Room {
 		sc.nextLine();
 		int j = 0;
 		while (sc.hasNextLine()) {
-			String line = sc.nextLine();
-			String[] tokens = line.split("");
+			char[] tokens = sc.nextLine().toCharArray();
 			for (int i = 0; i < tokens.length; i++) {
 				elementos.add(criar(tokens[i], i, j));
 			}
@@ -58,18 +61,24 @@ public class Room {
 		return elementos;
 	}
 
-	public static ElementosDeJogo criar(String tipo, int x, int y) {
-		switch(tipo) {
-			case " " : return new Floor(x,y);
-			case "W" : return new Wall(x,y);
-			case "S" : return new Stairs(x,y);
-			case "s" : return new Sword(x,y);
-			case "t" : return new Trap(x,y);
-			case "H" : return new Manel(x,y);
-			case "G" : return new DonkeyKong(x, y);
-			default: return new Floor(x,y); //caso encontre uma string desconhecida substitui por floor 
+	public static ElementosDeJogo criar(char tipo, int x, int y) {
+		try {
+            return switch (tipo) {
+                case ' ' -> new Floor(x, y);
+                case 'W' -> new Wall(x, y);
+                case 'S' -> new Stairs(x, y);
+                case 's' -> new Sword(x, y);
+                case 't' -> new Trap(x, y);
+                case 'H' -> new Manel(x, y);
+                case 'G' -> new DonkeyKong(x, y);
+                case '0' -> new Door(x, y);
+                default -> throw new IllegalArgumentException(
+                        "O caractere lido não corresponde a um elemento de jogo conhecido: '" + tipo + "'"
+                );
+            };
+		} catch(IllegalArgumentException e) {
+			Logger.getLogger().log(e.getMessage(), Logger.MessageType.ERROR);
 		}
-	}
-
-
+        return null;
+    }
 }
