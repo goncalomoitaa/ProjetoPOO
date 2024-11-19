@@ -6,6 +6,7 @@ import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
+import pt.iscte.poo.utils.Vector2D;
 
 import java.io.File;
 import java.io.FileNotFoundException;
