@@ -22,4 +22,5 @@ public class DonkeyKong extends PersonagensMoveis {
     public int getLayer() {
         return 1;
     }
+
 }

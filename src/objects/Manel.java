@@ -14,12 +14,10 @@ public class Manel extends PersonagensMoveis {
 		super(position.getX(), position.getY());
 	}
 
-
 	@Override
 	public String getName() {
 		return "JumpMan";
 	}
-
 
 	@Override
 	public int getLayer() {
@@ -28,11 +26,11 @@ public class Manel extends PersonagensMoveis {
 
 	@Override
 	public void move(Direction d) {
-		Point2D nextPos = getPosition().plus(d.asVector());
+		Point2D nextPos = this.getPosition().plus(d.asVector());
 		if(nextPos.getX() < 0 || nextPos.getY() < 0  || nextPos.getX() >= 10 || nextPos.getY() >= 10) { //se passar do limite ele não se mexe
 			return;
 		}
 		setPosition(nextPos);
 	}
-	
+
 }

@@ -1,11 +1,23 @@
 package objects;
 
-public class Door extends  ElementosDeJogo {
-    public Door(int x, int y) { super(x, y); }
+public class Door extends  ElementosInterativos {
+    public Door(int x, int y) {
+        super(x, y);
+    }
 
     @Override
-    public String getName() { return "DoorClosed"; }
+    public String getName() {
+        return "DoorClosed";
+    }
 
     @Override
-    public int getLayer() { return 0; }
+    public int getLayer() {
+        return 0;
+    }
+
+    @Override
+    public void efeitos() {
+
+    }
+
 }

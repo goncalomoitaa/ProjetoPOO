@@ -23,7 +23,6 @@ public class Room {
 	
 	public Room() throws FileNotFoundException {
 		logger = Logger.getLogger();
-
 		elementos = lerFicheiro("rooms/room0.txt");
 		for(ElementosDeJogo elemento : elementos) {
 			if(elemento.getName().equals("JumpMan")) {
@@ -42,7 +41,21 @@ public class Room {
 		ImageGUI.getInstance().addImages(elementos);
 	}
 
+	public ElementosDeJogo tipoDeObjeto(Point2D p) {
+		for (ElementosDeJogo elemento : elementos) {
+			if (elemento.getPosition().equals(p)) {
+				//System.out.println(elemento);
+				return elemento;
+			}
+		}
+		return null;
+	}
+
 	public void moveManel(Direction d) {
+		Point2D nextPos = manel.getPosition().plus(d.asVector());
+		if(tipoDeObjeto(nextPos) == null || tipoDeObjeto(nextPos).isSolid()) {
+			return;
+		}
 		manel.move(d);
 	}
 
@@ -64,22 +77,22 @@ public class Room {
 
 	public static ElementosDeJogo criar(char tipo, int x, int y) {
 		try {
-            return switch (tipo) {
-                case ' ' -> new Floor(x, y);
-                case 'W' -> new Wall(x, y);
-                case 'S' -> new Stairs(x, y);
-                case 's' -> new Sword(x, y);
-                case 't' -> new Trap(x, y);
-                case 'H' -> new Manel(x, y);
-                case 'G' -> new DonkeyKong(x, y);
-                case '0' -> new Door(x, y);
-                default -> throw new IllegalArgumentException(
-                        "O caractere lido não corresponde a um elemento de jogo conhecido: '" + tipo + "'"
-                );
-            };
+			return switch (tipo) {
+				case ' ' -> new Floor(x, y);
+				case 'W' -> new Wall(x, y);
+				case 'S' -> new Stairs(x, y);
+				case 's' -> new Sword(x, y);
+				case 't' -> new Trap(x, y);
+				case 'H' -> new Manel(x, y);
+				case 'G' -> new DonkeyKong(x, y);
+				case '0' -> new Door(x, y);
+				default -> throw new IllegalArgumentException(
+						"O caractere lido não corresponde a um elemento de jogo conhecido: '" + tipo + "'"
+				);
+			};
 		} catch(IllegalArgumentException e) {
 			Logger.getLogger().log(e.getMessage(), Logger.MessageType.ERROR);
 		}
-        return null;
-    }
+		return null;
+	}
 }
