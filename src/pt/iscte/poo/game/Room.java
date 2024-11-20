@@ -2,15 +2,12 @@ package pt.iscte.poo.game;
 
 import objects.*;
 import pt.iscte.poo.gui.ImageGUI;
-import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
-import pt.iscte.poo.utils.Vector2D;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -41,10 +38,9 @@ public class Room {
 		ImageGUI.getInstance().addImages(elementos);
 	}
 
-	public ElementosDeJogo tipoDeObjeto(Point2D p) {
+	public ElementosDeJogo objetoNaPosicao(Point2D p) {
 		for (ElementosDeJogo elemento : elementos) {
 			if (elemento.getPosition().equals(p)) {
-				//System.out.println(elemento);
 				return elemento;
 			}
 		}
@@ -53,9 +49,10 @@ public class Room {
 
 	public void moveManel(Direction d) {
 		Point2D nextPos = manel.getPosition().plus(d.asVector());
-		if(tipoDeObjeto(nextPos) == null || tipoDeObjeto(nextPos).isSolid()) {
+		if(objetoNaPosicao(nextPos) != null && objetoNaPosicao(nextPos).isSolid()) {
 			return;
 		}
+
 		manel.move(d);
 	}
 

@@ -23,4 +23,9 @@ public class DonkeyKong extends PersonagensMoveis {
         return 1;
     }
 
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
+
 }

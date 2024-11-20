@@ -16,7 +16,5 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
     @Override
     public abstract int getLayer();
 
-    public boolean isSolid() {
-        return true;
-    }
+    public abstract boolean isSolid();
 }
