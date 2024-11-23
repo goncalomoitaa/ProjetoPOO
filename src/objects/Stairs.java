@@ -23,4 +23,8 @@ public class Stairs extends ElementosInterativos {
 
     }
 
+    @Override
+    public boolean isClimbable() {
+        return true;
+    }
 }

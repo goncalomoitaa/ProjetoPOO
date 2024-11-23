@@ -11,6 +11,7 @@ public abstract class ElementosDeJogo implements ImageTile {
         this.position = new Point2D(x, y);
     }
 
+    // Abstract methods
     @Override
     public abstract String getName();
 
@@ -22,9 +23,14 @@ public abstract class ElementosDeJogo implements ImageTile {
     @Override
     public abstract int getLayer();
 
+    public abstract boolean isSolid();
+
+    // Non-abstract methods
     public void setPosition(Point2D position) {
         this.position = position;
     }
 
-    public abstract boolean isSolid();
+    public boolean isClimbable() {
+        return false;
+    }
 }

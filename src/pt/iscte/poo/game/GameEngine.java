@@ -17,7 +17,7 @@ public class GameEngine implements Observer {
 	public GameEngine() {
 		this.rooms = Room.carregaSalas();
 
-		currentRoom = this.rooms.get(1);
+		currentRoom = this.rooms.get(2);
 
 		currentRoom.atualiza();
 		ImageGUI.getInstance().update();
