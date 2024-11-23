@@ -3,7 +3,7 @@ package objects;
 import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.utils.Point2D;
 
-public class Floor extends ElementosDeJogo{
+public class Floor extends ElementosEstaticos {
 
 	public Floor(int x, int y) {
 		super(x, y);
@@ -19,4 +19,8 @@ public class Floor extends ElementosDeJogo{
 		return 0;
 	}
 
+	@Override
+	public boolean isSolid() {
+		return false;
+	}
 }

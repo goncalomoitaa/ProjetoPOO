@@ -1,26 +1,22 @@
 package objects;
 
-import pt.iscte.poo.utils.Point2D;
-
-public class Sword extends ElementosInterativos{
-
-    public Sword(int x, int y) {
+public class Princess extends ElementosInterativos {
+    public Princess(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
-        return "Sword";
+        return null;
     }
 
     @Override
     public int getLayer() {
-        return 1;
+        return 0;
     }
 
     @Override
     public void efeitos() {
 
     }
-
 }

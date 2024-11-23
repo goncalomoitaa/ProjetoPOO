@@ -25,4 +25,6 @@ public abstract class ElementosDeJogo implements ImageTile {
     public void setPosition(Point2D position) {
         this.position = position;
     }
+
+    public abstract boolean isSolid();
 }
