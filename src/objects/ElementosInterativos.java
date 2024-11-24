@@ -18,4 +18,7 @@ public abstract class ElementosInterativos extends ElementosDeJogo {
     }
 
     public abstract void efeitos();
+
+    // Non-abstract methods
+
 }

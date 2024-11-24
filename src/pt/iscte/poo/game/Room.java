@@ -59,11 +59,25 @@ public class Room {
 
 	public void moveManel(Direction d) {
 		Point2D nextPos = manel.getPosition().plus(d.asVector());
-		if(objetoNaPosicao(nextPos) != null && objetoNaPosicao(nextPos).isSolid()) {
+		if(d == Direction.UP && !podeEscalar(d, manel.getPosition())) {
+			logger.log("Não é possível escalar nessa posição: " + nextPos, ALERT);
+			return;
+		} else if(posicaoPermitida(nextPos)) {
+			logger.log("Não é possível andar para esta posição (objeto sólido): " + nextPos, ALERT);
 			return;
 		}
 
 		manel.move(d);
+	}
+
+	private boolean podeEscalar(Direction direction, Point2D point2D) {
+		ElementosDeJogo obj = objetoNaPosicao(point2D);
+		return obj != null &&
+				obj.isClimbable();
+	}
+
+	private boolean posicaoPermitida(Point2D pos) {
+		return objetoNaPosicao(pos) != null && objetoNaPosicao(pos).isSolid();
 	}
 
 	public static LinkedList<Room> carregaSalas() {
@@ -92,6 +106,8 @@ public class Room {
 		public static ArrayList<File> collectFiles(File dir) {
 			ArrayList<File> list = new ArrayList<>();
 			collectFilesRec(dir, list);
+
+			list.sort((File f1, File f2) -> String.CASE_INSENSITIVE_ORDER.compare(f1.getName(), f2.getName()));
 			return list;
 		}
 

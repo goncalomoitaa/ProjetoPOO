@@ -74,7 +74,11 @@ public class Point2D implements Serializable { // Added 23-Apr-2018
 	}
 
 	public Point2D plus(Vector2D v) {
-		return new Point2D(x + v.getX(), y + v.getY());
+		return new Point2D(validCoordinate(x + v.getX()), validCoordinate(y + v.getY()));
+	}
+
+	private int validCoordinate(int coordinate) {
+		return Math.min(9, Math.max(0, coordinate));
 	}
 
 	public List<Point2D> getNeighbourhoodPoints() {
