@@ -13,10 +13,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
+import pt.iscte.poo.utils.Vector2D;
+
 import static pt.iscte.poo.tools.Logger.MessageType.*;
 
 public class Room {
 
+	private int gravidade = 1;
 	private Manel manel;
 	private List<ElementosDeJogo> elementos;
 	private Logger logger = Logger.getLogger();
@@ -57,20 +60,26 @@ public class Room {
 		return null;
 	}
 
+	public void  moveWitchGravity() {
+		if(podeEscalar(null, new Point2D(manel.getPosition().getX(),manel.getPosition().getY() + 1)) || posicaoPermitida(new Point2D(manel.getPosition().getX(),manel.getPosition().getY() + 1))) {
+			return; //caso seja escalável ou o bloco de baixo do Manel seja isSolid(), ele não cai
+		}
+			manel.move(Direction.DOWN);
+	}
+
 	public void moveManel(Direction d) {
 		Point2D nextPos = manel.getPosition().plus(d.asVector());
-		if(d == Direction.UP && !podeEscalar(d, manel.getPosition())) {
+        if(d == Direction.UP && !podeEscalar(d, manel.getPosition())) {
 			logger.log("Não é possível escalar nessa posição: " + nextPos, ALERT);
 			return;
 		} else if(posicaoPermitida(nextPos)) {
 			logger.log("Não é possível andar para esta posição (objeto sólido): " + nextPos, ALERT);
 			return;
 		}
-
-		manel.move(d);
+            manel.move(d);
 	}
 
-	private boolean podeEscalar(Direction direction, Point2D point2D) {
+	private boolean podeEscalar(Direction direction, Point2D point2D) { //
 		ElementosDeJogo obj = objetoNaPosicao(point2D);
 		return obj != null &&
 				obj.isClimbable();
