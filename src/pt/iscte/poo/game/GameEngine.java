@@ -10,14 +10,14 @@ import java.util.LinkedList;
 
 public class GameEngine implements Observer {
 	
-	private Room currentRoom;
+private Room currentRoom;
 	private LinkedList<Room> rooms;
 	private int lastTickProcessed = 0;
 	
 	public GameEngine() {
 		this.rooms = Room.carregaSalas();
 
-		currentRoom = this.rooms.get(2);
+		currentRoom = this.rooms.get(0);
 
 		currentRoom.atualiza();
 		ImageGUI.getInstance().update();
