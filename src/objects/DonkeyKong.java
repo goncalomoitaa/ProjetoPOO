@@ -11,6 +11,8 @@ public class DonkeyKong extends PersonagensMoveis {
 
     @Override
     public void move(Direction d) {
+        Point2D nextPos = getPosition().plus(d.asVector());
+        setPosition(nextPos);
     }
 
     @Override

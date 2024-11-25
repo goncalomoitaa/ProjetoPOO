@@ -37,6 +37,7 @@ private Room currentRoom;
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
+			currentRoom.moveKong(Direction.random());
 		}
 		ImageGUI.getInstance().update();
 	}
