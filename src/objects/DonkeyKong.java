@@ -1,6 +1,7 @@
 package objects;
 
 import pt.iscte.poo.utils.Direction;
+import pt.iscte.poo.utils.Point2D;
 
 public class DonkeyKong extends PersonagensMoveis {
 
@@ -10,7 +11,6 @@ public class DonkeyKong extends PersonagensMoveis {
 
     @Override
     public void move(Direction d) {
-        //d.random();
     }
 
     @Override

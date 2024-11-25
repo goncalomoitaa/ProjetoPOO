@@ -6,13 +6,8 @@ public abstract class ElementosEstaticos extends ElementosDeJogo {
         super(x, y);
     }
 
-    @Override
-    public abstract String getName();
-
-    @Override
-    public abstract int getLayer();
-
     public boolean isSolid() {
         return true;
     }
+
 }
