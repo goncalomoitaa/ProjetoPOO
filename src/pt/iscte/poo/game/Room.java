@@ -65,7 +65,7 @@ public class Room {
 		return null;
 	}
 
-	public void  moveWitchGravity() {
+	public void moveWitchGravity() {
 		if(podeEscalar(null, new Point2D(manel.getPosition().getX(),manel.getPosition().getY() + gravidade)) || objetoNaPosicao(new Point2D(manel.getPosition().getX(),manel.getPosition().getY() + gravidade)).isSolid()) {
 			return; //caso seja escalável ou o bloco de baixo do Manel seja isSolid(), ele não cai
 		}
