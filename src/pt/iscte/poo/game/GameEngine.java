@@ -33,9 +33,11 @@ private Room currentRoom;
 				currentRoom.moveManel(Direction.directionFor(k));
 			}
 		}
+		currentRoom.moveWitchGravity();//este é o lugar certo?
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
+			currentRoom.moveKong(Direction.random());
 		}
 		ImageGUI.getInstance().update();
 	}

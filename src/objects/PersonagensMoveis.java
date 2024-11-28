@@ -10,11 +10,6 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
 
     public abstract void move(Direction d);
 
-    @Override
-    public abstract String getName();
-
-    @Override
-    public abstract int getLayer();
-
     public abstract boolean isSolid();
+
 }

@@ -21,4 +21,8 @@ public class Wall extends ElementosEstaticos {
 		return 1;
 	}
 
+	@Override
+	public boolean isSolid() {
+		return true;
+	}
 }
