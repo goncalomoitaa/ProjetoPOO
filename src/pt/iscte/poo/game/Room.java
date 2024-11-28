@@ -90,6 +90,15 @@ public class Room {
 		return objetoNaPosicao(pos) != null && objetoNaPosicao(pos).isSolid();
 	}
 
+	public static Room aPartirDoFicheiro(File ficheiro) {
+		try {
+			return new Room(lerFicheiro(ficheiro), ficheiro.getName());
+		} catch(FileNotFoundException e) {
+			Logger.getLogger().log(e.getMessage(), ERROR);
+		}
+
+		return null;
+	}
 
 	public static List<ElementosDeJogo> lerFicheiro(File ficheiro) {
 		try {

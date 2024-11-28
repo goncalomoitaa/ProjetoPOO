@@ -13,11 +13,7 @@ public class RoomFile {
     Logger logger = Logger.getLogger();
 
     public File file() {
-        try {
-            return new File(this.absFilePath);
-        } catch(FileNotFoundException e) {
-            logger.log(e.getMessage(), Logger.MessageType.ERROR);
-        }
+        return new File(this.absFilePath);
     }
 
     public RoomFile(String absFilePath) { this.absFilePath = absFilePath; }

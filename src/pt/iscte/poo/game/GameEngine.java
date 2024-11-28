@@ -21,7 +21,7 @@ public class GameEngine implements Observer {
 
 		RoomFile roomFile = this.roomFiles.get(0);
 
-		currentRoom = new Room(roomFile.file());
+		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 
 		currentRoom.atualiza();
 		ImageGUI.getInstance().update();
