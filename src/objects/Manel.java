@@ -1,13 +1,26 @@
 package objects;
 
+import pt.iscte.poo.game.Room;
 import pt.iscte.poo.gui.ImageTile;
+import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public class Manel extends PersonagensMoveis {
+	private static Manel unicoManel;
 
-	public Manel(int x, int y){
-		super(x, y);
+	private Logger logger = Logger.getLogger();
+
+	private Manel(int x, int y){
+		super(0, 0);
+	}
+
+	public static Manel getUnicoManel(int x, int y) {
+		if(unicoManel == null)
+            unicoManel = new Manel(x, y);
+
+		unicoManel.setPosition(new Point2D(x, y));
+		return unicoManel;
 	}
 
 	public Manel(Point2D position){
@@ -35,4 +48,19 @@ public class Manel extends PersonagensMoveis {
 		setPosition(nextPos);
 	}
 
+	public void move(Direction d, Room currentRoom) {
+		Point2D nextPos = getPosition().plus(d.asVector());
+
+		ElementosDeJogo e = currentRoom.objetoNaPosicao(nextPos);
+		if(e != null && e.isSolid()) {
+			bump(e);
+		} else {
+			setPosition(nextPos);
+		}
+
+	}
+
+	private void bump(ElementosDeJogo e) {
+		logger.log("Impossível mover-se para a posição: " + e.getPosition().toString(), Logger.MessageType.ERROR);
+	}
 }

@@ -72,18 +72,6 @@ public class Room {
 			manel.move(Direction.DOWN);
 	}
 
-	public void moveManel(Direction d) {
-		Point2D nextPos = manel.getPosition().plus(d.asVector());
-        if(d == Direction.UP && !podeEscalar(d, manel.getPosition())) {
-			logger.log("Não é possível escalar nessa posição: " + nextPos, ALERT);
-			return;
-		} else if(posicaoPermitida(nextPos)) {
-			logger.log("Não é possível andar para esta posição (objeto sólido): " + nextPos, ALERT);
-			return;
-		}
-            manel.move(d);
-	}
-
 	public void moveKong(Direction d) {
 		Point2D nextPos = kong.getPosition().plus(d.asVector());
 			if(nextPos.getY() != 0 || posicaoPermitida(nextPos)) {
@@ -92,57 +80,18 @@ public class Room {
 			kong.move(d);
 	}
 
-	private boolean podeEscalar(Direction direction, Point2D point2D) { //
+	public boolean podeEscalar(Direction direction, Point2D point2D) { //
 		ElementosDeJogo obj = objetoNaPosicao(point2D);
 		return obj != null &&
 				obj.isClimbable();
 	}
 
-	private boolean posicaoPermitida(Point2D pos) {
+	public boolean posicaoPermitida(Point2D pos) {
 		return objetoNaPosicao(pos) != null && objetoNaPosicao(pos).isSolid();
 	}
 
-	public static LinkedList<Room> carregaSalas() {
-		return carregaSalas("rooms/");
-	}
 
-	public static LinkedList<Room> carregaSalas(String dirName) {
-		try {
-			File dir = new File(dirName);
-			LinkedList<Room> rooms = new LinkedList<>();
-
-			for (File roomFile : ListaDiretorios.collectFiles(dir)) {
-				List<ElementosDeJogo> e = lerFicheiro(roomFile);
-				if(e == null) continue;
-				rooms.add(new Room(e, roomFile.getName()));
-			}
-			return rooms;
-		} catch(FileNotFoundException e) {
-//			logger.log("Diretoria rooms/ não encontrada, impossível carregar o jogo", ERROR);
-		}
-
-		return new LinkedList<>();
-	}
-
-	private class ListaDiretorios {
-		public static ArrayList<File> collectFiles(File dir) {
-			ArrayList<File> list = new ArrayList<>();
-			collectFilesRec(dir, list);
-
-			list.sort((File f1, File f2) -> String.CASE_INSENSITIVE_ORDER.compare(f1.getName(), f2.getName()));
-			return list;
-		}
-
-		private static void collectFilesRec(File f, ArrayList<File> list) {
-			list.add(f);
-
-			if(f.isDirectory())
-				for(File child : f.listFiles())
-					collectFilesRec(child, list);
-		}
-	}
-
-	private static List<ElementosDeJogo> lerFicheiro(File ficheiro) {
+	public static List<ElementosDeJogo> lerFicheiro(File ficheiro) {
 		try {
 			if (ficheiro.isDirectory()) return null;
 
@@ -175,7 +124,7 @@ public class Room {
 				case 'S' -> new Stairs(x, y);
 				case 's' -> new Sword(x, y);
 				case 't' -> new Trap(x, y);
-				case 'H' -> new Manel(x, y);
+				case 'H' -> Manel.getUnicoManel(x, y);
 				case 'G' -> new DonkeyKong(x, y);
 				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
