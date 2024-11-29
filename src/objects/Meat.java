@@ -16,7 +16,7 @@ public class Meat extends ElementosInterativos {
     }
 
     @Override
-    public void efeitos() {
-
+    public void impact(Manel player) {
+        player.setLife(10);
     }
 }

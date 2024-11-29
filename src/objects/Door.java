@@ -16,8 +16,6 @@ public class Door extends  ElementosInterativos {
     }
 
     @Override
-    public void efeitos() {
-
+    public void impact(Manel player) {
     }
-
 }

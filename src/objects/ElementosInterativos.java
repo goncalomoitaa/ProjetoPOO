@@ -1,6 +1,6 @@
 package objects;
 
-public abstract class ElementosInterativos extends ElementosDeJogo {
+public abstract class ElementosInterativos extends ElementosDeJogo implements Effect{
 
 
     public ElementosInterativos(int x, int y) {
@@ -10,8 +10,6 @@ public abstract class ElementosInterativos extends ElementosDeJogo {
     public boolean isSolid() {
         return false;
     }
-
-    public abstract void efeitos();
 
     // Non-abstract methods
 

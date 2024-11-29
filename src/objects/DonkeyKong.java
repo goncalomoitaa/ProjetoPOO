@@ -6,13 +6,7 @@ import pt.iscte.poo.utils.Point2D;
 public class DonkeyKong extends PersonagensMoveis {
 
     public DonkeyKong(int x, int y) {
-        super(x, y);
-    }
-
-    @Override
-    public void move(Direction d) {
-        Point2D nextPos = getPosition().plus(d.asVector());
-        setPosition(nextPos);
+        super(x, y,100,10);
     }
 
     @Override

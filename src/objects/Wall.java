@@ -20,9 +20,4 @@ public class Wall extends ElementosEstaticos {
 	public int getLayer() {
 		return 1;
 	}
-
-	@Override
-	public boolean isSolid() {
-		return true;
-	}
 }

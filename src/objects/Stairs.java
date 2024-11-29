@@ -19,12 +19,12 @@ public class Stairs extends ElementosInterativos {
     }
 
     @Override
-    public void efeitos() {
-
+    public boolean isClimbable() {
+        return true;
     }
 
     @Override
-    public boolean isClimbable() {
-        return true;
+    public void impact(Manel player) {
+
     }
 }

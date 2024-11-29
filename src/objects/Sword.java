@@ -19,8 +19,8 @@ public class Sword extends ElementosInterativos{
     }
 
     @Override
-    public void efeitos() {
-
+    public void impact(Manel player) {
+        player.setDamage(15);
     }
 
 }

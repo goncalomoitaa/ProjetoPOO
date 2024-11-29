@@ -12,7 +12,7 @@ public class Manel extends PersonagensMoveis {
 	private Logger logger = Logger.getLogger();
 
 	private Manel(int x, int y){
-		super(0, 0);
+		super(0, 0,100,10);
 	}
 
 	public static Manel getUnicoManel(int x, int y) {
@@ -24,7 +24,7 @@ public class Manel extends PersonagensMoveis {
 	}
 
 	public Manel(Point2D position){
-		super(position.getX(), position.getY());
+		super(position.getX(), position.getY(),100,10);
 	}
 
 	@Override
@@ -42,15 +42,8 @@ public class Manel extends PersonagensMoveis {
 		return false;
 	}
 
-	@Override
-	public void move(Direction d) {
-		Point2D nextPos = getPosition().plus(d.asVector());
-		setPosition(nextPos);
-	}
-
 	public void move(Direction d, Room currentRoom) {
 		Point2D nextPos = getPosition().plus(d.asVector());
-
 		ElementosDeJogo e = currentRoom.objetoNaPosicao(nextPos);
 		if(e != null && e.isSolid()) {
 			bump(e);

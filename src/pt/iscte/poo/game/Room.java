@@ -74,7 +74,7 @@ public class Room {
 
 	public void moveKong(Direction d) {
 		Point2D nextPos = kong.getPosition().plus(d.asVector());
-			if(nextPos.getY() != 0 || posicaoPermitida(nextPos)) {
+			if(nextPos.getY() != 0 || posicaoPermitida(nextPos) || nextPos.equals(manel.getPosition())) {
 				return;
 			}
 			kong.move(d);

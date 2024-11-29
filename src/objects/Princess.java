@@ -16,7 +16,7 @@ public class Princess extends ElementosInterativos {
     }
 
     @Override
-    public void efeitos() {
+    public void impact(Manel player) {
 
     }
 }
