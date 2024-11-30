@@ -56,7 +56,7 @@ public class Room {
 
 	public ElementosDeJogo objetoNaPosicao(Point2D p) {
 		for (ElementosDeJogo elemento : elementos) {
-			if (elemento.getPosition().equals(p)) {
+			if (elemento.getPosition().equals(p) && !(elemento instanceof Manel)) {
 				return elemento;
 			}
 		}
