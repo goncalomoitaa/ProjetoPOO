@@ -34,7 +34,7 @@ public class Manel extends PersonagensMoveis {
 
 	@Override
 	public int getLayer() {
-		return 1;
+		return 2;
 	}
 
 	@Override
