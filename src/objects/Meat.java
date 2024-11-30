@@ -1,6 +1,6 @@
 package objects;
 
-public class Meat extends ElementosInterativos {
+public class Meat extends ElementosAbsorviveis {
     public Meat(int x, int y) {
         super(x, y);
     }
@@ -18,5 +18,15 @@ public class Meat extends ElementosInterativos {
     @Override
     public void efeitos() {
 
+    }
+
+    @Override
+    public int alimentaManel() {
+        return 10;
+    }
+
+    @Override
+    public String getMensagemDeInteracao() {
+        return "GANDA PREGO PRO ALMOÇO!";
     }
 }

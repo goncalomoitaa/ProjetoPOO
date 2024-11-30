@@ -8,76 +8,61 @@ import pt.iscte.poo.utils.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
-import pt.iscte.poo.utils.Vector2D;
 
 import static pt.iscte.poo.tools.Logger.MessageType.*;
 
 public class Room {
 
-	private int gravidade = 1;
-	private DonkeyKong kong;
-	private Manel manel;
 	private List<ElementosDeJogo> elementos;
 	private Logger logger = Logger.getLogger();
 
 	private String nome;
+	private final ArrayList<Background> backgroundTiles;
 	
 	public Room(List<ElementosDeJogo> elementos, String nome) throws FileNotFoundException {
 		logger.log("Criando Room " + nome, INFO);
 		this.nome = nome;
 		this.elementos = elementos;
 		logger.log("Room criada: " + nome, INFO);
+		this.backgroundTiles = new ArrayList<>();
+
+		for(int i = 0; i < 10; i++)
+			for(int j = 0; j < 10; j++)
+				backgroundTiles.add(new Background(i, j));
+	}
+
+	public List<Background> getBackground() {
+		return backgroundTiles;
 	}
 
 	public void atualiza() {
-		for(ElementosDeJogo elemento : elementos) {
-			if (elemento.getName().equals("JumpMan")) {
-				manel = (Manel) elemento;
-			}
-		}
-		for(ElementosDeJogo elemento : elementos) {
-			if(elemento.getName().equals("DonkeyKong")) {
-				kong = (DonkeyKong) elemento;
-			}
-		}
-		for(int x = 0; x!= 10; x++) {
-			for(int y = 0; y!= 10; y++) {
-				// criei floor em todos os quadrados
-				// mas quando leio o ficheiro tambem deteto e adiciono floors
-				// para resolver : só adicionar floor onde necessário
-				ImageGUI.getInstance().addImage(new Background(x, y));
-			}
-		}
 		ImageGUI.getInstance().addImages(elementos);
 	}
 
 	public ElementosDeJogo objetoNaPosicao(Point2D p) {
 		for (ElementosDeJogo elemento : elementos) {
-			if (elemento.getPosition().equals(p)) {
+			if (elemento.getPosition().equals(p) && !(elemento instanceof Manel)) {
 				return elemento;
 			}
 		}
+
 		return null;
 	}
 
-	public void moveWitchGravity() {
-		if(podeEscalar(null, new Point2D(manel.getPosition().getX(),manel.getPosition().getY() + gravidade)) || objetoNaPosicao(new Point2D(manel.getPosition().getX(),manel.getPosition().getY() + gravidade)).isSolid()) {
-			return; //caso seja escalável ou o bloco de baixo do Manel seja isSolid(), ele não cai
-		}
-			manel.move(Direction.DOWN);
+	public List<ElementosDeJogo> getElementos() {
+		return elementos;
 	}
 
 	public void moveKong(Direction d) {
-		Point2D nextPos = kong.getPosition().plus(d.asVector());
-			if(nextPos.getY() != 0 || posicaoPermitida(nextPos)) {
-				return;
-			}
-			kong.move(d);
+//		Point2D nextPos = kong.getPosition().plus(d.asVector());
+//			if(nextPos.getY() != 0 || posicaoPermitida(nextPos)) {
+//				return;
+//			}
+//			kong.move(d);
 	}
 
 	public boolean podeEscalar(Direction direction, Point2D point2D) { //
@@ -112,7 +97,8 @@ public class Room {
 			while (sc.hasNextLine()) {
 				char[] tokens = sc.nextLine().toCharArray();
 				for (int i = 0; i < tokens.length; i++) {
-					elementos.add(criarElementoDeJogo(tokens[i], i, j));
+					ElementosDeJogo e = criarElementoDeJogo(tokens[i], i, j);
+					if(e != null) elementos.add(e);
 				}
 				j++;
 			}
@@ -128,7 +114,6 @@ public class Room {
 	private static ElementosDeJogo criarElementoDeJogo(char tipo, int x, int y) {
 		try {
 			return switch (tipo) {
-				case ' ' -> new Background(x, y);
 				case 'W' -> new Wall(x, y);
 				case 'S' -> new Stairs(x, y);
 				case 's' -> new Sword(x, y);
@@ -138,9 +123,7 @@ public class Room {
 				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
 				case 'P' -> new Princess(x, y);
-				default -> throw new IllegalArgumentException(
-					"O caractere lido não corresponde a um elemento de jogo conhecido: '" + tipo + "'"
-				);
+				default -> null;
 			};
 		} catch(IllegalArgumentException e) {
 			Logger.getLogger().log(e.getMessage(), Logger.MessageType.ERROR);
@@ -150,5 +133,13 @@ public class Room {
 
 	public String getNome() {
 		return this.nome;
+	}
+
+	public void removeElementoInterativo(ElementosDeJogo e) {
+		if(e.getMensagemDeInteracao() != null) ImageGUI.getInstance().setStatusMessage(e.getMensagemDeInteracao());
+		if(e instanceof ElementosAbsorviveis) {
+			ImageGUI.getInstance().removeImage(e);
+			elementos.remove(e);
+		}
 	}
 }

@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.utils.Point2D;
 
-public class Sword extends ElementosInterativos{
+public class Sword extends ElementosAbsorviveis {
 
     public Sword(int x, int y) {
         super(x, y);
@@ -23,4 +23,13 @@ public class Sword extends ElementosInterativos{
 
     }
 
+    @Override
+    public int armaManel() {
+        return 10;
+    }
+
+    @Override
+    public String getMensagemDeInteracao() {
+        return "WOOHOO, ESPADAAAA!";
+    }
 }
