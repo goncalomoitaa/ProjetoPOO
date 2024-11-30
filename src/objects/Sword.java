@@ -28,4 +28,8 @@ public class Sword extends ElementosAbsorviveis {
         return 10;
     }
 
+    @Override
+    public String getMensagemDeInteracao() {
+        return "WOOHOO, ESPADAAAA!";
+    }
 }

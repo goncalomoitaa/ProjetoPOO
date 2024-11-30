@@ -24,4 +24,9 @@ public class Meat extends ElementosAbsorviveis {
     public int alimentaManel() {
         return 10;
     }
+
+    @Override
+    public String getMensagemDeInteracao() {
+        return "GANDA PREGO PRO ALMOÇO!";
+    }
 }

@@ -41,4 +41,8 @@ public abstract class ElementosDeJogo implements ImageTile {
     public int armaManel() {
         return 0;
     }
+
+    public String getMensagemDeInteracao() {
+        return null;
+    }
 }

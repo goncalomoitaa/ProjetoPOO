@@ -24,7 +24,7 @@ public class Manel extends PersonagensMoveis {
 		return unicoManel;
 	}
 
-	public Manel(Point2D position){
+	public Manel(Point2D position) {
 		super(position.getX(), position.getY());
 		this.vida = 100;
 		this.arma = 0;
