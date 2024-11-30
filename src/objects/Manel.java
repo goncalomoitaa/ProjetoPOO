@@ -61,9 +61,14 @@ public class Manel extends PersonagensMoveis {
 	public void move(Direction d, Room currentRoom) {
 		Point2D nextPos = getPosition().plus(d.asVector());
 
-		ElementosDeJogo e = currentRoom.objetoNaPosicao(nextPos);
-		if(e != null && e.isSolid()) {
-			bump(e);
+		ElementosDeJogo elementoNaPosicaoFutura = currentRoom.objetoNaPosicao(nextPos);
+		ElementosDeJogo elementoNaPosicaoAtual = currentRoom.objetoNaPosicao(this.getPosition());
+
+		boolean canClimb = elementoNaPosicaoAtual != null && !elementoNaPosicaoAtual.isClimbable();
+		if(d == Direction.UP && (canClimb || elementoNaPosicaoAtual == null)) {
+			return;
+		} else if(elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
+			bump(elementoNaPosicaoFutura);
 		} else {
 			setPosition(nextPos);
 			absorveElementoEm(nextPos, currentRoom);
@@ -82,5 +87,16 @@ public class Manel extends PersonagensMoveis {
 
 	private void bump(ElementosDeJogo e) {
 		logger.log("Impossível mover-se para a posição: " + e.getPosition().toString(), Logger.MessageType.ERROR);
+	}
+
+	public void fall(Room r) {
+		if(r.objetoNaPosicao(this.getPosition()) instanceof Stairs) return;
+
+		ElementosDeJogo abaixoDoManel =
+				r.objetoNaPosicao(new Point2D(this.getPosition().getX(), this.getPosition().getY() + 1));
+
+		if(abaixoDoManel != null && (abaixoDoManel.isSolid() || abaixoDoManel.canStep())) return;
+
+		move(Direction.DOWN, r);
 	}
 }

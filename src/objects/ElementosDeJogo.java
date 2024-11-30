@@ -45,4 +45,8 @@ public abstract class ElementosDeJogo implements ImageTile {
     public String getMensagemDeInteracao() {
         return null;
     }
+
+    public boolean canStep() {
+        return true;
+    }
 }

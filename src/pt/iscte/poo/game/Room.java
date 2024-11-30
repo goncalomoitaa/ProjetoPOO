@@ -57,14 +57,6 @@ public class Room {
 		return elementos;
 	}
 
-	public void moveKong(Direction d) {
-//		Point2D nextPos = kong.getPosition().plus(d.asVector());
-//			if(nextPos.getY() != 0 || posicaoPermitida(nextPos)) {
-//				return;
-//			}
-//			kong.move(d);
-	}
-
 	public boolean podeEscalar(Direction direction, Point2D point2D) { //
 		ElementosDeJogo obj = objetoNaPosicao(point2D);
 		return obj != null &&
