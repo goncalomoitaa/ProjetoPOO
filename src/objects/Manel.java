@@ -1,7 +1,6 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
@@ -15,6 +14,8 @@ public class Manel extends PersonagensMoveis {
 		super(0, 0);
 	}
 
+	private int vida, arma;
+
 	public static Manel getUnicoManel(int x, int y) {
 		if(unicoManel == null)
             unicoManel = new Manel(x, y);
@@ -25,6 +26,8 @@ public class Manel extends PersonagensMoveis {
 
 	public Manel(Point2D position){
 		super(position.getX(), position.getY());
+		this.vida = 100;
+		this.arma = 0;
 	}
 
 	@Override
@@ -56,8 +59,16 @@ public class Manel extends PersonagensMoveis {
 			bump(e);
 		} else {
 			setPosition(nextPos);
+			absorveElementoEm(nextPos, currentRoom);
 		}
+	}
 
+	private void absorveElementoEm(Point2D pos, Room room) {
+		ElementosDeJogo e = room.objetoNaPosicao(pos);
+
+		this.vida += e.alimentaManel();
+		this.arma = Math.min(this.arma, e.armaManel());
+		room.removeElementoInterativo(e);
 	}
 
 	private void bump(ElementosDeJogo e) {
