@@ -151,6 +151,7 @@ public class Room {
 	}
 
 	public void removeElementoInterativo(ElementosDeJogo e) {
+		if(e.getMensagemDeInteracao() != null) ImageGUI.getInstance().setStatusMessage(e.getMensagemDeInteracao());
 		if(e instanceof ElementosAbsorviveis) {
 			ImageGUI.getInstance().removeImage(e);
 			elementos.remove(e);
