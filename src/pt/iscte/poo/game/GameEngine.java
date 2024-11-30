@@ -6,6 +6,7 @@ import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
@@ -15,7 +16,7 @@ public class GameEngine implements Observer {
 	private Manel manel = Manel.getUnicoManel(0, 0);
 	private LinkedList<RoomFile> roomFiles;
 	private int lastTickProcessed = 0;
-	
+
 	public GameEngine() throws FileNotFoundException {
 		this.roomFiles = RoomFile.listaSalas();
 
@@ -23,7 +24,9 @@ public class GameEngine implements Observer {
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 
-		currentRoom.atualiza();
+		ImageGUI.getInstance().addImages(currentRoom.getBackground());
+		ImageGUI.getInstance().addImages(currentRoom.getElementos());
+		ImageGUI.getInstance().addImage(manel);
 		ImageGUI.getInstance().update();
 	}
 
@@ -37,7 +40,6 @@ public class GameEngine implements Observer {
 				manel.move(Direction.directionFor(k), currentRoom);
 			}
 		}
-		currentRoom.moveWitchGravity(); //este é o lugar certo?
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();

@@ -12,9 +12,18 @@ public class Manel extends PersonagensMoveis {
 
 	private Manel(int x, int y){
 		super(0, 0);
+		this.vida = 100;
+		this.poder = 0;
 	}
 
-	private int vida, arma;
+	private int vida, poder;
+
+	public static Manel getUnicoManel() {
+		if(unicoManel == null)
+			unicoManel = new Manel(0, 0);
+
+		return unicoManel;
+	}
 
 	public static Manel getUnicoManel(int x, int y) {
 		if(unicoManel == null)
@@ -26,8 +35,6 @@ public class Manel extends PersonagensMoveis {
 
 	public Manel(Point2D position) {
 		super(position.getX(), position.getY());
-		this.vida = 100;
-		this.arma = 0;
 	}
 
 	@Override
@@ -66,8 +73,10 @@ public class Manel extends PersonagensMoveis {
 	private void absorveElementoEm(Point2D pos, Room room) {
 		ElementosDeJogo e = room.objetoNaPosicao(pos);
 
+		if(e == null) return;
+
 		this.vida += e.alimentaManel();
-		this.arma = Math.min(this.arma, e.armaManel());
+		this.poder = Math.max(this.poder, e.armaManel());
 		room.removeElementoInterativo(e);
 	}
 
