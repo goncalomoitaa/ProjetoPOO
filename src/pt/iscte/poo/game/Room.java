@@ -8,12 +8,10 @@ import pt.iscte.poo.utils.Point2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
-import pt.iscte.poo.utils.Vector2D;
 
 import static pt.iscte.poo.tools.Logger.MessageType.*;
 
@@ -150,5 +148,12 @@ public class Room {
 
 	public String getNome() {
 		return this.nome;
+	}
+
+	public void removeElementoInterativo(ElementosDeJogo e) {
+		if(e instanceof ElementosAbsorviveis) {
+			ImageGUI.getInstance().removeImage(e);
+			elementos.remove(e);
+		}
 	}
 }
