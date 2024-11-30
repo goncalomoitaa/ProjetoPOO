@@ -23,4 +23,9 @@ public class Floor extends ElementosEstaticos {
 	public boolean isSolid() {
 		return false;
 	}
+
+	@Override
+	public boolean canStep() {
+		return false;
+	}
 }

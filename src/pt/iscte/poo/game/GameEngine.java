@@ -20,7 +20,7 @@ public class GameEngine implements Observer {
 	public GameEngine() throws FileNotFoundException {
 		this.roomFiles = RoomFile.listaSalas();
 
-		RoomFile roomFile = this.roomFiles.get(0);
+		RoomFile roomFile = this.roomFiles.get(1);
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 
@@ -39,11 +39,13 @@ public class GameEngine implements Observer {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
 			}
+		} else {
+			manel.fall(currentRoom);
 		}
+
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
-			currentRoom.moveKong(Direction.random());
 		}
 		ImageGUI.getInstance().update();
 	}
