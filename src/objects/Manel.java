@@ -1,6 +1,7 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
+import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
@@ -48,6 +49,13 @@ public class Manel extends PersonagensMoveis {
 		if(e != null && e.isSolid()) {
 			bump(e);
 		} else {
+            assert e != null;
+            if(e.getTipo() == TipoDeElemento.INTERATIVO && e.isPickable()) {
+				currentRoom.objetoInterativo(nextPos).impact(this);
+				ImageGUI.getInstance().removeImage(e);
+				System.out.println(this.getDamage());
+				System.out.println(this.getLife());
+			}
 			setPosition(nextPos);
 		}
 

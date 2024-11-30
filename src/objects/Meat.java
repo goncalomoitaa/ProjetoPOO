@@ -19,4 +19,9 @@ public class Meat extends ElementosInterativos {
     public void impact(Manel player) {
         player.setLife(10);
     }
+
+    @Override
+    public boolean isPickable() {
+        return true;
+    }
 }

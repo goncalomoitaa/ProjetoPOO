@@ -28,4 +28,9 @@ public class Banana extends ElementosInterativos implements Effect {
         Point2D nextPos = getPosition().plus(d.asVector());
         setPosition(nextPos);
     }
+
+    @Override
+    public boolean isPickable() {
+        return true;
+    }
 }

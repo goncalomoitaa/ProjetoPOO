@@ -20,7 +20,12 @@ public class Sword extends ElementosInterativos{
 
     @Override
     public void impact(Manel player) {
-        player.setDamage(15);
+        player.setDamage(player.getDamage());
+    }
+
+    @Override
+    public boolean isPickable() {
+        return true;
     }
 
 }

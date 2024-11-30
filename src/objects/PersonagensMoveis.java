@@ -9,7 +9,7 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
     private int damage;
 
     public PersonagensMoveis(int x, int y, int life, int damage) {
-        super(x, y);
+        super(x, y, TipoDeElemento.DINAMICO);
         this.life = life;
         this.damage = damage;
     }

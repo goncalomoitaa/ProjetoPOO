@@ -19,7 +19,7 @@ public class GameEngine implements Observer {
 	public GameEngine() throws FileNotFoundException {
 		this.roomFiles = RoomFile.listaSalas();
 
-		RoomFile roomFile = this.roomFiles.get(1);
+		RoomFile roomFile = this.roomFiles.get(0);
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 

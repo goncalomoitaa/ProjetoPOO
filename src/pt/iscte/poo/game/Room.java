@@ -35,26 +35,27 @@ public class Room {
 	}
 
 	public void atualiza() {
-		for(ElementosDeJogo elemento : elementos) {
-			if (elemento.getName().equals("JumpMan")) {
-				manel = (Manel) elemento;
+		ArrayList<ElementosDeJogo> elementosParaAdicionar = new ArrayList<>();
+		for (ElementosDeJogo elemento : elementos) {
+			if(objetoNaPosicao(elemento.getPosition()).getTipo() != TipoDeElemento.ESTATICO) {
+				if (elemento.getName().equals("JumpMan")) {
+					manel = (Manel) elemento;
+				}
+				if (elemento.getName().equals("DonkeyKong")) {
+					kong = (DonkeyKong) elemento;
+				}
+				ElementosDeJogo j = new Background(elemento.getPosition().getX(), elemento.getPosition().getY());
+				ImageGUI.getInstance().addImage(j);
+				elementosParaAdicionar.add(j);
+				ImageGUI.getInstance().addImage(elemento);
+			} else {
+				ImageGUI.getInstance().addImage(elemento);
 			}
 		}
-		for(ElementosDeJogo elemento : elementos) {
-			if(elemento.getName().equals("DonkeyKong")) {
-				kong = (DonkeyKong) elemento;
-			}
-		}
-		for(int x = 0; x!= 10; x++) {
-			for(int y = 0; y!= 10; y++) {
-				// criei floor em todos os quadrados
-				// mas quando leio o ficheiro tambem deteto e adiciono floors
-				// para resolver : só adicionar floor onde necessário
-				ImageGUI.getInstance().addImage(new Background(x, y));
-			}
-		}
-		ImageGUI.getInstance().addImages(elementos);
+		elementos.addAll(elementosParaAdicionar);
 	}
+
+
 
 	public ElementosDeJogo objetoNaPosicao(Point2D p) {
 		for (ElementosDeJogo elemento : elementos) {
@@ -63,6 +64,14 @@ public class Room {
 			}
 		}
 		return null;
+	}
+
+	public ElementosInterativos objetoInterativo(Point2D p) {
+		if(objetoNaPosicao(p).getTipo() != TipoDeElemento.INTERATIVO) {
+			return null;
+		} else {
+			return (ElementosInterativos) objetoNaPosicao(p);
+		}
 	}
 
 	public void moveWitchGravity() {
