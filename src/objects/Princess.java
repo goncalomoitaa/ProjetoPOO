@@ -12,7 +12,7 @@ public class Princess extends ElementosInterativos {
 
     @Override
     public int getLayer() {
-        return 0;
+        return 1;
     }
 
 }

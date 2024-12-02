@@ -12,7 +12,7 @@ public class Door extends  ElementosInterativos {
 
     @Override
     public int getLayer() {
-        return 0;
+        return 1;
     }
 
 }

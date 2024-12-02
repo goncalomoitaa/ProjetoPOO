@@ -12,7 +12,7 @@ public class Meat extends ElementosAbsorviveis {
 
     @Override
     public int getLayer() {
-        return 0;
+        return 1;
     }
 
     @Override
