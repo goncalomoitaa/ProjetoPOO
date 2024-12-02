@@ -77,6 +77,16 @@ public class Room {
 		return null;
 	}
 
+	public List<DonkeyKong> getkongs() {
+		List<DonkeyKong> donkeyKongs = new ArrayList<>();
+		for (ElementosDeJogo elemento : elementos) {
+			if (elemento instanceof DonkeyKong) {
+				donkeyKongs.add((DonkeyKong) elemento);
+			}
+		}
+		return donkeyKongs;
+	}
+
 	public static List<ElementosDeJogo> lerFicheiro(File ficheiro) {
 		try {
 			if (ficheiro.isDirectory()) return null;
@@ -111,7 +121,7 @@ public class Room {
 				case 's' -> new Sword(x, y);
 				case 't' -> new Trap(x, y);
 				case 'H' -> Manel.getUnicoManel(x, y);
-				case 'G' -> new DonkeyKong(x, y);
+				case 'G' -> new DonkeyKong(x,y);
 				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
 				case 'P' -> new Princess(x, y);

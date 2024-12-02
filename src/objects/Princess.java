@@ -15,8 +15,4 @@ public class Princess extends ElementosInterativos {
         return 0;
     }
 
-    @Override
-    public void efeitos() {
-
-    }
 }

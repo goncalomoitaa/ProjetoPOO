@@ -6,14 +6,15 @@ import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
+import java.util.List;
 
 public class GameEngine implements Observer {
 	
 	private Room currentRoom;
 	private Manel manel = Manel.getUnicoManel(0, 0);
+	private List<DonkeyKong> kongs;
 	private LinkedList<RoomFile> roomFiles;
 	private int lastTickProcessed = 0;
 
@@ -27,6 +28,10 @@ public class GameEngine implements Observer {
 		ImageGUI.getInstance().addImages(currentRoom.getBackground());
 		ImageGUI.getInstance().addImages(currentRoom.getElementos());
 		ImageGUI.getInstance().addImage(manel);
+		kongs = currentRoom.getkongs();
+		for(DonkeyKong kong : kongs) {
+			ImageGUI.getInstance().addImage(kong);
+		}
 		ImageGUI.getInstance().update();
 	}
 
@@ -37,7 +42,7 @@ public class GameEngine implements Observer {
 			System.out.println("Keypressed " + k);
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
-				manel.move(Direction.directionFor(k), currentRoom);
+				manel.moveManel(Direction.directionFor(k), currentRoom);
 			}
 		} else {
 			manel.fall(currentRoom);
@@ -46,6 +51,9 @@ public class GameEngine implements Observer {
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
+			for(DonkeyKong kong : kongs) {
+				kong.moveKong(Direction.random(), currentRoom);
+			}
 		}
 		ImageGUI.getInstance().update();
 	}

@@ -6,8 +6,6 @@ import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 import java.io.FileNotFoundException;
-import java.util.LinkedList;
-import java.util.List;
 import java.io.File;
 
 import static pt.iscte.poo.tools.Test.assertEquals;
@@ -23,7 +21,7 @@ public class TestClass {
         assertEquals(room.objetoNaPosicao(new Point2D(0,0)).getClass(), Door.class);
         assertEquals(room.objetoNaPosicao(new Point2D(0,0)).isSolid(), false);
         assertEquals(room.objetoNaPosicao(new Point2D(2,0)).isSolid(), true);
-        Manel.getUnicoManel(3,8).move(Direction.LEFT, room); // Posicao (3, 8) tem um uma parede à esquerda, portanto não pode andar para lá
+        Manel.getUnicoManel(3,8).moveManel(Direction.LEFT, room); // Posicao (3, 8) tem um uma parede à esquerda, portanto não pode andar para lá
         assertEquals(Manel.getUnicoManel().getPosition(), new Point2D(3, 8));
     }
 }

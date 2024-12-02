@@ -52,13 +52,7 @@ public class Manel extends PersonagensMoveis {
 		return false;
 	}
 
-	@Override
-	public void move(Direction d) {
-		Point2D nextPos = getPosition().plus(d.asVector());
-		setPosition(nextPos);
-	}
-
-	public void move(Direction d, Room currentRoom) {
+	public void moveManel(Direction d, Room currentRoom) {
 		Point2D nextPos = getPosition().plus(d.asVector());
 
 		ElementosDeJogo elementoNaPosicaoFutura = currentRoom.objetoNaPosicao(nextPos);
@@ -70,7 +64,7 @@ public class Manel extends PersonagensMoveis {
 		} else if(elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
 			bump(elementoNaPosicaoFutura);
 		} else {
-			setPosition(nextPos);
+			move(d);
 			absorveElementoEm(nextPos, currentRoom);
 		}
 	}
@@ -97,6 +91,6 @@ public class Manel extends PersonagensMoveis {
 
 		if(abaixoDoManel != null && (abaixoDoManel.isSolid() || abaixoDoManel.canStep())) return;
 
-		move(Direction.DOWN, r);
+		moveManel(Direction.DOWN, r);
 	}
 }

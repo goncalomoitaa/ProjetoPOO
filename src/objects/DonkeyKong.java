@@ -1,18 +1,22 @@
 package objects;
 
+import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 public class DonkeyKong extends PersonagensMoveis {
 
+
     public DonkeyKong(int x, int y) {
         super(x, y);
     }
 
-    @Override
-    public void move(Direction d) {
-        Point2D nextPos = getPosition().plus(d.asVector());
-        setPosition(nextPos);
+    public void moveKong(Direction d, Room currentRoom) {
+        Point2D nextPos = this.getPosition().plus(d.asVector());
+        if(nextPos.getY() != 0 || currentRoom.posicaoPermitida(nextPos) || nextPos.equals(Manel.getUnicoManel().getPosition())) {
+            return;
+        }
+        move(d);
     }
 
     @Override
