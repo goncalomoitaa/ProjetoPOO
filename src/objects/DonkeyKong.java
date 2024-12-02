@@ -6,7 +6,6 @@ import pt.iscte.poo.utils.Point2D;
 
 public class DonkeyKong extends PersonagensMoveis {
 
-
     public DonkeyKong(int x, int y) {
         super(x, y);
     }
