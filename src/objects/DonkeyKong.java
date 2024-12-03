@@ -33,17 +33,24 @@ public class DonkeyKong extends PersonagensMoveis {
         return true;
     }
 
-    public void move(Room currentRoom) {
-        Direction d = Direction.random();
-        Point2D nextPos = getPosition().plus(d.asVector());
+    public void updateMovement(Room currentRoom) {
+        ElementosDeJogo abaixoDoKong =
+            currentRoom.objetoNaPosicao(new Point2D(this.getPosition().getX(), this.getPosition().getY() + 1));
 
+        Direction d = Direction.DOWN;
+
+        if(abaixoDoKong != null && (abaixoDoKong.isSolid() || abaixoDoKong.canStep())) {
+            d = Direction.random();
+        }
+
+        Point2D nextPos = getPosition().plus(d.asVector());
         ElementosDeJogo elementoNaPosicaoFutura = currentRoom.objetoNaPosicao(nextPos);
         ElementosDeJogo elementoNaPosicaoAtual = currentRoom.objetoNaPosicao(this.getPosition());
 
         boolean canClimb = elementoNaPosicaoAtual != null && !elementoNaPosicaoAtual.isClimbable();
-        if(d == Direction.UP && (canClimb || elementoNaPosicaoAtual == null)) {
+        if (d == Direction.UP && (canClimb || elementoNaPosicaoAtual == null)) {
             return;
-        } else if(elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
+        } else if (elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
             bump(elementoNaPosicaoFutura);
         } else {
             setPosition(nextPos);
@@ -51,7 +58,7 @@ public class DonkeyKong extends PersonagensMoveis {
     }
 
     private void bump(ElementosDeJogo e) {
-        logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ERROR);
+        logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
     }
 
 }

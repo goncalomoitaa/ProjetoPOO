@@ -6,7 +6,6 @@ import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
@@ -20,7 +19,7 @@ public class GameEngine implements Observer {
 	public GameEngine() throws FileNotFoundException {
 		this.roomFiles = RoomFile.listaSalas();
 
-		RoomFile roomFile = this.roomFiles.get(0);
+		RoomFile roomFile = this.roomFiles.get(1);
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 
@@ -33,7 +32,7 @@ public class GameEngine implements Observer {
 	@Override
 	public void update(Observed source) {
 		for(DonkeyKong k : currentRoom.getKongs())
-			k.move(currentRoom);
+			k.updateMovement(currentRoom);
 
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
