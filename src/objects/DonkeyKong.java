@@ -5,7 +5,7 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public class DonkeyKong extends PersonagensMoveis {
+public class DonkeyKong extends PersonagensMoveis implements Enemy {
     private Logger logger = Logger.getLogger();
 
     public DonkeyKong(int x, int y) {
@@ -61,4 +61,7 @@ public class DonkeyKong extends PersonagensMoveis {
         logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
     }
 
+    public int hurtHero() {
+        return 100;
+    }
 }

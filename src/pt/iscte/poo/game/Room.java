@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
+import pt.iscte.poo.utils.Vector2D;
 
 import static pt.iscte.poo.tools.Logger.MessageType.*;
 
@@ -22,7 +23,7 @@ public class Room {
 
 	private String nome;
 	private final ArrayList<Background> backgroundTiles;
-	
+
 	public Room(List<ElementosDeJogo> elementos, String nome) throws FileNotFoundException {
 		logger.log("Criando Room " + nome, INFO);
 		this.nome = nome;
@@ -141,5 +142,12 @@ public class Room {
 			if(e instanceof DonkeyKong) kongs.add((DonkeyKong) e);
 
 		return kongs;
+	}
+
+	public Enemy enemyAt(Point2D pos) {
+		ElementosDeJogo e = objetoNaPosicao(pos);
+		if(e instanceof Enemy) return (Enemy) e;
+
+		return null;
 	}
 }
