@@ -20,5 +20,4 @@ public class Wall extends ElementosEstaticos {
 	public int getLayer() {
 		return 1;
 	}
-
 }

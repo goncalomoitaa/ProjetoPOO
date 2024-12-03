@@ -9,10 +9,7 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
         super(x, y);
     }
 
-    public void move(Direction d) {
-        Point2D nextPos = this.getPosition().plus(d.asVector());
-        this.setPosition(nextPos);
-    }
+    public abstract void move(Direction d);
 
     public abstract boolean isSolid();
 

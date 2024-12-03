@@ -15,6 +15,7 @@ public class GameEngine implements Observer {
 	private Room currentRoom;
 	private Manel manel = Manel.getUnicoManel(0, 0);
 	private List<DonkeyKong> kongs;
+	private List<Banana> bananas;
 	private LinkedList<RoomFile> roomFiles;
 	private int lastTickProcessed = 0;
 
@@ -24,14 +25,15 @@ public class GameEngine implements Observer {
 		RoomFile roomFile = this.roomFiles.get(1);
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
-
 		ImageGUI.getInstance().addImages(currentRoom.getBackground());
 		ImageGUI.getInstance().addImages(currentRoom.getElementos());
 		ImageGUI.getInstance().addImage(manel);
 		kongs = currentRoom.getkongs();
 		for(DonkeyKong kong : kongs) {
-			ImageGUI.getInstance().addImage(kong);
+			bananas = kong.attackKong();
+			ImageGUI.getInstance().addImages(bananas);
 		}
+		ImageGUI.getInstance().addImages(kongs);
 		ImageGUI.getInstance().update();
 	}
 
@@ -42,7 +44,7 @@ public class GameEngine implements Observer {
 			System.out.println("Keypressed " + k);
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
-				manel.moveManel(Direction.directionFor(k), currentRoom);
+				manel.move(Direction.directionFor(k), currentRoom);
 			}
 		} else {
 			manel.fall(currentRoom);
@@ -52,7 +54,10 @@ public class GameEngine implements Observer {
 		while (lastTickProcessed < t) {
 			processTick();
 			for(DonkeyKong kong : kongs) {
-				kong.moveKong(Direction.random(), currentRoom);
+				kong.move(Direction.random(), currentRoom);
+			}
+			for(Banana banana : bananas) {
+				banana.move(Direction.DOWN);
 			}
 		}
 		ImageGUI.getInstance().update();

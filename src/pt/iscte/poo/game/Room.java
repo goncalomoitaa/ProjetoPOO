@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
@@ -87,6 +88,19 @@ public class Room {
 		return donkeyKongs;
 	}
 
+//	public List<Banana> attackKong() {
+//		List<Banana> bananas = new ArrayList<>();
+//		for(DonkeyKong dk : getkongs()) {
+//			Random random = new Random();
+//			int nDeAtaques = random.nextInt(2);
+//			while (nDeAtaques > 0) {
+//				bananas.add(new Banana(dk.getPosition().getX(), dk.getPosition().getY()));
+//				nDeAtaques--;
+//			}
+//		}
+//		return bananas;
+//	}
+
 	public static List<ElementosDeJogo> lerFicheiro(File ficheiro) {
 		try {
 			if (ficheiro.isDirectory()) return null;
@@ -121,7 +135,7 @@ public class Room {
 				case 's' -> new Sword(x, y);
 				case 't' -> new Trap(x, y);
 				case 'H' -> Manel.getUnicoManel(x, y);
-				case 'G' -> new DonkeyKong(x,y);
+				case 'G' -> new DonkeyKong(x, y);
 				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
 				case 'P' -> new Princess(x, y);
