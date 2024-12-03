@@ -20,7 +20,7 @@ public class GameEngine implements Observer {
 	public GameEngine() throws FileNotFoundException {
 		this.roomFiles = RoomFile.listaSalas();
 
-		RoomFile roomFile = this.roomFiles.get(1);
+		RoomFile roomFile = this.roomFiles.get(0);
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 
@@ -32,6 +32,9 @@ public class GameEngine implements Observer {
 
 	@Override
 	public void update(Observed source) {
+		for(DonkeyKong k : currentRoom.getKongs())
+			k.move(currentRoom);
+
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
 			System.out.println("Keypressed " + k);

@@ -134,4 +134,12 @@ public class Room {
 			elementos.remove(e);
 		}
 	}
+
+	public List<DonkeyKong> getKongs() {
+		ArrayList<DonkeyKong> kongs = new ArrayList<>();
+		for(ElementosDeJogo e : elementos)
+			if(e instanceof DonkeyKong) kongs.add((DonkeyKong) e);
+
+		return kongs;
+	}
 }
