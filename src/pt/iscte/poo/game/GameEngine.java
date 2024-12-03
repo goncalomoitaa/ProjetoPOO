@@ -5,9 +5,7 @@ import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
-import pt.iscte.poo.utils.Point2D;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
@@ -48,7 +46,7 @@ public class GameEngine implements Observer {
 		}
 
 		manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
-		currentRoom.removeDeadEnemies();
+		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
-import pt.iscte.poo.utils.Vector2D;
 
 import static pt.iscte.poo.tools.Logger.MessageType.*;
 
@@ -149,5 +148,16 @@ public class Room {
 		if(e instanceof Enemy) return (Enemy) e;
 
 		return null;
+	}
+
+	public List<ElementosDeJogo> deadEnemies() {
+		List<ElementosDeJogo> dead = new ArrayList<ElementosDeJogo>();
+		for(ElementosDeJogo elem : elementos)
+			if(elem instanceof PersonagensMoveis) {
+				PersonagensMoveis e = (PersonagensMoveis) elem;
+				if(e.isDead()) dead.add(e);
+			}
+
+		return dead;
 	}
 }

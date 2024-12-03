@@ -78,7 +78,7 @@ public class Manel extends PersonagensMoveis {
 	public void fightEnemy(Enemy e) {
 		if(e == null) return;
 		this.healthPoints -= e.hurtHero();
-		e.injure(this.power);
+		e.takeHit(this.power);
 	}
 
 	private void absorveElementoEm(Point2D pos, Room room) {

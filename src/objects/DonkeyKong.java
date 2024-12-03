@@ -30,7 +30,7 @@ public class DonkeyKong extends PersonagensMoveis implements Enemy {
 
     @Override
     public boolean isSolid() {
-        return true;
+        return false;
     }
 
     public void updateMovement(Room currentRoom) {
@@ -62,6 +62,6 @@ public class DonkeyKong extends PersonagensMoveis implements Enemy {
     }
 
     public int hurtHero() {
-        return 100;
+        return 5;
     }
 }
