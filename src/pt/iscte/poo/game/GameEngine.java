@@ -6,7 +6,6 @@ import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
@@ -32,6 +31,9 @@ public class GameEngine implements Observer {
 
 	@Override
 	public void update(Observed source) {
+		for(DonkeyKong k : currentRoom.getKongs())
+			k.updateMovement(currentRoom);
+
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
 			System.out.println("Keypressed " + k);
@@ -42,6 +44,9 @@ public class GameEngine implements Observer {
 		} else {
 			manel.fall(currentRoom);
 		}
+
+		manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
+		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {

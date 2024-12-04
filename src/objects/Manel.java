@@ -12,11 +12,11 @@ public class Manel extends PersonagensMoveis {
 
 	private Manel(int x, int y){
 		super(0, 0);
-		this.vida = 100;
-		this.poder = 0;
+		this.healthPoints = 100;
+		this.power = 0;
 	}
 
-	private int vida, poder;
+	private int healthPoints, power;
 
 	public static Manel getUnicoManel() {
 		if(unicoManel == null)
@@ -75,13 +75,19 @@ public class Manel extends PersonagensMoveis {
 		}
 	}
 
+	public void fightEnemy(Enemy e) {
+		if(e == null) return;
+		this.healthPoints -= e.hurtHero();
+		e.takeHit(this.power);
+	}
+
 	private void absorveElementoEm(Point2D pos, Room room) {
 		ElementosDeJogo e = room.objetoNaPosicao(pos);
 
 		if(e == null) return;
 
-		this.vida += e.alimentaManel();
-		this.poder = Math.max(this.poder, e.armaManel());
+		this.healthPoints += e.alimentaManel();
+		this.power = Math.max(this.power, e.armaManel());
 		room.removeElementoInterativo(e);
 	}
 

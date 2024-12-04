@@ -22,7 +22,7 @@ public class Room {
 
 	private String nome;
 	private final ArrayList<Background> backgroundTiles;
-	
+
 	public Room(List<ElementosDeJogo> elementos, String nome) throws FileNotFoundException {
 		logger.log("Criando Room " + nome, INFO);
 		this.nome = nome;
@@ -133,5 +133,31 @@ public class Room {
 			ImageGUI.getInstance().removeImage(e);
 			elementos.remove(e);
 		}
+	}
+
+	public List<DonkeyKong> getKongs() {
+		ArrayList<DonkeyKong> kongs = new ArrayList<>();
+		for(ElementosDeJogo e : elementos)
+			if(e instanceof DonkeyKong) kongs.add((DonkeyKong) e);
+
+		return kongs;
+	}
+
+	public Enemy enemyAt(Point2D pos) {
+		ElementosDeJogo e = objetoNaPosicao(pos);
+		if(e instanceof Enemy) return (Enemy) e;
+
+		return null;
+	}
+
+	public List<ElementosDeJogo> deadEnemies() {
+		List<ElementosDeJogo> dead = new ArrayList<ElementosDeJogo>();
+		for(ElementosDeJogo elem : elementos)
+			if(elem instanceof PersonagensMoveis) {
+				PersonagensMoveis e = (PersonagensMoveis) elem;
+				if(e.isDead()) dead.add(e);
+			}
+
+		return dead;
 	}
 }
