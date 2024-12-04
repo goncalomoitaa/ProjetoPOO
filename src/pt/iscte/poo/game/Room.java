@@ -2,7 +2,6 @@ package pt.iscte.poo.game;
 
 import objects.*;
 import pt.iscte.poo.gui.ImageGUI;
-import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 import java.io.File;
