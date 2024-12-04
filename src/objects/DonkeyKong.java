@@ -10,6 +10,7 @@ public class DonkeyKong extends PersonagensMoveis {
 
     public DonkeyKong(int x, int y) {
         super(x, y);
+        this.setPower(5);
     }
 
     @Override
@@ -40,9 +41,5 @@ public class DonkeyKong extends PersonagensMoveis {
     @Override
     public void absorveElementoEm(Point2D pos, Room room) {
         return;
-    }
-
-    public int hurtHero() {
-        return 5;
     }
 }
