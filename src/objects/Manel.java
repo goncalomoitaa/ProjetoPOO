@@ -46,9 +46,8 @@ public class Manel extends PersonagensMoveis {
 	}
 
 	@Override
-	public void move(Direction d) {
-		Point2D nextPos = getPosition().plus(d.asVector());
-		setPosition(nextPos);
+	public void update(Room r) {
+		return;
 	}
 
 	public void fightEnemy(PersonagensMoveis e) {

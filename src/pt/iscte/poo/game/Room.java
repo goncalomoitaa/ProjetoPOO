@@ -133,12 +133,12 @@ public class Room {
 		}
 	}
 
-	public List<DonkeyKong> getKongs() {
-		ArrayList<DonkeyKong> kongs = new ArrayList<>();
+	public List<PersonagensMoveis> getPersonagensMoveis() {
+		ArrayList<PersonagensMoveis> personagensMoveis = new ArrayList<>();
 		for(ElementosDeJogo e : elementos)
-			if(e instanceof DonkeyKong) kongs.add((DonkeyKong) e);
+			if(e instanceof PersonagensMoveis) personagensMoveis.add((PersonagensMoveis) e);
 
-		return kongs;
+		return personagensMoveis;
 	}
 
 	public PersonagensMoveis enemyAt(Point2D pos) {
@@ -157,5 +157,10 @@ public class Room {
 			}
 
 		return dead;
+	}
+
+	public void addElement(ElementosDeJogo e) {
+		elementos.add(e);
+		ImageGUI.getInstance().addImage(e);
 	}
 }

@@ -14,12 +14,6 @@ public class DonkeyKong extends PersonagensMoveis {
     }
 
     @Override
-    public void move(Direction d) {
-        Point2D nextPos = getPosition().plus(d.asVector());
-        setPosition(nextPos);
-    }
-
-    @Override
     public String getName() {
         return "DonkeyKong";
     }
@@ -41,5 +35,16 @@ public class DonkeyKong extends PersonagensMoveis {
     @Override
     public void absorveElementoEm(Point2D pos, Room room) {
         return;
+    }
+
+    @Override
+    public void update(Room r) {
+        move(Direction.random(), r);
+        throwBanana(r);
+    }
+
+    private void throwBanana(Room r) {
+        if(Math.random() <= 0.3)
+            r.addElement(new Banana(this.getPosition().getX(), this.getPosition().getY()));
     }
 }

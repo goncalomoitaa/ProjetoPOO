@@ -45,13 +45,14 @@ public class GameEngine implements Observer {
 		while (lastTickProcessed < t) {
 			processTick();
 		}
+
 		ImageGUI.getInstance().update();
 	}
 
 	private void processTick() {
 		System.out.println("Tic Tac : " + lastTickProcessed);
-		for(DonkeyKong k : currentRoom.getKongs())
-			k.move(Direction.random(), currentRoom);
+		for(PersonagensMoveis p : currentRoom.getPersonagensMoveis())
+			p.update(currentRoom);
 
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
