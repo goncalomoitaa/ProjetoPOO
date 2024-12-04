@@ -19,7 +19,7 @@ public class GameEngine implements Observer {
 	public GameEngine() throws FileNotFoundException {
 		this.roomFiles = RoomFile.listaSalas();
 
-		RoomFile roomFile = this.roomFiles.get(1);
+		RoomFile roomFile = this.roomFiles.get(0);
 
 		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
 
@@ -37,7 +37,7 @@ public class GameEngine implements Observer {
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
-				manel.fall(currentRoom);
+				manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
 			}
 		}
 
@@ -51,10 +51,8 @@ public class GameEngine implements Observer {
 	private void processTick() {
 		System.out.println("Tic Tac : " + lastTickProcessed);
 		for(DonkeyKong k : currentRoom.getKongs())
-			k.updateMovement(currentRoom);
+			k.move(Direction.random(), currentRoom);
 
-
-		manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
 		lastTickProcessed++;

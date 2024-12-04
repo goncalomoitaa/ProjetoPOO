@@ -5,7 +5,7 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public class DonkeyKong extends PersonagensMoveis implements Enemy {
+public class DonkeyKong extends PersonagensMoveis {
     private Logger logger = Logger.getLogger();
 
     public DonkeyKong(int x, int y) {
@@ -33,11 +33,9 @@ public class DonkeyKong extends PersonagensMoveis implements Enemy {
         return false;
     }
 
-    public void updateMovement(Room currentRoom) {
+    public void move(Direction d, Room currentRoom) {
         ElementosDeJogo abaixoDoKong =
             currentRoom.objetoNaPosicao(new Point2D(this.getPosition().getX(), this.getPosition().getY() + 1));
-
-        Direction d = Direction.DOWN;
 
         if(abaixoDoKong != null && (abaixoDoKong.isSolid() || abaixoDoKong.canStep())) {
             d = Direction.random();
@@ -59,6 +57,11 @@ public class DonkeyKong extends PersonagensMoveis implements Enemy {
 
     private void bump(ElementosDeJogo e) {
         logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
+    }
+
+    @Override
+    public void absorveElementoEm(Point2D pos, Room room) {
+        return;
     }
 
     public int hurtHero() {

@@ -143,9 +143,9 @@ public class Room {
 		return kongs;
 	}
 
-	public Enemy enemyAt(Point2D pos) {
+	public PersonagensMoveis enemyAt(Point2D pos) {
 		ElementosDeJogo e = objetoNaPosicao(pos);
-		if(e instanceof Enemy) return (Enemy) e;
+		if(e instanceof PersonagensMoveis) return (PersonagensMoveis) e;
 
 		return null;
 	}
