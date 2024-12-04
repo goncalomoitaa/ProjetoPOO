@@ -31,22 +31,15 @@ public class GameEngine implements Observer {
 
 	@Override
 	public void update(Observed source) {
-		for(DonkeyKong k : currentRoom.getKongs())
-			k.updateMovement(currentRoom);
-
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
 			System.out.println("Keypressed " + k);
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
+				manel.fall(currentRoom);
 			}
-		} else {
-			manel.fall(currentRoom);
 		}
-
-		manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
-		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
@@ -57,6 +50,13 @@ public class GameEngine implements Observer {
 
 	private void processTick() {
 		System.out.println("Tic Tac : " + lastTickProcessed);
+		for(DonkeyKong k : currentRoom.getKongs())
+			k.updateMovement(currentRoom);
+
+
+		manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
+		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
+
 		lastTickProcessed++;
 	}
 }
