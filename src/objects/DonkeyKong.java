@@ -5,7 +5,7 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public class DonkeyKong extends PersonagensMoveis implements Enemy {
+public class DonkeyKong extends PersonagensMoveis {
     private Logger logger = Logger.getLogger();
 
     public DonkeyKong(int x, int y) {
@@ -33,32 +33,13 @@ public class DonkeyKong extends PersonagensMoveis implements Enemy {
         return false;
     }
 
-    public void updateMovement(Room currentRoom) {
-        ElementosDeJogo abaixoDoKong =
-            currentRoom.objetoNaPosicao(new Point2D(this.getPosition().getX(), this.getPosition().getY() + 1));
-
-        Direction d = Direction.DOWN;
-
-        if(abaixoDoKong != null && (abaixoDoKong.isSolid() || abaixoDoKong.canStep())) {
-            d = Direction.random();
-        }
-
-        Point2D nextPos = getPosition().plus(d.asVector());
-        ElementosDeJogo elementoNaPosicaoFutura = currentRoom.objetoNaPosicao(nextPos);
-        ElementosDeJogo elementoNaPosicaoAtual = currentRoom.objetoNaPosicao(this.getPosition());
-
-        boolean canClimb = elementoNaPosicaoAtual != null && !elementoNaPosicaoAtual.isClimbable();
-        if (d == Direction.UP && (canClimb || elementoNaPosicaoAtual == null)) {
-            return;
-        } else if (elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
-            bump(elementoNaPosicaoFutura);
-        } else {
-            setPosition(nextPos);
-        }
-    }
-
     private void bump(ElementosDeJogo e) {
         logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
+    }
+
+    @Override
+    public void absorveElementoEm(Point2D pos, Room room) {
+        return;
     }
 
     public int hurtHero() {

@@ -1,5 +1,6 @@
 package pt.iscte.poo.tools;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Test {
@@ -43,4 +44,5 @@ public class Test {
       System.out.println(ANSI_RED + "Alguma coisa deu errado, nos foi dado " + givenValue + " enquanto esperávamos " + expectedValue + ";" + ANSI_RESET);
     }
   }
+
 }
