@@ -31,14 +31,10 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
     public void move(Direction d, Room currentRoom) {
         Point2D nextPos = getPosition().plus(d.asVector());
 
-        ElementosDeJogo elementoNaPosicaoFutura = currentRoom.objetoNaPosicao(nextPos);
-        ElementosDeJogo elementoNaPosicaoAtual = currentRoom.objetoNaPosicao(this.getPosition());
-
-        boolean canClimb = elementoNaPosicaoAtual != null && !elementoNaPosicaoAtual.isClimbable();
-        if(d == Direction.UP && (canClimb || elementoNaPosicaoAtual == null)) {
-            return;
-        } else if(elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
-            bump(elementoNaPosicaoFutura);
+        boolean nextPosSolid = currentRoom.solidPosition(nextPos);
+        boolean currPosClimb = currentRoom.climbablePosition(this.getPosition());
+        if((d == Direction.UP && !currPosClimb) || nextPosSolid) {
+            bump(nextPos);
         } else {
             setPosition(nextPos);
             absorveElementoEm(nextPos, currentRoom);
@@ -48,18 +44,17 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
     }
 
     private void fall(Room r) {
-        if(r.objetoNaPosicao(this.getPosition()) instanceof Stairs) return;
+        if(r.solidPosition(this.getPosition()) || r.climbablePosition(this.getPosition())) return;
 
-        ElementosDeJogo abaixoDoManel =
-            r.objetoNaPosicao(new Point2D(this.getPosition().getX(), this.getPosition().getY() + 1));
-
-        if(abaixoDoManel != null && (abaixoDoManel.isSolid() || abaixoDoManel.canStep())) return;
+        boolean posSolid = r.solidPosition(new Point2D(getPosition().getX(), getPosition().getY() + 1));
+        boolean posStairs = r.climbablePosition(new Point2D(getPosition().getX(), getPosition().getY() + 1));
+        if(posSolid || posStairs) return;
 
         move(Direction.DOWN, r);
     }
 
-    private void bump(ElementosDeJogo e) {
-        logger.log("Impossível mover-se para a posição: " + e.getPosition().toString(), Logger.MessageType.ERROR);
+    private void bump(Point2D pos) {
+        logger.log(this.getName() + ": Impossível mover-se para a posição: " + pos.toString(), Logger.MessageType.ALERT);
     }
 
     public abstract void absorveElementoEm(Point2D pos, Room room);

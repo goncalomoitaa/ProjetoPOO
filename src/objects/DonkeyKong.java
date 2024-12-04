@@ -33,28 +33,6 @@ public class DonkeyKong extends PersonagensMoveis {
         return false;
     }
 
-    public void move(Direction d, Room currentRoom) {
-        ElementosDeJogo abaixoDoKong =
-            currentRoom.objetoNaPosicao(new Point2D(this.getPosition().getX(), this.getPosition().getY() + 1));
-
-        if(abaixoDoKong != null && (abaixoDoKong.isSolid() || abaixoDoKong.canStep())) {
-            d = Direction.random();
-        }
-
-        Point2D nextPos = getPosition().plus(d.asVector());
-        ElementosDeJogo elementoNaPosicaoFutura = currentRoom.objetoNaPosicao(nextPos);
-        ElementosDeJogo elementoNaPosicaoAtual = currentRoom.objetoNaPosicao(this.getPosition());
-
-        boolean canClimb = elementoNaPosicaoAtual != null && !elementoNaPosicaoAtual.isClimbable();
-        if (d == Direction.UP && (canClimb || elementoNaPosicaoAtual == null)) {
-            return;
-        } else if (elementoNaPosicaoFutura != null && elementoNaPosicaoFutura.isSolid()) {
-            bump(elementoNaPosicaoFutura);
-        } else {
-            setPosition(nextPos);
-        }
-    }
-
     private void bump(ElementosDeJogo e) {
         logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
     }

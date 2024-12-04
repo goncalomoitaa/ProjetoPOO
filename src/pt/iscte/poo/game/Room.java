@@ -43,28 +43,27 @@ public class Room {
 		ImageGUI.getInstance().addImages(elementos);
 	}
 
-	public ElementosDeJogo objetoNaPosicao(Point2D p) {
+	public List<ElementosDeJogo> objectsAt(Point2D p) {
+		List<ElementosDeJogo> lista = new ArrayList<>();
 		for (ElementosDeJogo elemento : elementos) {
 			if (elemento.getPosition().equals(p) && !(elemento instanceof Manel)) {
-				return elemento;
+				lista.add(elemento);
 			}
 		}
 
-		return null;
+		return lista;
+	}
+
+	public boolean solidPosition(Point2D pos) {
+		return objectsAt(pos).stream().anyMatch((ElementosDeJogo o) -> o.isSolid() );
+	}
+
+	public boolean climbablePosition(Point2D pos) {
+		return objectsAt(pos).stream().anyMatch((ElementosDeJogo e) -> e.isClimbable());
 	}
 
 	public List<ElementosDeJogo> getElementos() {
 		return elementos;
-	}
-
-	public boolean podeEscalar(Direction direction, Point2D point2D) { //
-		ElementosDeJogo obj = objetoNaPosicao(point2D);
-		return obj != null &&
-				obj.isClimbable();
-	}
-
-	public boolean posicaoPermitida(Point2D pos) {
-		return objetoNaPosicao(pos) != null && objetoNaPosicao(pos).isSolid();
 	}
 
 	public static Room aPartirDoFicheiro(File ficheiro) {
@@ -144,8 +143,8 @@ public class Room {
 	}
 
 	public PersonagensMoveis enemyAt(Point2D pos) {
-		ElementosDeJogo e = objetoNaPosicao(pos);
-		if(e instanceof PersonagensMoveis) return (PersonagensMoveis) e;
+		for(ElementosDeJogo e : objectsAt(pos))
+			if(e instanceof PersonagensMoveis) return (PersonagensMoveis) e;
 
 		return null;
 	}

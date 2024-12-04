@@ -1,7 +1,6 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
@@ -59,12 +58,12 @@ public class Manel extends PersonagensMoveis {
 	}
 
 	public void absorveElementoEm(Point2D pos, Room room) {
-		ElementosDeJogo e = room.objetoNaPosicao(pos);
+		for(ElementosDeJogo e : room.objectsAt(pos)) {
+			if (e == null) continue;
 
-		if(e == null) return;
-
-		heal(e.alimentaManel());
-		setPower(e.armaManel());
-		room.removeElementoInterativo(e);
+			heal(e.alimentaManel());
+			setPower(e.armaManel());
+			room.removeElementoInterativo(e);
+		}
 	}
 }
