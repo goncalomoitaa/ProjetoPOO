@@ -16,17 +16,13 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
         this.power = 0;
     }
 
-    public abstract void move(Direction d);
-
     public abstract boolean isSolid();
 
     public boolean isDead() {
         return this.healthPoints <= 0;
     }
 
-    public void takeHit(int hit) {
-        this.healthPoints -= hit;
-    }
+    public abstract void update(Room r);
 
     public void move(Direction d, Room currentRoom) {
         Point2D nextPos = getPosition().plus(d.asVector());
@@ -43,7 +39,7 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
         fall(currentRoom);
     }
 
-    private void fall(Room r) {
+    public void fall(Room r) {
         if(r.solidPosition(this.getPosition()) || r.climbablePosition(this.getPosition())) return;
 
         boolean posSolid = r.solidPosition(new Point2D(getPosition().getX(), getPosition().getY() + 1));

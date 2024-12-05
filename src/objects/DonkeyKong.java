@@ -10,12 +10,7 @@ public class DonkeyKong extends PersonagensMoveis {
 
     public DonkeyKong(int x, int y) {
         super(x, y);
-    }
-
-    @Override
-    public void move(Direction d) {
-        Point2D nextPos = getPosition().plus(d.asVector());
-        setPosition(nextPos);
+        this.setPower(5);
     }
 
     @Override
@@ -42,7 +37,14 @@ public class DonkeyKong extends PersonagensMoveis {
         return;
     }
 
-    public int hurtHero() {
-        return 5;
+    @Override
+    public void update(Room r) {
+        move(Direction.random(), r);
+        throwBanana(r);
+    }
+
+    private void throwBanana(Room r) {
+        if(Math.random() <= 0.3)
+            r.addElement(new Banana(this.getPosition().getX(), this.getPosition().getY()));
     }
 }
