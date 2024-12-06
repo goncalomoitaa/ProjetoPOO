@@ -73,6 +73,7 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
     }
 
     public int getHealthPoints() {
+        if(this.healthPoints <= 0) return 0;
         return this.healthPoints;
     }
 
