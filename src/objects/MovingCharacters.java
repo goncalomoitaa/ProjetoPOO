@@ -5,12 +5,12 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public abstract class PersonagensMoveis extends ElementosDeJogo {
+public abstract class MovingCharacters extends GameElements {
     private Logger logger = Logger.getLogger();
 
     private int healthPoints, power;
 
-    public PersonagensMoveis(int x, int y) {
+    public MovingCharacters(int x, int y) {
         super(x, y);
         this.healthPoints = 100;
         this.power = 0;
@@ -69,5 +69,14 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
 
     public void setPower(int newPower) {
         this.power = Math.max(this.power, newPower);
+    }
+
+    public int getHealthPoints() {
+        if(this.healthPoints <= 0) return 0;
+        return this.healthPoints;
+    }
+
+    public void setHealthPoints(int newHealthPoints) {
+        this.healthPoints += newHealthPoints;
     }
 }

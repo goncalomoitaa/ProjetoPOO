@@ -37,24 +37,21 @@ public class GameEngine implements Observer {
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
-				manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
 			}
 		}
-
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
+			manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
+			ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 			processTick();
 		}
-
 		ImageGUI.getInstance().update();
 	}
 
 	private void processTick() {
 		System.out.println("Tic Tac : " + lastTickProcessed);
-		for(PersonagensMoveis p : currentRoom.getPersonagensMoveis())
+		for(MovingCharacters p : currentRoom.getPersonagensMoveis())
 			p.update(currentRoom);
-
-		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
 		lastTickProcessed++;
 	}

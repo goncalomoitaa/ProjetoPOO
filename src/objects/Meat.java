@@ -1,6 +1,6 @@
 package objects;
 
-public class Meat extends ElementosAbsorviveis {
+public class Meat extends AbsorbableElements {
     public Meat(int x, int y) {
         super(x, y);
     }
@@ -13,11 +13,6 @@ public class Meat extends ElementosAbsorviveis {
     @Override
     public int getLayer() {
         return 0;
-    }
-
-    @Override
-    public void efeitos() {
-
     }
 
     @Override

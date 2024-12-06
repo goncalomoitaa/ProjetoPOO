@@ -5,7 +5,7 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public class DonkeyKong extends PersonagensMoveis {
+public class DonkeyKong extends MovingCharacters {
     private Logger logger = Logger.getLogger();
 
     public DonkeyKong(int x, int y) {
@@ -28,7 +28,7 @@ public class DonkeyKong extends PersonagensMoveis {
         return false;
     }
 
-    private void bump(ElementosDeJogo e) {
+    private void bump(GameElements e) {
         logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
     }
 
@@ -39,12 +39,15 @@ public class DonkeyKong extends PersonagensMoveis {
 
     @Override
     public void update(Room r) {
+        if(isDead()) {
+            r.removeElement(this);
+        }
         move(Direction.random(), r);
         throwBanana(r);
     }
 
     private void throwBanana(Room r) {
-        if(Math.random() <= 0.3)
+        if(Math.random() <= 0.2)
             r.addElement(new Banana(this.getPosition().getX(), this.getPosition().getY()));
     }
 }

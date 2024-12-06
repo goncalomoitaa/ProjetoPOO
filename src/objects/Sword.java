@@ -1,8 +1,6 @@
 package objects;
 
-import pt.iscte.poo.utils.Point2D;
-
-public class Sword extends ElementosAbsorviveis {
+public class Sword extends AbsorbableElements {
 
     public Sword(int x, int y) {
         super(x, y);
@@ -16,11 +14,6 @@ public class Sword extends ElementosAbsorviveis {
     @Override
     public int getLayer() {
         return 1;
-    }
-
-    @Override
-    public void efeitos() {
-
     }
 
     @Override

@@ -1,6 +1,6 @@
 package objects;
 
-public class Door extends  ElementosInterativos {
+public class Door extends InteractiveElements {
     public Door(int x, int y) {
         super(x, y);
     }
@@ -13,11 +13,6 @@ public class Door extends  ElementosInterativos {
     @Override
     public int getLayer() {
         return 0;
-    }
-
-    @Override
-    public void efeitos() {
-
     }
 
 }

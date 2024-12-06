@@ -1,10 +1,10 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.utils.Direction;
+import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.utils.Point2D;
 
-public class Manel extends PersonagensMoveis {
+public class Manel extends MovingCharacters {
 	private static Manel unicoManel;
 
 	private Manel(int x, int y){
@@ -47,17 +47,21 @@ public class Manel extends PersonagensMoveis {
 
 	@Override
 	public void update(Room r) {
-		return;
+		if(isDead()) {
+			r.removeElement(this);
+		}
+		ImageGUI.getInstance().setStatusMessage("Life JumpMan: " + getHealthPoints() + "/100");
 	}
 
-	public void fightEnemy(PersonagensMoveis e) {
+	public void fightEnemy(MovingCharacters e) {
 		if(e == null) return;
-		injure(e.getPower());
 		e.injure(this.getPower());
+		injure(e.getPower());
+		System.out.println(getHealthPoints());
 	}
 
 	public void absorveElementoEm(Point2D pos, Room room) {
-		for(ElementosDeJogo e : room.objectsAt(pos)) {
+		for(GameElements e : room.objectsAt(pos)) {
 			if (e == null) continue;
 
 			heal(e.alimentaManel());

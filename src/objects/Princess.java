@@ -1,6 +1,6 @@
 package objects;
 
-public class Princess extends ElementosInterativos {
+public class Princess extends InteractiveElements {
     public Princess(int x, int y) {
         super(x, y);
     }
@@ -13,10 +13,5 @@ public class Princess extends ElementosInterativos {
     @Override
     public int getLayer() {
         return 0;
-    }
-
-    @Override
-    public void efeitos() {
-
     }
 }
