@@ -15,9 +15,4 @@ public class Door extends  ElementosInterativos {
         return 0;
     }
 
-    @Override
-    public void efeitos() {
-
-    }
-
 }

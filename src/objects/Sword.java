@@ -19,11 +19,6 @@ public class Sword extends ElementosAbsorviveis {
     }
 
     @Override
-    public void efeitos() {
-
-    }
-
-    @Override
     public int armaManel() {
         return 100;
     }

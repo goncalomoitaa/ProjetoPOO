@@ -14,9 +14,4 @@ public class Princess extends ElementosInterativos {
     public int getLayer() {
         return 0;
     }
-
-    @Override
-    public void efeitos() {
-
-    }
 }

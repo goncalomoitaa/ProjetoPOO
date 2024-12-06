@@ -16,11 +16,6 @@ public class Meat extends ElementosAbsorviveis {
     }
 
     @Override
-    public void efeitos() {
-
-    }
-
-    @Override
     public int alimentaManel() {
         return 10;
     }
