@@ -41,6 +41,9 @@ public class Banana extends PersonagensMoveis {
     }
 
     public void update(Room r) {
+        if(isDead()) {
+            r.removeElement(this);
+        }
         move(Direction.DOWN, r);
     }
 }

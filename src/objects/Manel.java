@@ -47,7 +47,9 @@ public class Manel extends PersonagensMoveis {
 
 	@Override
 	public void update(Room r) {
-		return;
+		if(isDead()) {
+			r.removeElement(this);
+		}
 	}
 
 	public void fightEnemy(PersonagensMoveis e) {

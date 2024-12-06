@@ -40,7 +40,7 @@ public class DonkeyKong extends PersonagensMoveis {
     @Override
     public void update(Room r) {
         if(isDead()) {
-            return;
+            r.removeElement(this);
         }
         move(Direction.random(), r);
         throwBanana(r);

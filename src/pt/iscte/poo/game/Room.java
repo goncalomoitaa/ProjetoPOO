@@ -163,4 +163,8 @@ public class Room {
 		elementos.add(e);
 		ImageGUI.getInstance().addImage(e);
 	}
+
+	public void removeElement(ElementosDeJogo e) {
+		elementos.remove(e);
+	}
 }
