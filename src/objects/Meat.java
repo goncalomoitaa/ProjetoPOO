@@ -1,5 +1,7 @@
 package objects;
 
+import pt.iscte.poo.gui.ImageGUI;
+
 public class Meat extends AbsorbableElements {
     public Meat(int x, int y) {
         super(x, y);
@@ -16,12 +18,8 @@ public class Meat extends AbsorbableElements {
     }
 
     @Override
-    public int alimentaManel() {
-        return 10;
-    }
-
-    @Override
-    public String getMensagemDeInteracao() {
-        return "GANDA PREGO PRO ALMOÇO!";
+    public void effects() {
+        Manel.getUnicoManel().setHealthPoints(10);
+        ImageGUI.getInstance().setStatusMessage("GANDA PREGO PRO ALMOÇO!");
     }
 }
