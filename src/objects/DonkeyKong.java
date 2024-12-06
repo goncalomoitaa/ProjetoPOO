@@ -39,12 +39,15 @@ public class DonkeyKong extends PersonagensMoveis {
 
     @Override
     public void update(Room r) {
+        if(isDead()) {
+            return;
+        }
         move(Direction.random(), r);
         throwBanana(r);
     }
 
     private void throwBanana(Room r) {
-        if(Math.random() <= 0.3)
+        if(Math.random() <= 0.2)
             r.addElement(new Banana(this.getPosition().getX(), this.getPosition().getY()));
     }
 }

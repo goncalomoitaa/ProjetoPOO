@@ -37,7 +37,7 @@ public class GameEngine implements Observer {
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
-				manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
+				manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));//eu pos lá em baixo tbm porque se s+o ficar aqui, o manel se levar com uma banana em cima nao leva dano, mas quero arranjar outra forma sem ser esta
 			}
 		}
 
@@ -54,6 +54,7 @@ public class GameEngine implements Observer {
 		for(PersonagensMoveis p : currentRoom.getPersonagensMoveis())
 			p.update(currentRoom);
 
+		manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 
 		lastTickProcessed++;

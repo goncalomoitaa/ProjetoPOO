@@ -1,6 +1,7 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
+import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
@@ -69,5 +70,13 @@ public abstract class PersonagensMoveis extends ElementosDeJogo {
 
     public void setPower(int newPower) {
         this.power = Math.max(this.power, newPower);
+    }
+
+    public int getHealthPoints() {
+        return this.healthPoints;
+    }
+
+    public void setHealthPoints(int newHealthPoints) {
+        this.healthPoints += newHealthPoints;
     }
 }
