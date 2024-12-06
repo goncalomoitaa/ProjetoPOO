@@ -1,5 +1,7 @@
 package objects;
 
+import pt.iscte.poo.gui.ImageGUI;
+
 public class Sword extends AbsorbableElements {
 
     public Sword(int x, int y) {
@@ -17,12 +19,8 @@ public class Sword extends AbsorbableElements {
     }
 
     @Override
-    public int armaManel() {
-        return 100;
-    }
-
-    @Override
-    public String getMensagemDeInteracao() {
-        return "WOOHOO, ESPADAAAA!";
+    public void effects() {
+        Manel.getUnicoManel().setPower(100);
+        ImageGUI.getInstance().setStatusMessage("WOOHOO, ESPADAAAA!");
     }
 }

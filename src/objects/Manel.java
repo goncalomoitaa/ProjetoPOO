@@ -50,22 +50,22 @@ public class Manel extends MovingCharacters {
 		if(isDead()) {
 			r.removeElement(this);
 		}
-		ImageGUI.getInstance().setStatusMessage("Life JumpMan: " + getHealthPoints() + "/100");
 	}
 
 	public void fightEnemy(MovingCharacters e) {
 		if(e == null) return;
 		e.injure(this.getPower());
 		injure(e.getPower());
+		ImageGUI.getInstance().setStatusMessage("Life JumpMan: " + getHealthPoints() + "/100");
 		System.out.println(getHealthPoints());
 	}
 
 	public void absorveElementoEm(Point2D pos, Room room) {
-		for(GameElements e : room.objectsAt(pos)) {
-			if (e == null) continue;
-
-			heal(e.alimentaManel());
-			setPower(e.armaManel());
+		for(InteractiveElements e : room.objectsAbsorbable(pos)) {
+			if (!e.getPosition().equals(pos) || e.getClass().equals(Stairs.class)) {
+				continue;
+			}
+			e.effects();
 			room.removeElementoInterativo(e);
 		}
 	}

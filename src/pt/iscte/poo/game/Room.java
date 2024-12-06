@@ -53,6 +53,16 @@ public class Room {
 		return lista;
 	}
 
+	public List<InteractiveElements> objectsAbsorbable(Point2D p) {
+		List<InteractiveElements> lista = new ArrayList<>();
+		for (GameElements elemento : elementos) {
+			if (elemento instanceof InteractiveElements) {
+				lista.add((InteractiveElements) elemento);
+			}
+		}
+		return lista;
+	}
+
 	public boolean solidPosition(Point2D pos) {
 		return objectsAt(pos).stream().anyMatch((GameElements o) -> o.isSolid() );
 	}
@@ -110,7 +120,7 @@ public class Room {
 				case 't' -> new Trap(x, y);
 				case 'H' -> Manel.getUnicoManel(x, y);
 				case 'G' -> new DonkeyKong(x, y);
-				case '0' -> new Door(x, y);
+				case '0' -> new Door(x, y, DoorStatus.CLOSED);
 				case 'm' -> new Meat(x, y);
 				case 'P' -> new Princess(x, y);
 				default -> null;
@@ -121,12 +131,7 @@ public class Room {
 		return null;
 	}
 
-	public String getNome() {
-		return this.nome;
-	}
-
 	public void removeElementoInterativo(GameElements e) {
-		if(e.getMensagemDeInteracao() != null) ImageGUI.getInstance().setStatusMessage(e.getMensagemDeInteracao());
 		if(e instanceof AbsorbableElements) {
 			ImageGUI.getInstance().removeImage(e);
 			elementos.remove(e);
