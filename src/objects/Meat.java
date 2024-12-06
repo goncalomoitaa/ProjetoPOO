@@ -1,6 +1,6 @@
 package objects;
 
-public class Meat extends ElementosAbsorviveis {
+public class Meat extends AbsorbableElements {
     public Meat(int x, int y) {
         super(x, y);
     }

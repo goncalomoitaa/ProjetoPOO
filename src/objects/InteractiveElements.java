@@ -1,9 +1,9 @@
 package objects;
 
-public abstract class ElementosInterativos extends ElementosDeJogo {
+public abstract class InteractiveElements extends GameElements {
 
 
-    public ElementosInterativos(int x, int y) {
+    public InteractiveElements(int x, int y) {
         super(x, y);
     }
 

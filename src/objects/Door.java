@@ -1,6 +1,6 @@
 package objects;
 
-public class Door extends  ElementosInterativos {
+public class Door extends InteractiveElements {
     public Door(int x, int y) {
         super(x, y);
     }

@@ -1,9 +1,6 @@
 package pt.iscte.poo.game;
 
-import objects.ElementosDeJogo;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import pt.iscte.poo.tools.Logger;

@@ -3,11 +3,11 @@ package objects;
 import pt.iscte.poo.gui.ImageTile;
 import pt.iscte.poo.utils.Point2D;
 
-public abstract class ElementosDeJogo implements ImageTile {
+public abstract class GameElements implements ImageTile {
 
     private Point2D position;
 
-    public ElementosDeJogo(int x, int y) {
+    public GameElements(int x, int y) {
         this.position = new Point2D(x, y);
     }
 

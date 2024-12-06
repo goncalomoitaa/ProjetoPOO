@@ -4,7 +4,7 @@ import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public class Banana extends PersonagensMoveis {
+public class Banana extends MovingCharacters {
 
     public Banana(int x, int y) {
         super(x, y);

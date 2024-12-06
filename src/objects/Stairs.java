@@ -1,8 +1,6 @@
 package objects;
 
-import pt.iscte.poo.utils.Point2D;
-
-public class Stairs extends ElementosInterativos {
+public class Stairs extends InteractiveElements {
 
     public Stairs(int x, int y) {
         super(x, y);

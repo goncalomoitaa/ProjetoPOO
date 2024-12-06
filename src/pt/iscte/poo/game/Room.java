@@ -16,13 +16,13 @@ import static pt.iscte.poo.tools.Logger.MessageType.*;
 
 public class Room {
 
-	private List<ElementosDeJogo> elementos;
+	private List<GameElements> elementos;
 	private Logger logger = Logger.getLogger();
 
 	private String nome;
 	private final ArrayList<Background> backgroundTiles;
 
-	public Room(List<ElementosDeJogo> elementos, String nome) throws FileNotFoundException {
+	public Room(List<GameElements> elementos, String nome) throws FileNotFoundException {
 		logger.log("Criando Room " + nome, INFO);
 		this.nome = nome;
 		this.elementos = elementos;
@@ -42,9 +42,9 @@ public class Room {
 		ImageGUI.getInstance().addImages(elementos);
 	}
 
-	public List<ElementosDeJogo> objectsAt(Point2D p) {
-		List<ElementosDeJogo> lista = new ArrayList<>();
-		for (ElementosDeJogo elemento : elementos) {
+	public List<GameElements> objectsAt(Point2D p) {
+		List<GameElements> lista = new ArrayList<>();
+		for (GameElements elemento : elementos) {
 			if (elemento.getPosition().equals(p) && !(elemento instanceof Manel)) {
 				lista.add(elemento);
 			}
@@ -54,14 +54,14 @@ public class Room {
 	}
 
 	public boolean solidPosition(Point2D pos) {
-		return objectsAt(pos).stream().anyMatch((ElementosDeJogo o) -> o.isSolid() );
+		return objectsAt(pos).stream().anyMatch((GameElements o) -> o.isSolid() );
 	}
 
 	public boolean climbablePosition(Point2D pos) {
-		return objectsAt(pos).stream().anyMatch((ElementosDeJogo e) -> e.isClimbable());
+		return objectsAt(pos).stream().anyMatch((GameElements e) -> e.isClimbable());
 	}
 
-	public List<ElementosDeJogo> getElementos() {
+	public List<GameElements> getElementos() {
 		return elementos;
 	}
 
@@ -75,11 +75,11 @@ public class Room {
 		return null;
 	}
 
-	public static List<ElementosDeJogo> lerFicheiro(File ficheiro) {
+	public static List<GameElements> lerFicheiro(File ficheiro) {
 		try {
 			if (ficheiro.isDirectory()) return null;
 
-			List<ElementosDeJogo> elementos = new ArrayList<>();
+			List<GameElements> elementos = new ArrayList<>();
 			Scanner sc = new Scanner(ficheiro);
 			sc.nextLine(); // TODO: substituir pela extração das infos da room (nome e proxima room);
 
@@ -87,7 +87,7 @@ public class Room {
 			while (sc.hasNextLine()) {
 				char[] tokens = sc.nextLine().toCharArray();
 				for (int i = 0; i < tokens.length; i++) {
-					ElementosDeJogo e = criarElementoDeJogo(tokens[i], i, j);
+					GameElements e = criarElementoDeJogo(tokens[i], i, j);
 					if(e != null) elementos.add(e);
 				}
 				j++;
@@ -101,7 +101,7 @@ public class Room {
 		return new ArrayList<>();
 	}
 
-	private static ElementosDeJogo criarElementoDeJogo(char tipo, int x, int y) {
+	private static GameElements criarElementoDeJogo(char tipo, int x, int y) {
 		try {
 			return switch (tipo) {
 				case 'W' -> new Wall(x, y);
@@ -125,46 +125,46 @@ public class Room {
 		return this.nome;
 	}
 
-	public void removeElementoInterativo(ElementosDeJogo e) {
+	public void removeElementoInterativo(GameElements e) {
 		if(e.getMensagemDeInteracao() != null) ImageGUI.getInstance().setStatusMessage(e.getMensagemDeInteracao());
-		if(e instanceof ElementosAbsorviveis) {
+		if(e instanceof AbsorbableElements) {
 			ImageGUI.getInstance().removeImage(e);
 			elementos.remove(e);
 		}
 	}
 
-	public List<PersonagensMoveis> getPersonagensMoveis() {
-		ArrayList<PersonagensMoveis> personagensMoveis = new ArrayList<>();
-		for(ElementosDeJogo e : elementos)
-			if(e instanceof PersonagensMoveis) personagensMoveis.add((PersonagensMoveis) e);
+	public List<MovingCharacters> getPersonagensMoveis() {
+		ArrayList<MovingCharacters> personagensMoveis = new ArrayList<>();
+		for(GameElements e : elementos)
+			if(e instanceof MovingCharacters) personagensMoveis.add((MovingCharacters) e);
 
 		return personagensMoveis;
 	}
 
-	public PersonagensMoveis enemyAt(Point2D pos) {
-		for(ElementosDeJogo e : objectsAt(pos))
-			if(e instanceof PersonagensMoveis) return (PersonagensMoveis) e;
+	public MovingCharacters enemyAt(Point2D pos) {
+		for(GameElements e : objectsAt(pos))
+			if(e instanceof MovingCharacters) return (MovingCharacters) e;
 
 		return null;
 	}
 
-	public List<ElementosDeJogo> deadEnemies() {
-		List<ElementosDeJogo> dead = new ArrayList<ElementosDeJogo>();
-		for(ElementosDeJogo elem : elementos)
-			if(elem instanceof PersonagensMoveis) {
-				PersonagensMoveis e = (PersonagensMoveis) elem;
+	public List<GameElements> deadEnemies() {
+		List<GameElements> dead = new ArrayList<GameElements>();
+		for(GameElements elem : elementos)
+			if(elem instanceof MovingCharacters) {
+				MovingCharacters e = (MovingCharacters) elem;
 				if(e.isDead()) dead.add(e);
 			}
 
 		return dead;
 	}
 
-	public void addElement(ElementosDeJogo e) {
+	public void addElement(GameElements e) {
 		elementos.add(e);
 		ImageGUI.getInstance().addImage(e);
 	}
 
-	public void removeElement(ElementosDeJogo e) {
+	public void removeElement(GameElements e) {
 		elementos.remove(e);
 	}
 }

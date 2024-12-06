@@ -1,17 +1,16 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public abstract class PersonagensMoveis extends ElementosDeJogo {
+public abstract class MovingCharacters extends GameElements {
     private Logger logger = Logger.getLogger();
 
     private int healthPoints, power;
 
-    public PersonagensMoveis(int x, int y) {
+    public MovingCharacters(int x, int y) {
         super(x, y);
         this.healthPoints = 100;
         this.power = 0;

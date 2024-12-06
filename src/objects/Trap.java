@@ -1,8 +1,6 @@
 package objects;
 
-import pt.iscte.poo.utils.Point2D;
-
-public class Trap extends ElementosEstaticos {
+public class Trap extends StaticElements {
 
     public Trap(int x, int y) {
         super(x, y);

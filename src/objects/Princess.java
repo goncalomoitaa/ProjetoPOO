@@ -1,6 +1,6 @@
 package objects;
 
-public class Princess extends ElementosInterativos {
+public class Princess extends InteractiveElements {
     public Princess(int x, int y) {
         super(x, y);
     }
