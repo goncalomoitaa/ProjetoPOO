@@ -1,8 +1,9 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.utils.Point2D;
+
+import java.util.ArrayList;
 
 public class Manel extends MovingCharacters {
 	private static Manel unicoManel;
@@ -52,21 +53,15 @@ public class Manel extends MovingCharacters {
 		}
 	}
 
-	public void fightEnemy(MovingCharacters e) {
-		if(e == null) return;
-		e.injure(this.getPower());
-		injure(e.getPower());
-		ImageGUI.getInstance().setStatusMessage("Life JumpMan: " + getHealthPoints() + "/100");
-
+	public String getHealtStatusMessage() {
+		return getHealthPoints() + " / 100";
 	}
 
-	public void absorveElementoEm(Point2D pos, Room room) {
-		for(InteractiveElements e : room.objectsAbsorbable(pos)) {
-			if (!e.getPosition().equals(pos) || e.getClass().equals(Stairs.class)) {
-				continue;
-			}
-			e.effects();
-			room.removeElementoInterativo(e);
+	public void fightEnemy(ArrayList<MovingCharacters> enemies) {
+		for(MovingCharacters e : enemies) {
+			if (e == null) return;
+			e.injure(this.getPower());
+			injure(e.getPower());
 		}
 	}
 }

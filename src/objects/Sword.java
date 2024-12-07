@@ -19,8 +19,8 @@ public class Sword extends AbsorbableElements {
     }
 
     @Override
-    public void effects() {
-        Manel.getUnicoManel().setPower(100);
-        ImageGUI.getInstance().setStatusMessage("WOOHOO, ESPADAAAA!");
+    public void interact(Manel manel) {
+        manel.setPower(100);
+        super.setUsed();
     }
 }

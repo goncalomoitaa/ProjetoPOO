@@ -22,7 +22,7 @@ public class Stairs extends InteractiveElements {
     }
 
     @Override
-    public void effects() {
-
+    public void interact(Manel manel) {
+        return;
     }
 }

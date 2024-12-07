@@ -1,6 +1,5 @@
 package objects;
 
 public interface Interaction {
-
-    public void effects();
+    public void interact(Manel manel);
 }

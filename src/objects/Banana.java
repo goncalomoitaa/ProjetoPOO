@@ -35,10 +35,6 @@ public class Banana extends MovingCharacters {
         return false;
     }
 
-    @Override
-    public void absorveElementoEm(Point2D pos, Room room) {
-        return;
-    }
 
     public void update(Room r) {
         if(isDead()) {

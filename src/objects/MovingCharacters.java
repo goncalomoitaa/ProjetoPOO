@@ -33,7 +33,6 @@ public abstract class MovingCharacters extends GameElements {
             bump(nextPos);
         } else {
             setPosition(nextPos);
-            absorveElementoEm(nextPos, currentRoom);
         }
 
         fall(currentRoom);
@@ -52,8 +51,6 @@ public abstract class MovingCharacters extends GameElements {
     private void bump(Point2D pos) {
         logger.log(this.getName() + ": Impossível mover-se para a posição: " + pos.toString(), Logger.MessageType.ALERT);
     }
-
-    public abstract void absorveElementoEm(Point2D pos, Room room);
 
     public void heal(int healthPoints) {
         this.healthPoints += healthPoints;

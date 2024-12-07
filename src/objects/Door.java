@@ -36,7 +36,7 @@ public class Door extends InteractiveElements {
     }
 
     @Override
-    public void effects() {
+    public void interact(Manel manel) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
             ImageGUI.getInstance().setStatusMessage("PORTA ABERTA!!!");

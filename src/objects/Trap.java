@@ -36,11 +36,10 @@ public class Trap extends InteractiveElements {
     }
 
     @Override
-    public void effects() {
+    public void interact(Manel manel) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
-            Manel.getUnicoManel().increseHealth(-20);
-            ImageGUI.getInstance().setStatusMessage("Life JumpMan: " + Manel.getUnicoManel().getHealthPoints() + "/100");
+            manel.getUnicoManel().increseHealth(-20);
         }
     }
 }
