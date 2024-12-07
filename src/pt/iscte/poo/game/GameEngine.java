@@ -9,6 +9,7 @@ import pt.iscte.poo.utils.Direction;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Optional;
 
 public class GameEngine implements Observer {
 	
@@ -22,10 +23,9 @@ public class GameEngine implements Observer {
 
 		RoomFile roomFile = this.roomFiles.get(0);
 
-		currentRoom = Room.aPartirDoFicheiro(roomFile.file());
+		currentRoom = Room.fromFile(roomFile.file());
 
-		ImageGUI.getInstance().addImages(currentRoom.getBackground());
-		ImageGUI.getInstance().addImages(currentRoom.getElementos());
+		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
 		ImageGUI.getInstance().update();
 	}
@@ -74,6 +74,29 @@ public class GameEngine implements Observer {
 		for(MovingCharacters p : currentRoom.getPersonagensMoveis())
 			p.update(currentRoom);
 
+		checkForDoors();
 		lastTickProcessed++;
+	}
+
+	private void checkForDoors() {
+		Door doorAtManelPosition = (Door) currentRoom
+				.interactiveElementsAt(manel.getPosition())
+				.stream().filter((e) -> e instanceof Door)
+				.findFirst()
+				.orElse(null);
+
+		if (doorAtManelPosition == null) {
+			return;
+		}
+
+		currentRoom = Room.fromFile(doorAtManelPosition.getDestinationRoom().getDoorDestinationFile());
+		prepareRoom();
+	}
+
+	private void prepareRoom() {
+		ImageGUI.getInstance().clearImages();
+		ImageGUI.getInstance().addImages(currentRoom.getBackground());
+		ImageGUI.getInstance().addImages(currentRoom.getElementos());
+		ImageGUI.getInstance().update();
 	}
 }

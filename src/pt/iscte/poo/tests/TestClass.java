@@ -9,11 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.File;
 
 import static pt.iscte.poo.tools.Test.assertEquals;
-import static pt.iscte.poo.tools.Test.assertNull;
 
 public class TestClass {
     public static void main(String[] args) throws FileNotFoundException {
-        Room room = Room.aPartirDoFicheiro(new File("src/pt/iscte/poo/tests/rooms/room1.fixture.txt"));
+        Room room = Room.fromFile(new File("src/pt/iscte/poo/tests/rooms/room1.fixture.txt"));
         Manel m = Manel.getUnicoManel(3,8);
         assertEquals(room.objectsAt(new Point2D(7,8)).size(), 0);
         assertEquals(room.objectsAt(new Point2D(3,8)).size(), 0); // Posição do Manel, que não é objeto

@@ -7,7 +7,7 @@ public class Princess extends InteractiveElements {
 
     @Override
     public String getName() {
-        return null;
+        return "Princess";
     }
 
     @Override

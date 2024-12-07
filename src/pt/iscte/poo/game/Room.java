@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import pt.iscte.poo.tools.Logger;
@@ -75,9 +76,9 @@ public class Room {
 		return elementos;
 	}
 
-	public static Room aPartirDoFicheiro(File ficheiro) {
+	public static Room fromFile(File file) {
 		try {
-			return new Room(lerFicheiro(ficheiro), ficheiro.getName());
+			return new Room(readElementsFrom(file), file.getName());
 		} catch(FileNotFoundException e) {
 			Logger.getLogger().log(e.getMessage(), ERROR);
 		}
@@ -85,23 +86,59 @@ public class Room {
 		return null;
 	}
 
-	public static List<GameElements> lerFicheiro(File ficheiro) {
+	private static void readDoorsDestinations(Scanner sc, List<DoorDestination> destinations) {
+		String line = null;
+
+		while(sc.hasNextLine()) {
+			line = sc.nextLine();
+			if(!line.contains(";"))
+				break;
+
+			destinations.add(new DoorDestination("rooms/" + line.split(";")[1]));
+		}
+	}
+
+	private static void scanLinesForElements(Scanner sc, List<GameElements> elementos, List<DoorDestination> doorDestinations) {
+		String line = null;
+		int j = 0;
+
+		while (sc.hasNextLine()) {
+			line = sc.nextLine();
+			if(line.contains(";")) continue;
+
+			char[] tokens = line.toCharArray();
+			for (int i = 0; i < tokens.length; i++) {
+				GameElements e = createGameElement(tokens[i], i, j);
+				if(e != null) {
+					elementos.add(e);
+
+					try {
+						// To set the value of the destination room for a given door
+						if (e instanceof Door)
+							((Door) e).setDestinationRoom(doorDestinations.removeFirst());
+					} catch(NoSuchElementException exception) {
+						Logger.getLogger().log("Tentativa de atribuir destino inexistente para porta", ERROR);
+						throw exception;
+					}
+				}
+			}
+			j++;
+		}
+	}
+	public static List<GameElements> readElementsFrom(File ficheiro) {
 		try {
 			if (ficheiro.isDirectory()) return null;
 
 			List<GameElements> elementos = new ArrayList<>();
+			List<DoorDestination> doorDestinations = new ArrayList<>();
 			Scanner sc = new Scanner(ficheiro);
-			sc.nextLine(); // TODO: substituir pela extração das infos da room (nome e proxima room);
 
-			int j = 0;
-			while (sc.hasNextLine()) {
-				char[] tokens = sc.nextLine().toCharArray();
-				for (int i = 0; i < tokens.length; i++) {
-					GameElements e = criarElementoDeJogo(tokens[i], i, j);
-					if(e != null) elementos.add(e);
-				}
-				j++;
-			}
+			readDoorsDestinations(sc, doorDestinations);
+
+			sc = new Scanner(ficheiro);
+
+			scanLinesForElements(sc, elementos, doorDestinations);
+
 			sc.close();
 			return elementos;
 		} catch(FileNotFoundException e) {
@@ -111,7 +148,7 @@ public class Room {
 		return new ArrayList<>();
 	}
 
-	private static GameElements criarElementoDeJogo(char tipo, int x, int y) {
+	private static GameElements createGameElement(char tipo, int x, int y) {
 		try {
 			return switch (tipo) {
 				case 'W' -> new Wall(x, y);
