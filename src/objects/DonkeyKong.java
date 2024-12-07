@@ -38,6 +38,8 @@ public class DonkeyKong extends MovingCharacters {
             r.removeElement(this);
         }
         move(Direction.random(), r);
+        fall(r);
+        
         throwBanana(r);
     }
 

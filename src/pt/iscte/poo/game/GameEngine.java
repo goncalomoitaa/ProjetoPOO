@@ -47,6 +47,7 @@ public class GameEngine implements Observer {
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
+			manel.fall(currentRoom);
 		}
 		ImageGUI.getInstance().update();
 	}
