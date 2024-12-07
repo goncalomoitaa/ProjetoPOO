@@ -34,8 +34,6 @@ public abstract class MovingCharacters extends GameElements {
         } else {
             setPosition(nextPos);
         }
-
-        fall(currentRoom);
     }
 
     public void fall(Room r) {
