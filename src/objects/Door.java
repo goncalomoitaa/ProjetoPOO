@@ -2,14 +2,15 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.gui.ImageGUI;
+import pt.iscte.poo.utils.Direction;
 
 public class Door extends InteractiveElements {
 
     private DoorStatus status;
 
-    public Door(int x, int y, DoorStatus status) {
+    public Door(int x, int y) {
         super(x, y);
-        this.status = status;
+        this.status = DoorStatus.CLOSED;
     }
 
     @Override
@@ -26,7 +27,7 @@ public class Door extends InteractiveElements {
     }
 
     public void setStatus(DoorStatus ds) {
-        status = ds;
+        this.status = ds;
     }
 
     @Override
@@ -38,7 +39,7 @@ public class Door extends InteractiveElements {
     public void effects() {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
-            ImageGUI.getInstance().setStatusMessage("PORTA ABERTA");
+            ImageGUI.getInstance().setStatusMessage("PORTA ABERTA!!!");
         }
     }
 }

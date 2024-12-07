@@ -120,7 +120,7 @@ public class Room {
 				case 't' -> new Trap(x, y);
 				case 'H' -> Manel.getUnicoManel(x, y);
 				case 'G' -> new DonkeyKong(x, y);
-				case '0' -> new Door(x, y, DoorStatus.CLOSED);
+				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
 				case 'P' -> new Princess(x, y);
 				default -> null;

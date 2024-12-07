@@ -19,7 +19,7 @@ public class Meat extends AbsorbableElements {
 
     @Override
     public void effects() {
-        Manel.getUnicoManel().setHealthPoints(10);
-        ImageGUI.getInstance().setStatusMessage("GANDA PREGO PRO ALMOÇO!");
+        Manel.getUnicoManel().increseHealth(10);
+        ImageGUI.getInstance().setStatusMessage("GANDA PREGO!");
     }
 }

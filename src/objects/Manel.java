@@ -57,7 +57,7 @@ public class Manel extends MovingCharacters {
 		e.injure(this.getPower());
 		injure(e.getPower());
 		ImageGUI.getInstance().setStatusMessage("Life JumpMan: " + getHealthPoints() + "/100");
-		System.out.println(getHealthPoints());
+
 	}
 
 	public void absorveElementoEm(Point2D pos, Room room) {
