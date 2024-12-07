@@ -42,4 +42,9 @@ public class Trap extends InteractiveElements {
             manel.getUnicoManel().increseHealth(-20);
         }
     }
+
+    @Override
+    public String getInteractionMessage() {
+        return null;
+    }
 }

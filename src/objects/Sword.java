@@ -23,4 +23,9 @@ public class Sword extends AbsorbableElements {
         manel.setPower(100);
         super.setUsed();
     }
+
+    @Override
+    public String getInteractionMessage() {
+        return "GANDA ESPADA DO REI AFONSO!";
+    }
 }

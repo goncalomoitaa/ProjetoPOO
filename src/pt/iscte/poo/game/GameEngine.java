@@ -53,8 +53,10 @@ public class GameEngine implements Observer {
 
 	private void processInteractables() {
 		ArrayList<InteractiveElements> interactiveElements = currentRoom.interactiveElementsAt(manel.getPosition());
-		for(InteractiveElements e : interactiveElements)
+		for(InteractiveElements e : interactiveElements) {
 			e.interact(manel);
+			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
+		}
 
 		ImageGUI.getInstance().removeImages(currentRoom.usedElements());
 	}

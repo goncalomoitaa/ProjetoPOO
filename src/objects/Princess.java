@@ -19,4 +19,9 @@ public class Princess extends InteractiveElements {
     public void interact(Manel manel) {
         return;
     }
+
+    @Override
+    public String getInteractionMessage() {
+        return "Ah! Meu herói!";
+    }
 }

@@ -25,4 +25,9 @@ public class Stairs extends InteractiveElements {
     public void interact(Manel manel) {
         return;
     }
+
+    @Override
+    public String getInteractionMessage() {
+        return null;
+    }
 }

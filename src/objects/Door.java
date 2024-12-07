@@ -42,4 +42,9 @@ public class Door extends InteractiveElements {
             ImageGUI.getInstance().setStatusMessage("PORTA ABERTA!!!");
         }
     }
+
+    @Override
+    public String getInteractionMessage() {
+        return null;
+    }
 }
