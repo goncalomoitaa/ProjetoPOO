@@ -14,4 +14,14 @@ public class Princess extends InteractiveElements {
     public int getLayer() {
         return 0;
     }
+
+    @Override
+    public void interact(Manel manel) {
+        return;
+    }
+
+    @Override
+    public String getInteractionMessage() {
+        return "Ah! Meu herói!";
+    }
 }

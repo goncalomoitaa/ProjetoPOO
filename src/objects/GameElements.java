@@ -34,18 +34,6 @@ public abstract class GameElements implements ImageTile {
         return false;
     }
 
-    public int alimentaManel() {
-        return 0;
-    }
-
-    public int armaManel() {
-        return 0;
-    }
-
-    public String getMensagemDeInteracao() {
-        return null;
-    }
-
     public boolean canStep() {
         return true;
     }

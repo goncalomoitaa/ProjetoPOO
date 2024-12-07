@@ -16,12 +16,13 @@ public class Meat extends AbsorbableElements {
     }
 
     @Override
-    public int alimentaManel() {
-        return 10;
+    public void interact(Manel manel) {
+        manel.increseHealth(10);
+        super.setUsed();
     }
 
     @Override
-    public String getMensagemDeInteracao() {
-        return "GANDA PREGO PRO ALMOÇO!";
+    public String getInteractionMessage() {
+        return "GANDA PREGO PRO ALMOÇO!!!";
     }
 }

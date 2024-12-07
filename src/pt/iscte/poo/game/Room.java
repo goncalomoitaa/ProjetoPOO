@@ -53,6 +53,16 @@ public class Room {
 		return lista;
 	}
 
+	public ArrayList<InteractiveElements> interactiveElementsAt(Point2D p) {
+		ArrayList<InteractiveElements> lista = new ArrayList<>();
+		for (GameElements elemento : elementos) {
+			if (elemento instanceof InteractiveElements && elemento.getPosition().equals(p)) {
+				lista.add((InteractiveElements) elemento);
+			}
+		}
+		return lista;
+	}
+
 	public boolean solidPosition(Point2D pos) {
 		return objectsAt(pos).stream().anyMatch((GameElements o) -> o.isSolid() );
 	}
@@ -121,12 +131,7 @@ public class Room {
 		return null;
 	}
 
-	public String getNome() {
-		return this.nome;
-	}
-
 	public void removeElementoInterativo(GameElements e) {
-		if(e.getMensagemDeInteracao() != null) ImageGUI.getInstance().setStatusMessage(e.getMensagemDeInteracao());
 		if(e instanceof AbsorbableElements) {
 			ImageGUI.getInstance().removeImage(e);
 			elementos.remove(e);
@@ -141,11 +146,13 @@ public class Room {
 		return personagensMoveis;
 	}
 
-	public MovingCharacters enemyAt(Point2D pos) {
-		for(GameElements e : objectsAt(pos))
-			if(e instanceof MovingCharacters) return (MovingCharacters) e;
+	public ArrayList<MovingCharacters> enemiesAt(Point2D pos) {
+		ArrayList<MovingCharacters> l = new ArrayList<>();
 
-		return null;
+		for(GameElements e : objectsAt(pos))
+			if(e instanceof MovingCharacters) l.add((MovingCharacters) e);
+
+		return l;
 	}
 
 	public List<GameElements> deadEnemies() {
@@ -157,6 +164,16 @@ public class Room {
 			}
 
 		return dead;
+	}
+
+	public List<AbsorbableElements> usedElements() {
+		List<AbsorbableElements> used = new ArrayList<>();
+
+		for(GameElements elem : elementos)
+			if(elem instanceof AbsorbableElements && ((AbsorbableElements) elem).isUsed())
+				used.add((AbsorbableElements) elem);
+
+		return used;
 	}
 
 	public void addElement(GameElements e) {

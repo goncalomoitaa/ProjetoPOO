@@ -1,5 +1,7 @@
 package objects;
 
+import pt.iscte.poo.gui.ImageGUI;
+
 public class Sword extends AbsorbableElements {
 
     public Sword(int x, int y) {
@@ -17,12 +19,13 @@ public class Sword extends AbsorbableElements {
     }
 
     @Override
-    public int armaManel() {
-        return 100;
+    public void interact(Manel manel) {
+        manel.setPower(100);
+        super.setUsed();
     }
 
     @Override
-    public String getMensagemDeInteracao() {
-        return "WOOHOO, ESPADAAAA!";
+    public String getInteractionMessage() {
+        return "GANDA ESPADA DO REI AFONSO!";
     }
 }

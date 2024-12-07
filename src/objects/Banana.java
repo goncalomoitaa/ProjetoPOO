@@ -9,7 +9,7 @@ public class Banana extends MovingCharacters {
     public Banana(int x, int y) {
         super(x, y);
         this.setPower(15);
-        this.setHealthPoints(14);
+        this.increseHealth(14);
     }
 
     @Override
@@ -35,10 +35,6 @@ public class Banana extends MovingCharacters {
         return false;
     }
 
-    @Override
-    public void absorveElementoEm(Point2D pos, Room room) {
-        return;
-    }
 
     public void update(Room r) {
         if(isDead()) {

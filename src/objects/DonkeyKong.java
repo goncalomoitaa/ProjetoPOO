@@ -33,11 +33,6 @@ public class DonkeyKong extends MovingCharacters {
     }
 
     @Override
-    public void absorveElementoEm(Point2D pos, Room room) {
-        return;
-    }
-
-    @Override
     public void update(Room r) {
         if(isDead()) {
             r.removeElement(this);

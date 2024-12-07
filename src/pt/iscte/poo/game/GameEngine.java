@@ -7,6 +7,7 @@ import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GameEngine implements Observer {
@@ -39,13 +40,32 @@ public class GameEngine implements Observer {
 				manel.move(Direction.directionFor(k), currentRoom);
 			}
 		}
+
+		processInteractables();
+		processEnemies();
+
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
-			manel.fightEnemy(currentRoom.enemyAt(manel.getPosition()));
-			ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 			processTick();
 		}
 		ImageGUI.getInstance().update();
+	}
+
+	private void processInteractables() {
+		ArrayList<InteractiveElements> interactiveElements = currentRoom.interactiveElementsAt(manel.getPosition());
+		for(InteractiveElements e : interactiveElements) {
+			e.interact(manel);
+			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
+		}
+
+		ImageGUI.getInstance().removeImages(currentRoom.usedElements());
+	}
+
+	private void processEnemies() {
+		manel.fightEnemy(currentRoom.enemiesAt(manel.getPosition()));
+		ArrayList<MovingCharacters> enemies = currentRoom.enemiesAt(manel.getPosition());
+		if(enemies.size() > 0) ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
+		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 	}
 
 	private void processTick() {
