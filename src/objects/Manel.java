@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 public class Manel extends MovingCharacters {
 	private static Manel unicoManel;
+	private int lives;
 
 	private Manel(int x, int y){
 		super(0, 0);
+		this.lives = 3;
 	}
 
 	public static Manel getUnicoManel() {
@@ -33,7 +35,7 @@ public class Manel extends MovingCharacters {
 
 	@Override
 	public String getName() {
-		return "JumpMan";
+		return "capitaofalcao";
 	}
 
 	@Override
@@ -54,7 +56,15 @@ public class Manel extends MovingCharacters {
 	}
 
 	public String getHealtStatusMessage() {
-		return getHealthPoints() + " / 100";
+		String hearts = "";
+
+		for(int i = lives; i > 0; i--)
+			hearts = hearts.concat("<3");
+
+		for(int i = 3 - lives; i > 0; i--)
+			hearts = hearts.concat("</3");
+
+		return hearts.concat(": " + getHealthPoints() + " / 100");
 	}
 
 	public void fightEnemy(ArrayList<MovingCharacters> enemies) {
@@ -63,5 +73,17 @@ public class Manel extends MovingCharacters {
 			e.injure(this.getPower());
 			injure(e.getPower());
 		}
+	}
+
+	@Override
+	public void die() {
+		if(lives >= 0) {
+			this.setHealthPoints(100);
+			this.lives--;
+		}
+	}
+
+	public int getLives() {
+		return this.lives;
 	}
 }

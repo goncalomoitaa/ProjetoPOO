@@ -9,7 +9,6 @@ import pt.iscte.poo.utils.Direction;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Optional;
 
 public class GameEngine implements Observer {
 	
@@ -23,7 +22,7 @@ public class GameEngine implements Observer {
 
 		RoomFile roomFile = this.roomFiles.get(0);
 
-		currentRoom = Room.fromFile(roomFile.file());
+		currentRoom = Room.fromFile(roomFile.getFile());
 
 		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
@@ -38,11 +37,13 @@ public class GameEngine implements Observer {
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
+				ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
 			}
 		}
 
 		processInteractables();
 		processEnemies();
+		checkManelVitals();
 
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
@@ -50,6 +51,17 @@ public class GameEngine implements Observer {
 			manel.fall(currentRoom);
 		}
 		ImageGUI.getInstance().update();
+	}
+
+	private void checkManelVitals() {
+		if(manel.getHealthPoints() <= 0) {
+			if (manel.getLives() > 0) {
+				manel.setHealthPoints(100);
+				currentRoom = Room.fromFile(roomFiles.get(0).getFile());
+			} else {
+				ImageGUI.getInstance().setStatusMessage("GAME OVER, MEU PUTO!");
+			}
+		}
 	}
 
 	private void processInteractables() {

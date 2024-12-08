@@ -9,7 +9,7 @@ public class RoomFile {
     String absFilePath;
     Logger logger = Logger.getLogger();
 
-    public File file() {
+    public File getFile() {
         return new File(this.absFilePath);
     }
 

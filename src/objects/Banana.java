@@ -9,7 +9,7 @@ public class Banana extends MovingCharacters {
     public Banana(int x, int y) {
         super(x, y);
         this.setPower(15);
-        this.increseHealth(14);
+        this.increseHealth(1);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Banana extends MovingCharacters {
 
     @Override
     public void move(Direction d, Room r) {
-        if(getPosition().getY() == 9) injure(500);
+        if(getPosition().getY() == 9) die();
         setPosition(getPosition().plus(d.asVector()));
 
         super.fall(r);
@@ -34,7 +34,6 @@ public class Banana extends MovingCharacters {
     public boolean isSolid() {
         return false;
     }
-
 
     public void update(Room r) {
         if(isDead()) {

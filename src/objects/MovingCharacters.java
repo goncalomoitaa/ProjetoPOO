@@ -50,6 +50,10 @@ public abstract class MovingCharacters extends GameElements {
         logger.log(this.getName() + ": Impossível mover-se para a posição: " + pos.toString(), Logger.MessageType.ALERT);
     }
 
+    public void die() {
+        this.healthPoints = 0;
+    }
+
     public void heal(int healthPoints) {
         this.healthPoints += healthPoints;
     }
@@ -73,5 +77,9 @@ public abstract class MovingCharacters extends GameElements {
 
     public void increseHealth(int newHealthPoints) {
         this.healthPoints += newHealthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
     }
 }
