@@ -41,13 +41,14 @@ public class GameEngine implements Observer {
 			}
 		}
 
+
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
-			processTick();
 			manel.fall(currentRoom);
+			processTick();
 		}
-		processInteractables();
 		processEnemies();
+		processInteractables();
 		ImageGUI.getInstance().update();
 	}
 

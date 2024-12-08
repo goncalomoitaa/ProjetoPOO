@@ -66,6 +66,10 @@ public abstract class MovingCharacters extends GameElements {
         this.power = Math.max(this.power, newPower);
     }
 
+    public void setHealthPoints(int newHealthPoints) {
+        this.healthPoints = newHealthPoints;
+    }
+
     public int getHealthPoints() {
         if(this.healthPoints <= 0) return 0;
         return this.healthPoints;

@@ -1,5 +1,5 @@
 #0;room1.txt
-0 GG
+0 B
 WWWWWWWSWW
        S  
 tWSWWWWWWW
