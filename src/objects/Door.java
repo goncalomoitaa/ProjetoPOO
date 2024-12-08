@@ -42,13 +42,12 @@ public class Door extends InteractiveElements {
     public void interact(Manel manel) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
-            ImageGUI.getInstance().setStatusMessage("PORTA ABERTA!!!");
         }
     }
 
     @Override
     public String getInteractionMessage() {
-        return null;
+        return "PORTA ABERTA";
     }
 
     public void setPosition(Point2D pos) {

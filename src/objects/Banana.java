@@ -1,6 +1,7 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
+import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
@@ -8,7 +9,7 @@ public class Banana extends MovingCharacters {
 
     public Banana(int x, int y) {
         super(x, y);
-        this.setPower(15);
+        this.setPower(20);
         this.increseHealth(14);
     }
 
@@ -24,7 +25,7 @@ public class Banana extends MovingCharacters {
 
     @Override
     public void move(Direction d, Room r) {
-        if(getPosition().getY() == 9) injure(500);
+        if(getPosition().getY() == 9 || this.getPosition().equals(Manel.getUnicoManel().getPosition())) injure(500);
         setPosition(getPosition().plus(d.asVector()));
 
         super.fall(r);
