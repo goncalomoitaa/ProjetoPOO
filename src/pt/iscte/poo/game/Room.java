@@ -224,13 +224,9 @@ public class Room {
 		elementos.remove(e);
 	}
 
-	public boolean elementTypeBelow(GameElements ge) {
-		Point2D nextPos = ge.getPosition().plus(Direction.DOWN.asVector());
-		boolean currPosClimb = climbablePosition(nextPos);
-		if(currPosClimb) {
-			return true;
-		}
-		return false;
+	public List<GameElements> elementsBelow(Point2D p) {
+		Point2D nextPos = p.plus(Direction.DOWN.asVector());
+		return objectsAt(nextPos);
 	}
 
 }

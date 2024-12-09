@@ -2,7 +2,8 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Direction;
-import pt.iscte.poo.utils.Point2D;
+
+import java.util.List;
 
 public class Bat extends MovingCharacters {
 
@@ -27,12 +28,19 @@ public class Bat extends MovingCharacters {
         return false;
     }
 
+    public boolean shouldGoDown(Room r) {
+        List<GameElements> ge = r.elementsBelow(this.getPosition());
+        for(GameElements e : ge) {
+            if(e instanceof Stairs) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @Override
     public void update(Room r) {
-        if(isDead()) {
-            r.removeElement(this);
-        }
-        if(r.elementTypeBelow(this)) {
+        if(shouldGoDown(r)) {
             this.move(Direction.DOWN, r);
         } else {
             this.move(Direction.random(), r);
