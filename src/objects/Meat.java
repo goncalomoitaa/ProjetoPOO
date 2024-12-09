@@ -23,6 +23,6 @@ public class Meat extends AbsorbableElements {
 
     @Override
     public String getInteractionMessage() {
-        return "GANDA PREGO PRO ALMOÇO!!!";
+        return "GANDA PREGO PRO ALMOÇO!!!" + " " + Manel.getUnicoManel().getHealthPoints();
     }
 }

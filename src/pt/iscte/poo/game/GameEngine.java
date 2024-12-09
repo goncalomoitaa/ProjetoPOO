@@ -41,14 +41,14 @@ public class GameEngine implements Observer {
 			}
 		}
 
-		processInteractables();
-		processEnemies();
 
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
 			manel.fall(currentRoom);
 		}
+		processInteractables();
+		processEnemies();
 		ImageGUI.getInstance().update();
 	}
 
@@ -58,8 +58,9 @@ public class GameEngine implements Observer {
 			e.interact(manel);
 			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
 		}
-
-		ImageGUI.getInstance().removeImages(currentRoom.usedElements());
+		for(AbsorbableElements ae : currentRoom.usedElements()) {
+			currentRoom.removeElementoInterativo(ae);
+		}
 	}
 
 	private void processEnemies() {

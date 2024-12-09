@@ -16,6 +16,10 @@ public abstract class MovingCharacters extends GameElements {
         this.power = 0;
     }
 
+    public void setHealthPoints(int newHealthPoints) {
+        this.healthPoints = newHealthPoints;
+    }
+
     public abstract boolean isSolid();
 
     public boolean isDead() {

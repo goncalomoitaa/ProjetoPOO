@@ -2,6 +2,7 @@ package pt.iscte.poo.game;
 
 import objects.*;
 import pt.iscte.poo.gui.ImageGUI;
+import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 import java.io.File;
@@ -160,6 +161,7 @@ public class Room {
 				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
 				case 'P' -> new Princess(x, y);
+				case 'B' -> new Bat(x, y);
 				default -> null;
 			};
 		} catch(IllegalArgumentException e) {
@@ -221,4 +223,14 @@ public class Room {
 	public void removeElement(GameElements e) {
 		elementos.remove(e);
 	}
+
+	public boolean elementTypeBelow(GameElements ge) {
+		Point2D nextPos = ge.getPosition().plus(Direction.DOWN.asVector());
+		boolean currPosClimb = climbablePosition(nextPos);
+		if(currPosClimb) {
+			return true;
+		}
+		return false;
+	}
+
 }
