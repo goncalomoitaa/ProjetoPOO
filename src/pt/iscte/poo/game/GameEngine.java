@@ -9,7 +9,6 @@ import pt.iscte.poo.utils.Direction;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Optional;
 
 public class GameEngine implements Observer {
 	
@@ -59,6 +58,7 @@ public class GameEngine implements Observer {
 			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
 		}
 
+		currentRoom.removeAbsorbableElements(currentRoom.usedElements());
 		ImageGUI.getInstance().removeImages(currentRoom.usedElements());
 	}
 
