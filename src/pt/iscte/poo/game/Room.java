@@ -170,11 +170,12 @@ public class Room {
 		return null;
 	}
 
-	public void removeElementoInterativo(GameElements e) {
-		if(e instanceof AbsorbableElements) {
-			ImageGUI.getInstance().removeImage(e);
-			elementos.remove(e);
-		}
+	public void removeAbsorbableElements(List<AbsorbableElements> elements) {
+		for(InteractiveElements elem : elements)
+			if(elem instanceof AbsorbableElements) {
+				ImageGUI.getInstance().removeImage(elem);
+				elementos.remove(elem);
+			}
 	}
 
 	public List<MovingCharacters> getPersonagensMoveis() {

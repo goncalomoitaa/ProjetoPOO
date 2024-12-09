@@ -58,9 +58,8 @@ public class GameEngine implements Observer {
 			e.interact(manel);
 			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
 		}
-		for(AbsorbableElements ae : currentRoom.usedElements()) {
-			currentRoom.removeElementoInterativo(ae);
-		}
+		currentRoom.removeAbsorbableElements(currentRoom.usedElements());
+		ImageGUI.getInstance().removeImages(currentRoom.usedElements());
 	}
 
 	private void processEnemies() {
@@ -68,6 +67,11 @@ public class GameEngine implements Observer {
 		ArrayList<MovingCharacters> enemies = currentRoom.enemiesAt(manel.getPosition());
 		if(enemies.size() > 0) ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
+		for(MovingCharacters e : enemies) {
+			if(e.isDead()) {
+				currentRoom.removeElement(e);
+			}
+		}
 	}
 
 	private void processTick() {

@@ -34,9 +34,6 @@ public class DonkeyKong extends MovingCharacters {
 
     @Override
     public void update(Room r) {
-        if(isDead()) {
-            r.removeElement(this);
-        }
         move(Direction.random(), r);
         fall(r);
         
