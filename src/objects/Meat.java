@@ -3,13 +3,14 @@ package objects;
 import pt.iscte.poo.gui.ImageGUI;
 
 public class Meat extends AbsorbableElements {
+
     public Meat(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
-        if(ImageGUI.getInstance().getTicks() >= 20) {
+        if(getTime() >= 20) {
             return "BadMeat";
         } else {
             return "GoodMeat";

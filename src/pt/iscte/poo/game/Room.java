@@ -214,6 +214,18 @@ public class Room {
 		return dead;
 	}
 
+	public List<AbsorbableElements> absorbableElements() {
+		List<AbsorbableElements> used = new ArrayList<>();
+
+		for (GameElements elem : elementos)
+			if (elem instanceof AbsorbableElements) {
+				AbsorbableElements e = (AbsorbableElements) elem;
+				used.add(e);
+			}
+		return used;
+	}
+
+
 	public List<AbsorbableElements> usedElements() {
 		List<AbsorbableElements> used = new ArrayList<>();
 

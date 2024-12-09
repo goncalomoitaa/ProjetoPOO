@@ -9,7 +9,6 @@ import pt.iscte.poo.utils.Direction;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Optional;
 
 public class GameEngine implements Observer {
 	
@@ -47,9 +46,16 @@ public class GameEngine implements Observer {
 			manel.fall(currentRoom);
 			processTick();
 		}
+		remainingTime();
 		processEnemies();
 		processInteractables();
 		ImageGUI.getInstance().update();
+	}
+
+	private void remainingTime() {
+		for(AbsorbableElements i: currentRoom.absorbableElements()) {
+			i.setTime(ImageGUI.getInstance().getTicks());
+		}
 	}
 
 	private void processInteractables() {
@@ -73,6 +79,7 @@ public class GameEngine implements Observer {
 		for(MovingCharacters p : currentRoom.getPersonagensMoveis())
 			p.update(currentRoom);
 
+		processInteractables();
 		checkForDoors();
 		lastTickProcessed++;
 	}
