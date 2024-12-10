@@ -2,13 +2,15 @@ package objects;
 
 public class Meat extends PerishableElements {
 
+    private final int TIME_TO_PERISH = 25;
+
     public Meat(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
-        if(getTime() >= 25) {
+        if(getTime() >= TIME_TO_PERISH) {
             return "BadMeat";
         }
         return "GoodMeat";
