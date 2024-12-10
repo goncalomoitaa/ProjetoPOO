@@ -1,9 +1,5 @@
 package objects;
 
-import pt.iscte.poo.game.Room;
-import pt.iscte.poo.gui.ImageGUI;
-import pt.iscte.poo.utils.Direction;
-
 public class Trap extends InteractiveElements {
 
     private DoorStatus status;
@@ -39,7 +35,7 @@ public class Trap extends InteractiveElements {
     public void interact(Manel manel) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
-            manel.getUnicoManel().increseHealth(-20);
+            manel.getSingleManel().increaseHealth(-20);
         }
     }
 
