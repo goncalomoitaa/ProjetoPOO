@@ -54,6 +54,11 @@ public class GameEngine implements Observer {
 	private void processInteractables() {
 		ArrayList<InteractiveElements> interactiveElements = currentRoom.interactiveElementsAt(manel.getPosition());
 		for(InteractiveElements e : interactiveElements) {
+			if(e instanceof Princess e1 && e.getPosition().equals(manel.getPosition()) && !e1.getWasRescued()) {
+				e1.setWasRescued(true);
+				ImageGUI.getInstance().showMessage("WIN", "GG");
+				ImageGUI.getInstance().dispose();
+			}
 			e.interact(manel);
 			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
 		}
