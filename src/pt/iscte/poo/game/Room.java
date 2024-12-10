@@ -181,7 +181,7 @@ public class Room {
 	public List<MovingCharacters> getPersonagensMoveis() {
 		ArrayList<MovingCharacters> personagensMoveis = new ArrayList<>();
 		for(GameElements e : elementos)
-			if(e instanceof MovingCharacters) personagensMoveis.add((MovingCharacters) e);
+			if(e instanceof MovingCharacters && !(e instanceof Manel)) personagensMoveis.add((MovingCharacters) e);
 
 		return personagensMoveis;
 	}
@@ -198,7 +198,7 @@ public class Room {
 	public List<GameElements> deadEnemies() {
 		List<GameElements> dead = new ArrayList<GameElements>();
 		for(GameElements elem : elementos)
-			if(elem instanceof MovingCharacters) {
+			if(elem instanceof MovingCharacters && !(elem instanceof Manel)) {
 				MovingCharacters e = (MovingCharacters) elem;
 				if(e.isDead()) dead.add(e);
 			}
