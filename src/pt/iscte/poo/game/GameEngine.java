@@ -5,6 +5,7 @@ import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
+import pt.iscte.poo.utils.Time;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -79,6 +80,7 @@ public class GameEngine implements Observer {
 			if(e instanceof Princess e1 && e.getPosition().equals(manel.getPosition()) && !e1.getWasRescued()) {
 				e1.setWasRescued(true);
 				ImageGUI.getInstance().showMessage("WIN", "GG");
+				ImageGUI.getInstance().showMessage("Tempo de jogo", new Time(lastTickProcessed / 2).toString());
 				ImageGUI.getInstance().dispose();
 			}
 			e.interact(manel);
