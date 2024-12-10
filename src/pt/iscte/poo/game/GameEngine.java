@@ -6,6 +6,7 @@ import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
 import pt.iscte.poo.utils.Direction;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -48,7 +49,28 @@ public class GameEngine implements Observer {
 		elapsedTime();
 		processInteractables();
 		processEnemies();
+
+		if(manel.isDead()) {
+			if (manel.hasLivesLeft())
+				resetGame();
+			else
+				gameOver();
+		}
+
 		ImageGUI.getInstance().update();
+	}
+
+	private void gameOver() {
+		ImageGUI.getInstance().showMessage("Fim de jogo", "Nós que aqui estamos, por vós esperamos!");
+		ImageGUI.getInstance().dispose();
+	}
+	private void resetGame() {
+		currentRoom = Room.fromFile(new File(roomFiles.get(0).getAbsFilePath()));
+		prepareRoom();
+		manel.respawn();
+
+		ImageGUI.getInstance().showMessage("Morreste?", "Toma mais cuidado, óh, Manel!");
+		ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
 	}
 
 	private void processInteractables() {
@@ -67,7 +89,7 @@ public class GameEngine implements Observer {
 		if(!enemies.isEmpty()) ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
 		for(GameElements e : currentRoom.deadEnemies()) {
-				currentRoom.removeElement(e);
+			currentRoom.removeElement(e);
 		}
 	}
 
