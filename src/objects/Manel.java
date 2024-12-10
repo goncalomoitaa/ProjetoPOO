@@ -12,14 +12,14 @@ public class Manel extends MovingCharacters {
 		super(0, 0);
 	}
 
-	public static Manel getUnicoManel() {
+	public static Manel getSingleManel() {
 		if(unicoManel == null)
 			unicoManel = new Manel(0, 0);
 
 		return unicoManel;
 	}
 
-	public static Manel getUnicoManel(int x, int y) {
+	public static Manel getSingleManel(int x, int y) {
 		if(unicoManel == null)
             unicoManel = new Manel(x, y);
 

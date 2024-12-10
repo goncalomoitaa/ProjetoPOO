@@ -75,7 +75,7 @@ public abstract class MovingCharacters extends GameElements {
         return this.healthPoints;
     }
 
-    public void increseHealth(int newHealthPoints) {
+    public void increaseHealth(int newHealthPoints) {
         this.healthPoints += newHealthPoints;
     }
 }
