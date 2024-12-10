@@ -1,8 +1,30 @@
 package objects;
 
+import pt.iscte.poo.utils.Point2D;
+
+import java.awt.*;
+
 public class Princess extends InteractiveElements {
-    public Princess(int x, int y) {
+
+    private static Princess singlePrincess;
+
+    private Princess(int x, int y) {
         super(x, y);
+    }
+
+    public static Princess getSinglePrincess() {
+        if (singlePrincess == null) {
+            singlePrincess = new Princess(0, 0);
+        }
+        return singlePrincess;
+    }
+
+    public static Princess getSinglePrincess(int x, int y) {
+        if(singlePrincess == null) {
+            singlePrincess = new Princess(x, y);
+        }
+        singlePrincess.setPosition(new Point2D(x, y));
+        return singlePrincess;
     }
 
     @Override
@@ -12,7 +34,7 @@ public class Princess extends InteractiveElements {
 
     @Override
     public int getLayer() {
-        return 0;
+        return 2;
     }
 
     @Override

@@ -156,11 +156,11 @@ public class Room {
 				case 'S' -> new Stairs(x, y);
 				case 's' -> new Sword(x, y);
 				case 't' -> new Trap(x, y);
-				case 'H' -> Manel.getUnicoManel(x, y);
+				case 'H' -> Manel.getSingleManel(x, y);
 				case 'G' -> new DonkeyKong(x, y);
 				case '0' -> new Door(x, y);
 				case 'm' -> new Meat(x, y);
-				case 'P' -> new Princess(x, y);
+				case 'P' -> Princess.getSinglePrincess(x, y);
 				case 'B' -> new Bat(x, y);
 				default -> null;
 			};
