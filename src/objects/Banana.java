@@ -8,7 +8,7 @@ public class Banana extends MovingCharacters {
     public Banana(int x, int y) {
         super(x, y);
         this.setPower(15);
-        this.increaseHealth(14);
+        this.setHealthPoints(1);
     }
 
     @Override
