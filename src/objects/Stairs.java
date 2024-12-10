@@ -28,6 +28,6 @@ public class Stairs extends InteractiveElements {
 
     @Override
     public String getInteractionMessage() {
-        return null;
+        return Manel.getUnicoManel().getHealtStatusMessage();
     }
 }

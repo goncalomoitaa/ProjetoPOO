@@ -230,4 +230,14 @@ public class Room {
 		return objectsAt(nextPos);
 	}
 
+	//pomos a contar o tempo aqui ??
+//	public void elapsedTime() {
+//		for(GameElements e : elementos) {
+//			if(e instanceof PerishableElements e1) {
+//                e1.setTime(1);
+//				System.out.println(e1.getTime());
+//			}
+//		}
+//	}
+
 }

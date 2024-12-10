@@ -9,7 +9,6 @@ import pt.iscte.poo.utils.Direction;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Optional;
 
 public class GameEngine implements Observer {
 	
@@ -41,12 +40,12 @@ public class GameEngine implements Observer {
 			}
 		}
 
-
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
 			manel.fall(currentRoom);
 		}
+		elapsedTime();
 		processInteractables();
 		processEnemies();
 		ImageGUI.getInstance().update();
@@ -63,14 +62,12 @@ public class GameEngine implements Observer {
 	}
 
 	private void processEnemies() {
-		manel.fightEnemy(currentRoom.enemiesAt(manel.getPosition()));
 		ArrayList<MovingCharacters> enemies = currentRoom.enemiesAt(manel.getPosition());
-		if(enemies.size() > 0) ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
+		manel.fightEnemy(enemies);
+		if(!enemies.isEmpty()) ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
-		for(MovingCharacters e : enemies) {
-			if(e.isDead()) {
+		for(GameElements e : currentRoom.deadEnemies()) {
 				currentRoom.removeElement(e);
-			}
 		}
 	}
 
@@ -96,6 +93,15 @@ public class GameEngine implements Observer {
 
 		currentRoom = Room.fromFile(doorAtManelPosition.getDestinationRoom().getDoorDestinationFile());
 		prepareRoom();
+	}
+
+	public void elapsedTime() {
+		for(GameElements e : currentRoom.getElementos()) {
+			if(e instanceof PerishableElements e1) {
+				e1.setTime(ImageGUI.getInstance().getTicks());
+				System.out.println(e1.getTime());
+			}
+		}
 	}
 
 	private void prepareRoom() {

@@ -39,12 +39,12 @@ public class Trap extends InteractiveElements {
     public void interact(Manel manel) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
-            manel.getUnicoManel().increseHealth(-20);
+            manel.getUnicoManel().increaseHealth(-20);
         }
     }
 
     @Override
     public String getInteractionMessage() {
-        return null;
+        return Manel.getUnicoManel().getHealtStatusMessage();
     }
 }

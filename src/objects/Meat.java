@@ -1,28 +1,38 @@
 package objects;
 
-public class Meat extends AbsorbableElements {
+public class Meat extends PerishableElements {
+
     public Meat(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
+        if(getTime() >= 25) {
+            return "BadMeat";
+        }
         return "GoodMeat";
     }
 
     @Override
     public int getLayer() {
-        return 0;
+        return 1;
     }
+
 
     @Override
     public void interact(Manel manel) {
-        manel.increseHealth(10);
-        super.setUsed();
+        if(getName().equals("BadMeat")) {
+            Manel.getUnicoManel().increaseHealth(-10);
+            setUsed();
+        } else {
+            Manel.getUnicoManel().increaseHealth(10);
+            setUsed();
+        }
     }
 
     @Override
     public String getInteractionMessage() {
-        return "GANDA PREGO PRO ALMOÇO!!!" + " " + Manel.getUnicoManel().getHealthPoints();
+        return "GANDA PREGO PRO ALMOÇO!!!";
     }
 }
