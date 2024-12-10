@@ -7,9 +7,11 @@ import java.awt.*;
 public class Princess extends InteractiveElements {
 
     private static Princess singlePrincess;
+    private boolean wasRescued;
 
     private Princess(int x, int y) {
         super(x, y);
+        wasRescued = false;
     }
 
     public static Princess getSinglePrincess() {
@@ -25,6 +27,14 @@ public class Princess extends InteractiveElements {
         }
         singlePrincess.setPosition(new Point2D(x, y));
         return singlePrincess;
+    }
+
+    public boolean getWasRescued() {
+        return wasRescued;
+    }
+
+    public void setWasRescued(boolean wasRescued) {
+        this.wasRescued = wasRescued;
     }
 
     @Override
