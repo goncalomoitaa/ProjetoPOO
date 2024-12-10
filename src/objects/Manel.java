@@ -10,6 +10,7 @@ public class Manel extends MovingCharacters {
 
 	private Manel(int x, int y){
 		super(0, 0);
+		setPower(1);
 	}
 
 	public static Manel getSingleManel() {
