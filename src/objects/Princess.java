@@ -1,5 +1,6 @@
 package objects;
 
+import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Point2D;
 
 import java.awt.*;
@@ -48,7 +49,7 @@ public class Princess extends InteractiveElements {
     }
 
     @Override
-    public void interact(Manel manel) {
+    public void interact(Manel manel, Room r) {
         return;
     }
 

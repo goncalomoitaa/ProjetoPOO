@@ -1,9 +1,12 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
+import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Point2D;
 
 import java.util.ArrayList;
+import java.util.EmptyStackException;
+import java.util.Stack;
 
 public class Manel extends MovingCharacters {
 	private final int MAX_LIVES = 3;
@@ -11,10 +14,13 @@ public class Manel extends MovingCharacters {
 
 	private int lives;
 
+	private Stack<TimedWeapon> timedWeapons;
+
 	private Manel(int x, int y){
 		super(0, 0);
 		setPower(1);
 		setLives(MAX_LIVES);
+		this.timedWeapons = new Stack<>();
 	}
 
 	private void setLives(int lives) { this.lives = lives; }
@@ -93,5 +99,40 @@ public class Manel extends MovingCharacters {
 			e.injure(this.getPower());
 			injure(e.getPower());
 		}
+	}
+
+	public void pickTimedWeapon(TimedWeapon w, Room r) {
+		timedWeapons.push(w);
+		r.removeElement(w);
+		w.setUsed();
+	}
+
+	public TimedWeapon activateTimedWeapon(Room r) {
+		try {
+			TimedWeapon tw = timedWeapons.pop();
+			tw.activate(this.getPosition(), r);
+			r.addElement(tw);
+
+			return tw;
+		} catch(EmptyStackException e) {
+			Logger.getLogger().log("Não há arma ativada por tempo disponível", Logger.MessageType.ERROR);
+		}
+
+		return null;
+	}
+
+	public void takeAction(int k, Room r) {
+		try {
+			switch(k) {
+				case 'B' -> activateTimedWeapon(r);
+				default -> throw new IllegalArgumentException();
+			}
+		} catch(IllegalArgumentException e) {
+			Logger.getLogger().log("Ação não reconhecida pelo personagem", Logger.MessageType.ERROR);
+		}
+	}
+
+	public void die() {
+		injure(this.getHealthPoints());
 	}
 }
