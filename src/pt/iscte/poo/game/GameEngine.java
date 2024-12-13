@@ -39,6 +39,8 @@ public class GameEngine implements Observer {
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
+			} else {
+				manel.takeAction(k, currentRoom);
 			}
 		}
 
@@ -47,9 +49,6 @@ public class GameEngine implements Observer {
 			processTick();
 			manel.fall(currentRoom);
 		}
-		elapsedTime();
-		processInteractables();
-		processEnemies();
 
 		if(manel.isDead()) {
 			if (manel.hasLivesLeft())
@@ -83,7 +82,7 @@ public class GameEngine implements Observer {
 				ImageGUI.getInstance().showMessage("Tempo de jogo", new Time(lastTickProcessed / 2).toString());
 				ImageGUI.getInstance().dispose();
 			}
-			e.interact(manel);
+			e.interact(manel, currentRoom);
 			ImageGUI.getInstance().setStatusMessage(e.getInteractionMessage());
 		}
 		currentRoom.removeAbsorbableElements(currentRoom.usedElements());
@@ -106,7 +105,19 @@ public class GameEngine implements Observer {
 			p.update(currentRoom);
 
 		checkForDoors();
+		elapsedTime();
+		processInteractables();
+		processEnemies();
+		processTimedWeapons();
 		lastTickProcessed++;
+	}
+
+	private void processTimedWeapons() {
+		for(TimedWeapon tw : currentRoom.activeTimedWeapons())
+			if(tw.hasTimeLeft())
+				tw.tickDown();
+			else
+				tw.engage(currentRoom);
 	}
 
 	private void checkForDoors() {

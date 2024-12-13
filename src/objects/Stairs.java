@@ -1,5 +1,7 @@
 package objects;
 
+import pt.iscte.poo.game.Room;
+
 public class Stairs extends InteractiveElements {
 
     public Stairs(int x, int y) {
@@ -22,7 +24,7 @@ public class Stairs extends InteractiveElements {
     }
 
     @Override
-    public void interact(Manel manel) {
+    public void interact(Manel manel, Room r) {
         return;
     }
 

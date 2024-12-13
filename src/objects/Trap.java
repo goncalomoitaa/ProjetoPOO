@@ -1,5 +1,7 @@
 package objects;
 
+import pt.iscte.poo.game.Room;
+
 public class Trap extends InteractiveElements {
 
     private DoorStatus status;
@@ -32,7 +34,7 @@ public class Trap extends InteractiveElements {
     }
 
     @Override
-    public void interact(Manel manel) {
+    public void interact(Manel manel, Room r) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
             manel.getSingleManel().increaseHealth(-20);

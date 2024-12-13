@@ -1,5 +1,6 @@
 package objects;
 
+import pt.iscte.poo.game.Room;
 import pt.iscte.poo.gui.ImageGUI;
 
 public class Sword extends AbsorbableElements {
@@ -19,7 +20,7 @@ public class Sword extends AbsorbableElements {
     }
 
     @Override
-    public void interact(Manel manel) {
+    public void interact(Manel manel, Room r) {
         manel.setPower(100);
         super.setUsed();
     }

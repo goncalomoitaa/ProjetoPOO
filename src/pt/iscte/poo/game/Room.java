@@ -162,6 +162,7 @@ public class Room {
 				case 'm' -> new Meat(x, y);
 				case 'P' -> Princess.getSinglePrincess(x, y);
 				case 'B' -> new Bat(x, y);
+				case 'b' -> new Bomb(x, y);
 				default -> null;
 			};
 		} catch(IllegalArgumentException e) {
@@ -219,10 +220,13 @@ public class Room {
 	public void addElement(GameElements e) {
 		elementos.add(e);
 		ImageGUI.getInstance().addImage(e);
+		if(e instanceof TimedWeapon)
+			System.out.println("banana");
 	}
 
 	public void removeElement(GameElements e) {
 		elementos.remove(e);
+		ImageGUI.getInstance().removeImage(e);
 	}
 
 	public List<GameElements> elementsBelow(Point2D p) {
@@ -230,4 +234,23 @@ public class Room {
 		return objectsAt(nextPos);
 	}
 
+	public List<TimedWeapon> activeTimedWeapons() {
+		ArrayList<TimedWeapon> list = new ArrayList<>();
+		for(GameElements elem : elementos)
+			if(elem instanceof TimedWeapon && ((TimedWeapon) elem).isActive())
+				list.add((TimedWeapon) elem);
+
+		return list;
+	}
+
+	public List<GameElements> surroundingExplodingObjects(Point2D pos) {
+		ArrayList<GameElements> list = new ArrayList<>();
+
+		for(GameElements elem : elementos) {
+			if(pos.distanceTo(elem.getPosition()) <= 1 && !elem.isClimbable())
+				list.add(elem);
+		}
+
+		return list;
+	}
 }

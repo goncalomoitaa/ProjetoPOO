@@ -15,4 +15,6 @@ public abstract class AbsorbableElements extends InteractiveElements {
     public boolean isUsed() { return this.used; }
 
     public void setUsed() { this.used = true; }
+
+    public void setNotUsed() { this.used = false; }
 }
