@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import static java.awt.event.KeyEvent.VK_W;
+
 public class GameEngine implements Observer {
 	
 	private Room currentRoom;
@@ -29,6 +31,7 @@ public class GameEngine implements Observer {
 		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
 		ImageGUI.getInstance().update();
+		ScoreBoard.getScoreBoard().LoadScores();
 	}
 
 	@Override
@@ -36,6 +39,11 @@ public class GameEngine implements Observer {
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
 			System.out.println("Keypressed " + k);
+
+			if(k == VK_W) { //apenas para teste
+				currentRoom.addElement(Princess.getSinglePrincess(manel.getPosition().getX(), manel.getPosition().getY()));
+			}//apenas para teste
+
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
@@ -44,6 +52,8 @@ public class GameEngine implements Observer {
 			}
 		}
 
+		processInteractables();
+		processEnemies();
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
@@ -51,10 +61,12 @@ public class GameEngine implements Observer {
 		}
 
 		if(manel.isDead()) {
-			if (manel.hasLivesLeft())
+			if (manel.hasLivesLeft()) {
 				resetGame();
-			else
+			}
+			else {
 				gameOver();
+			}
 		}
 
 		ImageGUI.getInstance().update();
@@ -79,7 +91,10 @@ public class GameEngine implements Observer {
 			if(e instanceof Princess e1 && e.getPosition().equals(manel.getPosition()) && !e1.getWasRescued()) {
 				e1.setWasRescued(true);
 				ImageGUI.getInstance().showMessage("WIN", "GG");
-				ImageGUI.getInstance().showMessage("Tempo de jogo", new Time(lastTickProcessed / 2).toString());
+				Time t = new Time(lastTickProcessed / 2);
+				ImageGUI.getInstance().showMessage("Tempo de jogo", t.toString());
+				ScoreBoard.getScoreBoard().addBestTime(t);
+				ScoreBoard.getScoreBoard().saveScore();
 				ImageGUI.getInstance().dispose();
 			}
 			e.interact(manel, currentRoom);
@@ -106,8 +121,6 @@ public class GameEngine implements Observer {
 
 		checkForDoors();
 		elapsedTime();
-		processInteractables();
-		processEnemies();
 		processTimedWeapons();
 		lastTickProcessed++;
 	}
