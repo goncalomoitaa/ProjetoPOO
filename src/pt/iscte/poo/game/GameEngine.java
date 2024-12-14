@@ -19,16 +19,28 @@ public class GameEngine implements Observer {
 	private LinkedList<RoomFile> roomFiles;
 	private int lastTickProcessed = 0;
 
-	public GameEngine() throws FileNotFoundException {
+	public GameEngine() {
 		this.roomFiles = RoomFile.listaSalas();
 
 		RoomFile roomFile = this.roomFiles.get(0);
 
-		currentRoom = Room.fromFile(roomFile.file());
+		loadRoomFile(roomFile);
 
 		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
 		ImageGUI.getInstance().update();
+	}
+
+	private void loadRoomFile(RoomFile roomFile) {
+		try {
+			currentRoom = Room.fromFile(roomFile.file());
+		} catch(FileNotFoundException e) {
+			String errMsg = "We could not find or read file " + roomFile.getAbsFilePath() + "\n";
+			errMsg = errMsg.concat("Please, provide the path for a new file we can use to replace it:");
+
+			String newFileName = ImageGUI.getInstance().showInputDialog("Uh-oh!", errMsg);
+			loadRoomFile(new RoomFile(newFileName));
+		}
 	}
 
 	@Override
@@ -65,7 +77,7 @@ public class GameEngine implements Observer {
 		ImageGUI.getInstance().dispose();
 	}
 	private void resetGame() {
-		currentRoom = Room.fromFile(new File(roomFiles.get(0).getAbsFilePath()));
+		loadRoomFile(roomFiles.get(0));
 		prepareRoom();
 		manel.respawn();
 
@@ -131,7 +143,7 @@ public class GameEngine implements Observer {
 			return;
 		}
 
-		currentRoom = Room.fromFile(doorAtManelPosition.getDestinationRoom().getDoorDestinationFile());
+		loadRoomFile(doorAtManelPosition.getDestinationRoom().getDoorDestinationFile());
 		prepareRoom();
 	}
 

@@ -77,14 +77,8 @@ public class Room {
 		return elementos;
 	}
 
-	public static Room fromFile(File file) {
-		try {
-			return new Room(readElementsFrom(file), file.getName());
-		} catch(FileNotFoundException e) {
-			Logger.getLogger().log(e.getMessage(), ERROR);
-		}
-
-		return null;
+	public static Room fromFile(File file) throws FileNotFoundException {
+		return new Room(readElementsFrom(file), file.getName());
 	}
 
 	private static void readDoorsDestinations(Scanner sc, List<DoorDestination> destinations) {
@@ -126,27 +120,21 @@ public class Room {
 			j++;
 		}
 	}
-	public static List<GameElements> readElementsFrom(File ficheiro) {
-		try {
-			if (ficheiro.isDirectory()) return null;
+	public static List<GameElements> readElementsFrom(File ficheiro) throws FileNotFoundException {
+		if (ficheiro.isDirectory()) return null;
 
-			List<GameElements> elementos = new ArrayList<>();
-			List<DoorDestination> doorDestinations = new ArrayList<>();
-			Scanner sc = new Scanner(ficheiro);
+		List<GameElements> elementos = new ArrayList<>();
+		List<DoorDestination> doorDestinations = new ArrayList<>();
+		Scanner sc = new Scanner(ficheiro);
 
-			readDoorsDestinations(sc, doorDestinations);
+		readDoorsDestinations(sc, doorDestinations);
 
-			sc = new Scanner(ficheiro);
+		sc = new Scanner(ficheiro);
 
-			scanLinesForElements(sc, elementos, doorDestinations);
+		scanLinesForElements(sc, elementos, doorDestinations);
 
-			sc.close();
-			return elementos;
-		} catch(FileNotFoundException e) {
-			Logger.getLogger().log(e.getMessage(), ERROR);
-		}
-
-		return new ArrayList<>();
+		sc.close();
+		return elementos;
 	}
 
 	private static GameElements createGameElement(char tipo, int x, int y) {
