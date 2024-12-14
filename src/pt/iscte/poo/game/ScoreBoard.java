@@ -30,7 +30,6 @@ public class ScoreBoard {
     public List<String> saveScore() {
         try {
             PrintWriter pw = new PrintWriter("ScoreBoard.txt");
-            List<String> listScore = new ArrayList<>();
             int counter = 0;
             while(!sortedTimes.isEmpty() && counter < 10) {
                 listScore.add(sortedTimes.poll().toString());
