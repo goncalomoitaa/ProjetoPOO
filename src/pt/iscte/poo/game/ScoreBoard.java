@@ -13,7 +13,6 @@ public class ScoreBoard {
 
     private ScoreBoard() {
         sortedTimes = new PriorityQueue<>(timeComparator);
-        //bestTimes = new ArrayList<>();
     }
 
     public static ScoreBoard getScoreBoard() {
