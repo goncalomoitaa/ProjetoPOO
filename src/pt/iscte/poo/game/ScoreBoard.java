@@ -10,7 +10,6 @@ public class ScoreBoard {
     private static ScoreBoard scoreBoard;
     private PriorityQueue<Time> sortedTimes;
     private Comparator<Time> timeComparator = (a, b) -> a.getTotalSec() - b.getTotalSec();
-    //private List<Time> bestTimes;
 
     private ScoreBoard() {
         sortedTimes = new PriorityQueue<>(timeComparator);
