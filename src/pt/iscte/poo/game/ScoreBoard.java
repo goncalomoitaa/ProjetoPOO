@@ -31,8 +31,7 @@ public class ScoreBoard {
             PrintWriter pw = new PrintWriter("ScoreBoard.txt");
             int counter = 0;
             while(!sortedTimes.isEmpty() && counter < 10) {
-                listScore.add(sortedTimes.poll().toString());
-                pw.println(listScore.getLast());
+                pw.println(sortedTimes.poll().toString());
                 counter++;
             }
             pw.close();
