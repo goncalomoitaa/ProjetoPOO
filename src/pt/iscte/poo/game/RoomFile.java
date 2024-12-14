@@ -25,13 +25,13 @@ public class RoomFile {
         File dir = new File(dirName);
         LinkedList<RoomFile> roomFiles = new LinkedList<>();
 
-        for (File roomFile : ListaDiretorios.collectFiles(dir)) {
+        for (File roomFile : ListDirectories.collectFiles(dir)) {
             roomFiles.add(new RoomFile(roomFile.getAbsolutePath()));
         }
         return roomFiles;
     }
 
-    private class ListaDiretorios {
+    private class ListDirectories {
         public static ArrayList<File> collectFiles(File dir) {
             ArrayList<File> list = new ArrayList<>();
             collectFilesRec(dir, list);

@@ -9,7 +9,5 @@ public class DoorDestination {
         this.doorDestinationFile = dest;
     }
 
-    public File getDoorDestinationFile() {
-        return new File(doorDestinationFile);
-    }
+    public RoomFile getDoorDestinationFile() { return new RoomFile(doorDestinationFile); }
 }
