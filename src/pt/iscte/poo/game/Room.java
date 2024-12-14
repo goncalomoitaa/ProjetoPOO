@@ -81,8 +81,9 @@ public class Room {
 		return new Room(readElementsFrom(file), file.getName());
 	}
 
-	private static void readDoorsDestinations(Scanner sc, List<DoorDestination> destinations) {
+	private static void readDoorsDestinations(File ficheiro, List<DoorDestination> destinations) throws FileNotFoundException {
 		String line = null;
+		Scanner sc = new Scanner(ficheiro);
 
 		while(sc.hasNextLine()) {
 			line = sc.nextLine();
@@ -91,17 +92,28 @@ public class Room {
 
 			destinations.add(new DoorDestination("rooms/" + line.split(";")[1]));
 		}
+
+		sc.close();
 	}
 
-	private static void scanLinesForElements(Scanner sc, List<GameElements> elementos, List<DoorDestination> doorDestinations) {
+	private static void scanLinesForElements(List<GameElements> elementos, List<DoorDestination> doorDestinations, File ficheiro) throws FileNotFoundException {
 		String line = null;
-		int j = 0;
 
+		Scanner sc = new Scanner(ficheiro);
+		int j = 0;
 		while (sc.hasNextLine()) {
 			line = sc.nextLine();
 			if(line.contains(";")) continue;
 
 			char[] tokens = line.toCharArray();
+			if(tokens.length < 10) {
+				String msg = "Linha de configuração do mapa curto demais.\n";
+				msg = msg.concat( "No. de elementos: " + tokens.length + "\n");
+				msg = msg.concat("Ficheiro: " + ficheiro.getAbsolutePath() + "\n");
+				msg = msg.concat("O restante da linha será preenchido apenas com pano de fundo");
+				Logger.getLogger().log(msg, ALERT);
+			}
+
 			for (int i = 0; i < tokens.length; i++) {
 				GameElements e = createGameElement(tokens[i], i, j);
 				if(e != null) {
@@ -119,21 +131,20 @@ public class Room {
 			}
 			j++;
 		}
+
+		if(j != 10)
+			throw new IllegalArgumentException();
 	}
 	public static List<GameElements> readElementsFrom(File ficheiro) throws FileNotFoundException {
 		if (ficheiro.isDirectory()) return null;
 
 		List<GameElements> elementos = new ArrayList<>();
 		List<DoorDestination> doorDestinations = new ArrayList<>();
-		Scanner sc = new Scanner(ficheiro);
 
-		readDoorsDestinations(sc, doorDestinations);
+		readDoorsDestinations(ficheiro, doorDestinations);
 
-		sc = new Scanner(ficheiro);
+		scanLinesForElements(elementos, doorDestinations, ficheiro);
 
-		scanLinesForElements(sc, elementos, doorDestinations);
-
-		sc.close();
 		return elementos;
 	}
 
