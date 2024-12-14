@@ -8,8 +8,8 @@ import java.util.*;
 public class ScoreBoard {
 
     private static ScoreBoard scoreBoard;
-    private PriorityQueue<Time> sortedTimes;
-    private Comparator<Time> timeComparator = (a, b) -> a.getTotalSec() - b.getTotalSec();
+    private PriorityQueue<Player> sortedTimes;
+    private Comparator<Player> timeComparator = (a, b) -> a.getTime().getTotalSec() - b.getTime().getTotalSec();
 
     private ScoreBoard() {
         sortedTimes = new PriorityQueue<>(timeComparator);
@@ -22,49 +22,80 @@ public class ScoreBoard {
         return scoreBoard;
     }
 
-    public void addBestTime(Time bestTime) {
-        sortedTimes.offer(bestTime);
+    public void addBestTime(String nickName, Time bestTime) {
+        sortedTimes.offer(new Player(nickName, bestTime));
     }
 
-    public List<String> saveScore() {
+    public void saveScore() {
         try {
             PrintWriter pw = new PrintWriter("ScoreBoard.txt");
             int counter = 0;
             while(!sortedTimes.isEmpty() && counter < 10) {
-                pw.println(sortedTimes.poll().toString());
+                Player player = sortedTimes.poll();
+                pw.println(player.getNickName() + " " + player.getTime());
                 counter++;
             }
             pw.close();
-            return listScore;
         } catch (FileNotFoundException e) {
             System.err.println("Erro na escrita do ficheiro");
         }
-        return null;
     }
 
-    public void LoadScores() {
+    public void loadScores() {
         try {
             Scanner sc = new Scanner(new File("ScoreBoard.txt"));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
+                String[] split = line.split(" ");
+                String nickName = split[0];
+                Time time = new Time(split[1]);
                 if(line.isEmpty()) continue;
-                addBestTime(new Time(line));
+                addBestTime(nickName, time);
             }
             sc.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            System.err.println("Erro na abertura do ficheiro");
         }
     }
 
     public String saveAndDisplay() {
-        String text = "==============TOP TIMES==============\n";
-        List<String> newList = saveScore();
-        int classification = 1;
-        for (String s : newList) {
-            text += classification + " : " + s + "\n";
-            classification++;
+        try {
+            Scanner sc = new Scanner(new File("ScoreBoard.txt"));
+            String bestTimes = "==============TOP TIMES==============\n";
+            int classification = 1;
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                String[] split = line.split(" ");
+                String name = split[0];
+                String time = split[1];
+                bestTimes += classification + " :    " + "NICKNAME : " + name + "    " + time + "sec\n";
+                classification++;
+            }
+            sc.close();
+            return bestTimes;
+        } catch (FileNotFoundException e) {
+            System.err.println("Erro na abertura do ficheiro");
         }
-        return text;
+        return null;
+    }
+
+    public static class Player {
+
+        private final String nome;
+        private final Time time;
+
+        public Player(String nome, Time time) {
+            this.nome = nome;
+            this.time = time;
+        }
+
+        public String getNickName() {
+            return nome;
+        }
+
+        public Time getTime() {
+            return time;
+        }
     }
 
 }

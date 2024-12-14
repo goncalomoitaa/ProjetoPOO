@@ -30,7 +30,7 @@ public class GameEngine implements Observer {
 
 		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
-		ScoreBoard.getScoreBoard().LoadScores();
+		ScoreBoard.getScoreBoard().loadScores();
 		ImageGUI.getInstance().update();
 	}
 
@@ -93,7 +93,9 @@ public class GameEngine implements Observer {
 				ImageGUI.getInstance().showMessage("WIN", "GG");
 				Time t = new Time(lastTickProcessed / 2);
 				ImageGUI.getInstance().showMessage("Tempo de jogo", t.toString());
-				ScoreBoard.getScoreBoard().addBestTime(t);
+				String nickName = askName();
+				ScoreBoard.getScoreBoard().addBestTime(nickName, t);
+				ScoreBoard.getScoreBoard().saveScore();
 				ImageGUI.getInstance().showMessage("SCOREBOARD", ScoreBoard.getScoreBoard().saveAndDisplay());
 				ImageGUI.getInstance().dispose();
 			}
@@ -154,6 +156,21 @@ public class GameEngine implements Observer {
 				e1.setTime(ImageGUI.getInstance().getTicks());
 			}
 		}
+	}
+
+	public String askName() {
+		String nome = null;
+		while(true) {
+			nome = ImageGUI.getInstance().showInputDialog("NOME DE JOGADOR", "INSERE O TEU NOME DE JOGADOR: ");
+			if(nome == null) {
+				break;
+			}
+			if(nome.isEmpty() || nome.isBlank()) {
+				continue;
+			}
+			return nome;
+		}
+		return nome;
 	}
 
 	private void prepareRoom() {
