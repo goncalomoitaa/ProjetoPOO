@@ -8,11 +8,13 @@ import java.util.*;
 public class ScoreBoard {
 
     private static ScoreBoard scoreBoard;
-    private PriorityQueue<Time> bestTimes;
+    private PriorityQueue<Time> sortedTimes;
     private Comparator<Time> timeComparator = (a, b) -> a.getTotalSec() - b.getTotalSec();
+    private List<Time> bestTimes;
 
     private ScoreBoard() {
-        bestTimes = new PriorityQueue<>(10, timeComparator);
+        sortedTimes = new PriorityQueue<>(timeComparator);
+        bestTimes = new ArrayList<>();
     }
 
     public static ScoreBoard getScoreBoard() {
@@ -23,17 +25,15 @@ public class ScoreBoard {
     }
 
     public void addBestTime(Time bestTime) {
-        bestTimes.offer(bestTime);
+        sortedTimes.offer(bestTime);
     }
 
     public void saveScore() {
         try {
-            PrintWriter pw = new PrintWriter(new File("ScoreBoard.txt"));
-            String s = "";
-            for (Time time : bestTimes) {
-                s = s.concat(time.toString()).concat("\n");
+            PrintWriter pw = new PrintWriter("ScoreBoard.txt");
+            for (Time time : sortedTimes) {
+                pw.println(time);
             }
-            pw.print(s);
             pw.close();
         } catch (FileNotFoundException e) {
             System.err.println("Erro na escrita do ficheiro");
@@ -52,6 +52,24 @@ public class ScoreBoard {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Time> getSortedTimes() {
+        for (Time time : sortedTimes) {
+            if(bestTimes.size() < 10) {
+                bestTimes.add(time);
+                bestTimes.sort(timeComparator);
+            }
+        }
+        return bestTimes;
+    }
+
+    public String text() {
+        String s = "";
+        for (Time time : getSortedTimes()) {
+            s = s.concat(time.toString()).concat("\n");
+        }
+        return s;
     }
 
 }

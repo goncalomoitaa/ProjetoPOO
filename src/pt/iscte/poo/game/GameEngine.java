@@ -30,8 +30,8 @@ public class GameEngine implements Observer {
 
 		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
-		ImageGUI.getInstance().update();
 		ScoreBoard.getScoreBoard().LoadScores();
+		ImageGUI.getInstance().update();
 	}
 
 	@Override
@@ -95,6 +95,7 @@ public class GameEngine implements Observer {
 				ImageGUI.getInstance().showMessage("Tempo de jogo", t.toString());
 				ScoreBoard.getScoreBoard().addBestTime(t);
 				ScoreBoard.getScoreBoard().saveScore();
+				ImageGUI.getInstance().showMessage("SCOREBOARD", ScoreBoard.getScoreBoard().text());
 				ImageGUI.getInstance().dispose();
 			}
 			e.interact(manel, currentRoom);
