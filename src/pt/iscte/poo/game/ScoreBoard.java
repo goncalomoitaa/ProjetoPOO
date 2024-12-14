@@ -10,11 +10,11 @@ public class ScoreBoard {
     private static ScoreBoard scoreBoard;
     private PriorityQueue<Time> sortedTimes;
     private Comparator<Time> timeComparator = (a, b) -> a.getTotalSec() - b.getTotalSec();
-    private List<Time> bestTimes;
+    //private List<Time> bestTimes;
 
     private ScoreBoard() {
         sortedTimes = new PriorityQueue<>(timeComparator);
-        bestTimes = new ArrayList<>();
+        //bestTimes = new ArrayList<>();
     }
 
     public static ScoreBoard getScoreBoard() {
@@ -28,16 +28,22 @@ public class ScoreBoard {
         sortedTimes.offer(bestTime);
     }
 
-    public void saveScore() {
+    public List<String> saveScore() {
         try {
             PrintWriter pw = new PrintWriter("ScoreBoard.txt");
-            for (Time time : sortedTimes) {
-                pw.println(time);
+            List<String> listScore = new ArrayList<>();
+            int counter = 0;
+            while(!sortedTimes.isEmpty() && counter < 10) {
+                listScore.add(sortedTimes.poll().toString());
+                pw.println(listScore.getLast());
+                counter++;
             }
             pw.close();
+            return listScore;
         } catch (FileNotFoundException e) {
             System.err.println("Erro na escrita do ficheiro");
         }
+        return null;
     }
 
     public void LoadScores() {
@@ -54,22 +60,15 @@ public class ScoreBoard {
         }
     }
 
-    public List<Time> getSortedTimes() {
-        for (Time time : sortedTimes) {
-            if(bestTimes.size() < 10) {
-                bestTimes.add(time);
-                bestTimes.sort(timeComparator);
-            }
+    public String saveAndDisplay() {
+        String text = "==============TOP TIMES==============\n";
+        List<String> newList = saveScore();
+        int classification = 1;
+        for (String s : newList) {
+            text += classification + " : " + s + "\n";
+            classification++;
         }
-        return bestTimes;
-    }
-
-    public String text() {
-        String s = "";
-        for (Time time : getSortedTimes()) {
-            s = s.concat(time.toString()).concat("\n");
-        }
-        return s;
+        return text;
     }
 
 }

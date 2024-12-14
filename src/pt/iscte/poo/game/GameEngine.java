@@ -94,8 +94,7 @@ public class GameEngine implements Observer {
 				Time t = new Time(lastTickProcessed / 2);
 				ImageGUI.getInstance().showMessage("Tempo de jogo", t.toString());
 				ScoreBoard.getScoreBoard().addBestTime(t);
-				ScoreBoard.getScoreBoard().saveScore();
-				ImageGUI.getInstance().showMessage("SCOREBOARD", ScoreBoard.getScoreBoard().text());
+				ImageGUI.getInstance().showMessage("SCOREBOARD", ScoreBoard.getScoreBoard().saveAndDisplay());
 				ImageGUI.getInstance().dispose();
 			}
 			e.interact(manel, currentRoom);
