@@ -246,7 +246,7 @@ public class Room {
 		ArrayList<GameElements> list = new ArrayList<>();
 
 		for(GameElements elem : elementos) {
-			if(pos.distanceTo(elem.getPosition()) <= 1 && !elem.isClimbable())
+			if(pos.distanceTo(elem.getPosition()) <= 1 && !elem.isClimbable() && !elem.isSolid())
 				list.add(elem);
 		}
 

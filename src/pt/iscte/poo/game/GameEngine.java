@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import static java.awt.event.KeyEvent.VK_W;
+
 public class GameEngine implements Observer {
 	
 	private Room currentRoom;
@@ -29,6 +31,7 @@ public class GameEngine implements Observer {
 
 		prepareRoom();
 		ImageGUI.getInstance().addImage(manel);
+		ScoreBoard.getScoreBoard().loadScores();
 		ImageGUI.getInstance().update();
 	}
 
@@ -62,6 +65,8 @@ public class GameEngine implements Observer {
 			}
 		}
 
+		processInteractables();
+		processEnemies();
 		int t = ImageGUI.getInstance().getTicks();
 		while (lastTickProcessed < t) {
 			processTick();
@@ -69,10 +74,12 @@ public class GameEngine implements Observer {
 		}
 
 		if(manel.isDead()) {
-			if (manel.hasLivesLeft())
+			if (manel.hasLivesLeft()) {
 				resetGame();
-			else
+			}
+			else {
 				gameOver();
+			}
 		}
 
 		ImageGUI.getInstance().update();
@@ -97,7 +104,12 @@ public class GameEngine implements Observer {
 			if(e instanceof Princess e1 && e.getPosition().equals(manel.getPosition()) && !e1.getWasRescued()) {
 				e1.setWasRescued(true);
 				ImageGUI.getInstance().showMessage("WIN", "GG");
-				ImageGUI.getInstance().showMessage("Tempo de jogo", new Time(lastTickProcessed / 2).toString());
+				Time t = new Time(lastTickProcessed / 2);
+				ImageGUI.getInstance().showMessage("Tempo de jogo", t.toString());
+				String nickName = askName();
+				ScoreBoard.getScoreBoard().addBestTime(nickName, t);
+				ScoreBoard.getScoreBoard().saveScore();
+				ImageGUI.getInstance().showMessage("SCOREBOARD", ScoreBoard.getScoreBoard().saveAndDisplay());
 				ImageGUI.getInstance().dispose();
 			}
 			e.interact(manel, currentRoom);
@@ -124,8 +136,6 @@ public class GameEngine implements Observer {
 
 		checkForDoors();
 		elapsedTime();
-		processInteractables();
-		processEnemies();
 		processTimedWeapons();
 		lastTickProcessed++;
 	}
@@ -159,6 +169,21 @@ public class GameEngine implements Observer {
 				e1.setTime(ImageGUI.getInstance().getTicks());
 			}
 		}
+	}
+
+	public String askName() {
+		String nome = null;
+		while(true) {
+			nome = ImageGUI.getInstance().showInputDialog("NOME DE JOGADOR", "INSERE O TEU NOME DE JOGADOR: ");
+			if(nome == null) {
+				break;
+			}
+			if(nome.isEmpty() || nome.isBlank()) {
+				continue;
+			}
+			return nome;
+		}
+		return nome;
 	}
 
 	private void prepareRoom() {
