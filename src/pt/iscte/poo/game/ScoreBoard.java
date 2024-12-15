@@ -32,7 +32,7 @@ public class ScoreBoard {
             int counter = 0;
             while(!sortedTimes.isEmpty() && counter < 10) {
                 Player player = sortedTimes.poll();
-                pw.println(player.getNickName() + " " + player.getTime());
+                pw.println(player.getTime() + "-" + player.getNickName());
                 counter++;
             }
             pw.close();
@@ -46,9 +46,9 @@ public class ScoreBoard {
             Scanner sc = new Scanner(new File("ScoreBoard.txt"));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] split = line.split(" ");
-                String nickName = split[0];
-                Time time = new Time(split[1]);
+                String[] split = line.split("-");
+                Time time = new Time(split[0]);
+                String nickName = split[1];
                 if(line.isEmpty()) continue;
                 addBestTime(nickName, time);
             }
@@ -65,10 +65,10 @@ public class ScoreBoard {
             int classification = 1;
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
-                String[] split = line.split(" ");
-                String name = split[0];
-                String time = split[1];
-                bestTimes += classification + " :    " + "NICKNAME : " + name + "    " + time + "sec\n";
+                String[] split = line.split("-");
+                String time = split[0];
+                String name = split[1];
+                bestTimes += classification + "º :  " + time + "       "  + name + "\n";
                 classification++;
             }
             sc.close();
