@@ -37,7 +37,7 @@ public class Trap extends InteractiveElement {
     public void interact(Manel manel, Room r) {
         if (getStatus() == DoorStatus.CLOSED) {
             setStatus(DoorStatus.OPEN);
-            manel.getSingleManel().increaseHealth(-20);
+            manel.increaseHealth(-20);
         }
     }
 
