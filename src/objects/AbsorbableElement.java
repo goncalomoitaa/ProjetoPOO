@@ -1,9 +1,9 @@
 package objects;
 
-public abstract class AbsorbableElements extends InteractiveElements {
+public abstract class AbsorbableElement extends InteractiveElement {
     private boolean used = false;
 
-    public AbsorbableElements(int x, int y) {
+    public AbsorbableElement(int x, int y) {
         super(x, y);
     }
 

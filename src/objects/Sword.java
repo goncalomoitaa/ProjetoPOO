@@ -1,9 +1,8 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.gui.ImageGUI;
 
-public class Sword extends AbsorbableElements {
+public class Sword extends AbsorbableElement {
 
     public Sword(int x, int y) {
         super(x, y);

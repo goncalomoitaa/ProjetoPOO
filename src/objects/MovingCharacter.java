@@ -5,13 +5,13 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public abstract class MovingCharacters extends GameElements {
+public abstract class MovingCharacter extends GameElement {
     private Logger logger = Logger.getLogger();
 
     private int healthPoints, power;
     private Direction lastDirection;
 
-    public MovingCharacters(int x, int y) {
+    public MovingCharacter(int x, int y) {
         super(x, y);
         this.healthPoints = 100;
         this.power = 0;

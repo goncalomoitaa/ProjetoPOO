@@ -1,10 +1,10 @@
 package objects;
 
-public abstract class PerishableElements extends AbsorbableElements {
+public abstract class PerishableElement extends AbsorbableElement {
 
     private int time;
 
-    public PerishableElements(int x, int y) {
+    public PerishableElement(int x, int y) {
         super(x, y);
         time = 0;
     }

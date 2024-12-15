@@ -3,9 +3,7 @@ package objects;
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Point2D;
 
-import java.awt.*;
-
-public class Princess extends InteractiveElements {
+public class Princess extends InteractiveElement {
 
     private static Princess singlePrincess;
     private boolean wasRescued;

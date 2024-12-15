@@ -3,7 +3,7 @@ package objects;
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.utils.Direction;
 
-public class Banana extends MovingCharacters {
+public class Banana extends MovingCharacter {
 
     public Banana(int x, int y) {
         super(x, y);

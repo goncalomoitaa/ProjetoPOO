@@ -8,12 +8,9 @@ import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Time;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
-import static java.awt.event.KeyEvent.VK_W;
 
 public class GameEngine implements Observer {
 	
@@ -99,8 +96,8 @@ public class GameEngine implements Observer {
 	}
 
 	private void processInteractables() {
-		ArrayList<InteractiveElements> interactiveElements = currentRoom.interactiveElementsAt(manel.getPosition());
-		for(InteractiveElements e : interactiveElements) {
+		ArrayList<InteractiveElement> interactiveElements = currentRoom.interactiveElementsAt(manel.getPosition());
+		for(InteractiveElement e : interactiveElements) {
 			if(e instanceof Princess e1 && e.getPosition().equals(manel.getPosition()) && !e1.getWasRescued()) {
 				e1.setWasRescued(true);
 				ImageGUI.getInstance().showMessage("WIN", "GG");
@@ -120,18 +117,18 @@ public class GameEngine implements Observer {
 	}
 
 	private void processEnemies() {
-		ArrayList<MovingCharacters> enemies = currentRoom.enemiesAt(manel.getPosition());
+		ArrayList<MovingCharacter> enemies = currentRoom.enemiesAt(manel.getPosition());
 		manel.fightEnemy(enemies);
 		if(!enemies.isEmpty()) ImageGUI.getInstance().setStatusMessage(manel.getHealtStatusMessage());
 		ImageGUI.getInstance().removeImages(currentRoom.deadEnemies());
-		for(GameElements e : currentRoom.deadEnemies()) {
+		for(GameElement e : currentRoom.deadEnemies()) {
 			currentRoom.removeElement(e);
 		}
 	}
 
 	private void processTick() {
 		System.out.println("Tic Tac : " + lastTickProcessed);
-		for(MovingCharacters p : currentRoom.getPersonagensMoveis())
+		for(MovingCharacter p : currentRoom.getPersonagensMoveis())
 			p.update(currentRoom);
 
 		checkForDoors();
@@ -164,8 +161,8 @@ public class GameEngine implements Observer {
 	}
 
 	public void elapsedTime() {
-		for(GameElements e : currentRoom.getElementos()) {
-			if(e instanceof PerishableElements e1) {
+		for(GameElement e : currentRoom.getElementos()) {
+			if(e instanceof PerishableElement e1) {
 				e1.setTime(ImageGUI.getInstance().getTicks());
 			}
 		}

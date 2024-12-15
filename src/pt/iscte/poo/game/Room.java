@@ -18,13 +18,13 @@ import static pt.iscte.poo.tools.Logger.MessageType.*;
 
 public class Room {
 
-	private List<GameElements> elementos;
+	private List<GameElement> elementos;
 	private Logger logger = Logger.getLogger();
 
 	private String nome;
 	private final ArrayList<Background> backgroundTiles;
 
-	public Room(List<GameElements> elementos, String nome) throws FileNotFoundException {
+	public Room(List<GameElement> elementos, String nome) throws FileNotFoundException {
 		logger.log("Criando Room " + nome, INFO);
 		this.nome = nome;
 		this.elementos = elementos;
@@ -44,9 +44,9 @@ public class Room {
 		ImageGUI.getInstance().addImages(elementos);
 	}
 
-	public List<GameElements> objectsAt(Point2D p) {
-		List<GameElements> lista = new ArrayList<>();
-		for (GameElements elemento : elementos) {
+	public List<GameElement> objectsAt(Point2D p) {
+		List<GameElement> lista = new ArrayList<>();
+		for (GameElement elemento : elementos) {
 			if (elemento.getPosition().equals(p) && !(elemento instanceof Manel)) {
 				lista.add(elemento);
 			}
@@ -55,25 +55,25 @@ public class Room {
 		return lista;
 	}
 
-	public ArrayList<InteractiveElements> interactiveElementsAt(Point2D p) {
-		ArrayList<InteractiveElements> lista = new ArrayList<>();
-		for (GameElements elemento : elementos) {
-			if (elemento instanceof InteractiveElements && elemento.getPosition().equals(p)) {
-				lista.add((InteractiveElements) elemento);
+	public ArrayList<InteractiveElement> interactiveElementsAt(Point2D p) {
+		ArrayList<InteractiveElement> lista = new ArrayList<>();
+		for (GameElement elemento : elementos) {
+			if (elemento instanceof InteractiveElement && elemento.getPosition().equals(p)) {
+				lista.add((InteractiveElement) elemento);
 			}
 		}
 		return lista;
 	}
 
 	public boolean solidPosition(Point2D pos) {
-		return objectsAt(pos).stream().anyMatch((GameElements o) -> o.isSolid() );
+		return objectsAt(pos).stream().anyMatch((GameElement o) -> o.isSolid() );
 	}
 
 	public boolean climbablePosition(Point2D pos) {
-		return objectsAt(pos).stream().anyMatch((GameElements e) -> e.isClimbable());
+		return objectsAt(pos).stream().anyMatch((GameElement e) -> e.isClimbable());
 	}
 
-	public List<GameElements> getElementos() {
+	public List<GameElement> getElementos() {
 		return elementos;
 	}
 
@@ -96,7 +96,7 @@ public class Room {
 		sc.close();
 	}
 
-	private static void scanLinesForElements(List<GameElements> elementos, List<DoorDestination> doorDestinations, File ficheiro) throws FileNotFoundException {
+	private static void scanLinesForElements(List<GameElement> elementos, List<DoorDestination> doorDestinations, File ficheiro) throws FileNotFoundException {
 		String line = null;
 
 		Scanner sc = new Scanner(ficheiro);
@@ -115,7 +115,7 @@ public class Room {
 			}
 
 			for (int i = 0; i < tokens.length; i++) {
-				GameElements e = createGameElement(tokens[i], i, j);
+				GameElement e = createGameElement(tokens[i], i, j);
 				if(e != null) {
 					elementos.add(e);
 
@@ -135,10 +135,10 @@ public class Room {
 		if(j != 10)
 			throw new IllegalArgumentException();
 	}
-	public static List<GameElements> readElementsFrom(File ficheiro) throws FileNotFoundException {
+	public static List<GameElement> readElementsFrom(File ficheiro) throws FileNotFoundException {
 		if (ficheiro.isDirectory()) return null;
 
-		List<GameElements> elementos = new ArrayList<>();
+		List<GameElement> elementos = new ArrayList<>();
 		List<DoorDestination> doorDestinations = new ArrayList<>();
 
 		readDoorsDestinations(ficheiro, doorDestinations);
@@ -148,7 +148,7 @@ public class Room {
 		return elementos;
 	}
 
-	private static GameElements createGameElement(char tipo, int x, int y) {
+	private static GameElement createGameElement(char tipo, int x, int y) {
 		try {
 			return switch (tipo) {
 				case 'W' -> new Wall(x, y);
@@ -171,82 +171,82 @@ public class Room {
 		return null;
 	}
 
-	public void removeAbsorbableElements(List<AbsorbableElements> elements) {
-		for(InteractiveElements elem : elements)
-			if(elem instanceof AbsorbableElements) {
+	public void removeAbsorbableElements(List<AbsorbableElement> elements) {
+		for(InteractiveElement elem : elements)
+			if(elem instanceof AbsorbableElement) {
 				ImageGUI.getInstance().removeImage(elem);
 				elementos.remove(elem);
 			}
 	}
 
-	public List<MovingCharacters> getPersonagensMoveis() {
-		ArrayList<MovingCharacters> personagensMoveis = new ArrayList<>();
-		for(GameElements e : elementos)
-			if(e instanceof MovingCharacters && !(e instanceof Manel)) personagensMoveis.add((MovingCharacters) e);
+	public List<MovingCharacter> getPersonagensMoveis() {
+		ArrayList<MovingCharacter> personagensMoveis = new ArrayList<>();
+		for(GameElement e : elementos)
+			if(e instanceof MovingCharacter && !(e instanceof Manel)) personagensMoveis.add((MovingCharacter) e);
 
 		return personagensMoveis;
 	}
 
-	public ArrayList<MovingCharacters> enemiesAt(Point2D pos) {
-		ArrayList<MovingCharacters> l = new ArrayList<>();
+	public ArrayList<MovingCharacter> enemiesAt(Point2D pos) {
+		ArrayList<MovingCharacter> l = new ArrayList<>();
 
-		for(GameElements e : objectsAt(pos))
-			if(e instanceof MovingCharacters) l.add((MovingCharacters) e);
+		for(GameElement e : objectsAt(pos))
+			if(e instanceof MovingCharacter) l.add((MovingCharacter) e);
 
 		return l;
 	}
 
-	public List<GameElements> deadEnemies() {
-		List<GameElements> dead = new ArrayList<GameElements>();
-		for(GameElements elem : elementos)
-			if(elem instanceof MovingCharacters && !(elem instanceof Manel)) {
-				MovingCharacters e = (MovingCharacters) elem;
+	public List<GameElement> deadEnemies() {
+		List<GameElement> dead = new ArrayList<GameElement>();
+		for(GameElement elem : elementos)
+			if(elem instanceof MovingCharacter && !(elem instanceof Manel)) {
+				MovingCharacter e = (MovingCharacter) elem;
 				if(e.isDead()) dead.add(e);
 			}
 
 		return dead;
 	}
 
-	public List<AbsorbableElements> usedElements() {
-		List<AbsorbableElements> used = new ArrayList<>();
+	public List<AbsorbableElement> usedElements() {
+		List<AbsorbableElement> used = new ArrayList<>();
 
-		for(GameElements elem : elementos)
-			if(elem instanceof AbsorbableElements && ((AbsorbableElements) elem).isUsed())
-				used.add((AbsorbableElements) elem);
+		for(GameElement elem : elementos)
+			if(elem instanceof AbsorbableElement && ((AbsorbableElement) elem).isUsed())
+				used.add((AbsorbableElement) elem);
 
 		return used;
 	}
 
-	public void addElement(GameElements e) {
+	public void addElement(GameElement e) {
 		elementos.add(e);
 		ImageGUI.getInstance().addImage(e);
 		if(e instanceof TimedWeapon)
 			System.out.println("banana");
 	}
 
-	public void removeElement(GameElements e) {
+	public void removeElement(GameElement e) {
 		elementos.remove(e);
 		ImageGUI.getInstance().removeImage(e);
 	}
 
-	public List<GameElements> elementsBelow(Point2D p) {
+	public List<GameElement> elementsBelow(Point2D p) {
 		Point2D nextPos = p.plus(Direction.DOWN.asVector());
 		return objectsAt(nextPos);
 	}
 
 	public List<TimedWeapon> activeTimedWeapons() {
 		ArrayList<TimedWeapon> list = new ArrayList<>();
-		for(GameElements elem : elementos)
+		for(GameElement elem : elementos)
 			if(elem instanceof TimedWeapon && ((TimedWeapon) elem).isActive())
 				list.add((TimedWeapon) elem);
 
 		return list;
 	}
 
-	public List<GameElements> surroundingExplodingObjects(Point2D pos) {
-		ArrayList<GameElements> list = new ArrayList<>();
+	public List<GameElement> surroundingExplodingObjects(Point2D pos) {
+		ArrayList<GameElement> list = new ArrayList<>();
 
-		for(GameElements elem : elementos) {
+		for(GameElement elem : elementos) {
 			if(pos.distanceTo(elem.getPosition()) <= 1 && !elem.isClimbable() && !elem.isSolid())
 				list.add(elem);
 		}

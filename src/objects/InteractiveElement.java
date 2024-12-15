@@ -1,7 +1,7 @@
 package objects;
 
-public abstract class InteractiveElements extends GameElements implements Interaction {
-    public InteractiveElements(int x, int y) {
+public abstract class InteractiveElement extends GameElement implements Interaction {
+    public InteractiveElement(int x, int y) {
         super(x, y);
     }
 

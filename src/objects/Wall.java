@@ -1,6 +1,6 @@
 package objects;
 
-public class Wall extends StaticElements {
+public class Wall extends StaticElement {
 
 	public Wall(int x, int y) {
 		super(x, y);

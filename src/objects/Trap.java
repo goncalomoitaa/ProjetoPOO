@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class Trap extends InteractiveElements {
+public class Trap extends InteractiveElement {
 
     private DoorStatus status;
 

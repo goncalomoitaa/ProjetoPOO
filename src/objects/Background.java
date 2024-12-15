@@ -1,6 +1,6 @@
 package objects;
 
-public class Background extends StaticElements {
+public class Background extends StaticElement {
 
 	public Background(int x, int y) {
 		super(x, y);

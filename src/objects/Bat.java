@@ -5,7 +5,7 @@ import pt.iscte.poo.utils.Direction;
 
 import java.util.List;
 
-public class Bat extends MovingCharacters {
+public class Bat extends MovingCharacter {
 
     public Bat(int x, int y) {
         super(x, y);
@@ -29,8 +29,8 @@ public class Bat extends MovingCharacters {
     }
 
     public boolean shouldGoDown(Room r) {
-        List<GameElements> ge = r.elementsBelow(this.getPosition());
-        for(GameElements e : ge) {
+        List<GameElement> ge = r.elementsBelow(this.getPosition());
+        for(GameElement e : ge) {
             if(e instanceof Stairs) {
                 return true;
             }

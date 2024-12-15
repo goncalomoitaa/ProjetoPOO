@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class War_hammer extends AbsorbableElements {
+public class War_hammer extends AbsorbableElement {
 
     public War_hammer(int x, int y) {
         super(x, y);

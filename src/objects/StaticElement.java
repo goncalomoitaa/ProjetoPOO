@@ -1,8 +1,8 @@
 package objects;
 
-public abstract class StaticElements extends GameElements {
+public abstract class StaticElement extends GameElement {
 
-    public StaticElements(int x, int y) {
+    public StaticElement(int x, int y) {
         super(x, y);
     }
 

@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class Meat extends PerishableElements {
+public class Meat extends PerishableElement {
 
     private final int TIME_TO_PERISH = 25;
 

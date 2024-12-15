@@ -3,9 +3,8 @@ package objects;
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
-import pt.iscte.poo.utils.Point2D;
 
-public class DonkeyKong extends MovingCharacters {
+public class DonkeyKong extends MovingCharacter {
     private Logger logger = Logger.getLogger();
 
     public DonkeyKong(int x, int y) {
@@ -28,7 +27,7 @@ public class DonkeyKong extends MovingCharacters {
         return false;
     }
 
-    private void bump(GameElements e) {
+    private void bump(GameElement e) {
         logger.log("Movimento impossível para Kong: " + e.getPosition().toString(), Logger.MessageType.ALERT);
     }
 

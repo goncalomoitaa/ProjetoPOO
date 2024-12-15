@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-public class Manel extends MovingCharacters {
+public class Manel extends MovingCharacter {
 	private final int MAX_LIVES = 3;
 	private static Manel unicoManel;
 	private int lives;
@@ -96,8 +96,8 @@ public class Manel extends MovingCharacters {
 		return msg;
 	}
 
-	public void fightEnemy(ArrayList<MovingCharacters> enemies) {
-		for(MovingCharacters e : enemies) {
+	public void fightEnemy(ArrayList<MovingCharacter> enemies) {
+		for(MovingCharacter e : enemies) {
 			if (e == null) return;
 			e.injure(this.getPower());
 			injure(e.getPower());

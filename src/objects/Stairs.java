@@ -2,7 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 
-public class Stairs extends InteractiveElements {
+public class Stairs extends InteractiveElement {
 
     public Stairs(int x, int y) {
         super(x, y);

@@ -3,10 +3,9 @@ package objects;
 import pt.iscte.poo.game.DoorDestination;
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.gui.ImageGUI;
-import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
-public class Door extends InteractiveElements {
+public class Door extends InteractiveElement {
 
     private DoorStatus status;
     private DoorDestination destinationRoom;

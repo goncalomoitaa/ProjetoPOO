@@ -17,7 +17,7 @@ public class Bomb extends TimedWeapon {
 
     @Override
     public void engage(Room r) {
-        for(GameElements elem : r.surroundingExplodingObjects(getPosition()))
+        for(GameElement elem : r.surroundingExplodingObjects(getPosition()))
             if(!(elem instanceof Manel))
                 r.removeElement(elem);
             else
