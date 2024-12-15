@@ -4,6 +4,7 @@ import objects.*;
 import pt.iscte.poo.gui.ImageGUI;
 import pt.iscte.poo.observer.Observed;
 import pt.iscte.poo.observer.Observer;
+import pt.iscte.poo.tools.Logger;
 import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Time;
 
@@ -40,6 +41,11 @@ public class GameEngine implements Observer {
 
 			String newFileName = ImageGUI.getInstance().showInputDialog("Uh-oh!", errMsg);
 			loadRoomFile(new RoomFile(newFileName));
+		} catch(IllegalArgumentException e) {
+			String errMsg = "The input file is invalid for some reason. Please check the logs and try to fix it.";
+
+			Logger.getLogger().log(errMsg, Logger.MessageType.ERROR);
+			ImageGUI.getInstance().dispose();
 		}
 	}
 
