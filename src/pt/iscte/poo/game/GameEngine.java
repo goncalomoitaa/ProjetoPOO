@@ -39,11 +39,6 @@ public class GameEngine implements Observer {
 		if (ImageGUI.getInstance().wasKeyPressed()) {
 			int k = ImageGUI.getInstance().keyPressed();
 			System.out.println("Keypressed " + k);
-
-			if(k == VK_W) { //apenas para teste
-				currentRoom.addElement(Princess.getSinglePrincess(manel.getPosition().getX(), manel.getPosition().getY()));
-			}//apenas para teste
-
 			if (Direction.isDirection(k)) {
 				System.out.println("Direction! ");
 				manel.move(Direction.directionFor(k), currentRoom);
