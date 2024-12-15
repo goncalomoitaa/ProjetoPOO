@@ -1,17 +1,16 @@
 package objects;
 
 import pt.iscte.poo.game.Room;
-import pt.iscte.poo.gui.ImageGUI;
 
-public class Sword extends AbsorbableElements {
+public class War_hammer extends AbsorbableElements {
 
-    public Sword(int x, int y) {
+    public War_hammer(int x, int y) {
         super(x, y);
     }
 
     @Override
     public String getName() {
-        return "Sword";
+        return "War_hammer";
     }
 
     @Override
@@ -21,12 +20,12 @@ public class Sword extends AbsorbableElements {
 
     @Override
     public void interact(Manel manel, Room r) {
-        manel.setPower(60);
+        manel.setPower(50);
         super.setUsed();
     }
 
     @Override
     public String getInteractionMessage() {
-        return "GANDA ESPADA DO REI AFONSO!";
+        return "MARTELO EM MÃOS!!!";
     }
 }

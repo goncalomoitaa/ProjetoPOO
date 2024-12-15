@@ -162,6 +162,7 @@ public class Room {
 				case 'P' -> Princess.getSinglePrincess(x, y);
 				case 'B' -> new Bat(x, y);
 				case 'b' -> new Bomb(x, y);
+				case 'w' -> new War_hammer(x, y);
 				default -> null;
 			};
 		} catch(IllegalArgumentException e) {
