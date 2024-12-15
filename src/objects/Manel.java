@@ -2,6 +2,7 @@ package objects;
 
 import pt.iscte.poo.game.Room;
 import pt.iscte.poo.tools.Logger;
+import pt.iscte.poo.utils.Direction;
 import pt.iscte.poo.utils.Point2D;
 
 import java.util.ArrayList;
@@ -11,9 +12,7 @@ import java.util.Stack;
 public class Manel extends MovingCharacters {
 	private final int MAX_LIVES = 3;
 	private static Manel unicoManel;
-
 	private int lives;
-
 	private Stack<TimedWeapon> timedWeapons;
 
 	private Manel(int x, int y){
@@ -46,7 +45,11 @@ public class Manel extends MovingCharacters {
 
 	@Override
 	public String getName() {
-		return "JumpMan";
+		if(getLastDirection() == Direction.LEFT) {
+			return "JumpManLeft";
+		} else {
+			return "JumpManRight";
+		}
 	}
 
 	public void respawn() {

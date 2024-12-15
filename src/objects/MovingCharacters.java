@@ -9,11 +9,13 @@ public abstract class MovingCharacters extends GameElements {
     private Logger logger = Logger.getLogger();
 
     private int healthPoints, power;
+    private Direction lastDirection;
 
     public MovingCharacters(int x, int y) {
         super(x, y);
         this.healthPoints = 100;
         this.power = 0;
+        this.lastDirection = Direction.RIGHT; // Could be any other
     }
 
     public void setHealthPoints(int newHealthPoints) {
@@ -28,6 +30,8 @@ public abstract class MovingCharacters extends GameElements {
 
     public abstract void update(Room r);
 
+    public Direction getLastDirection() { return this.lastDirection; }
+
     public void move(Direction d, Room currentRoom) {
         Point2D nextPos = getPosition().plus(d.asVector());
 
@@ -38,7 +42,11 @@ public abstract class MovingCharacters extends GameElements {
         } else {
             setPosition(nextPos);
         }
+
+        setLastDirection(d);
     }
+
+    private void setLastDirection(Direction d) { this.lastDirection = d; }
 
     public void fall(Room r) {
         if(r.solidPosition(this.getPosition()) || r.climbablePosition(this.getPosition())) return;
